@@ -1,1 +1,5 @@
-0
+18
+~E 1 "./../vhdl_src/CRG.vhd" 26 CRG
+~A 1 "./../vhdl_src/CRG.vhd" 40 behavioral
+~E 1 "./compile/top_level.vhd" 25 top_level
+~A 1 "./compile/top_level.vhd" 45 top_level

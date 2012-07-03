@@ -33,11 +33,11 @@ DEFAULT BDE LANGUAGE
 VHDL
 ##########
 FILE HEADER
---
--- file <GENERATEDFILE>
--- generated <TIME>
--- from <SOURCEFILE>
--- by <GENERATORVERSION>
+--
+-- file <GENERATEDFILE>
+-- generated <TIME>
+-- from <SOURCEFILE>
+-- by <GENERATORVERSION>
 --
 ##########
 GLOBAL CONNECTOR
@@ -68,8 +68,11 @@ INCREMENT NETS
 0
 ##########
 LIBRARIES
-library IEEE;
+library IEEE;
 use IEEE.std_logic_1164.all;
+##########
+PRIMARY DESIGN LIBRARY
+aldec_work
 ##########
 TERMINAL BUFFER
 Buffer
@@ -99,11 +102,11 @@ VERILOG DESIGN UNIT HEADER
 `timescale 1ps / 1ps
 ##########
 VERILOG FILE HEADER
-//
-// file <GENERATEDFILE>
-// generated <TIME>
-// from <SOURCEFILE>
-// by <GENERATORVERSION>
+//
+// file <GENERATEDFILE>
+// generated <TIME>
+// from <SOURCEFILE>
+// by <GENERATORVERSION>
 //
 ##########
 VERILOG GND DEFAULT TYPE

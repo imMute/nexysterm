@@ -1,0 +1,39 @@
+timestamp=1341277286590
+
+[crg]
+A/behavioral=21|./../vhdl_src/CRG.vhd|40|1*0
+BinI32/behavioral=3*0
+I=0*752
+I/behavioral=0*2364
+M=11|0|v98|1341277074015|./../vhdl_src/CRG.vhd|0*285*0xae6b04e8775a6e96789e024c93134c3b4d6d4edc|0*677*0xab32bc1a2daf049573e14469f634e0e6
+M/behavioral=21|0|v98|1341277074036|./../vhdl_src/CRG.vhd|0*913*0x48d8e21136b701318c6b5231937e3736efdc52c4|0*2275*0xb33770ff1c10522f9491560174ac8e6c
+R=./../vhdl_src/CRG.vhd|26
+S/crg=S/CRG 40|0|2*0
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/behavioral=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[top_level]
+A/top_level=24|.\src\top_level.bde|10000|1*11325
+BinI32/top_level=3*266
+I=0*4072
+I/top_level=0*5045
+M=11|0|v98|1341277286265|./compile/top_level.vhd|0*3305*0x200263723a1cd247839c105ead4d754a1f9b01e2|0*3989*0xab32bc1a2daf049573e14469f634e0e6
+M/top_level=21|0|v98|1341277286457|./compile/top_level.vhd|0*4175*0xc5a43438384ac708185351ee2d1e0a0820d43508|0*4949*0xb33770ff1c10522f9491560174ac8e6c
+R=./compile/top_level.vhd|25
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/top_level=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[~A]
+ModifyID=18
+Version=73
+
+[~MFT]
+0=13|0aldec_work.mgf|5045|0
+1=1|1aldec_work.mgf|11325|0
+2=0|2aldec_work.mgf|0|0
+3=1|3aldec_work.mgf|266|0
+
+[~U]
+crg=CRG 11|0*0||0x3
+top_level=11|0*2707|
+

@@ -24,6 +24,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN3E
+fileopenfolder=U:\workspace\nexysterm\vhdl_src
 
 [LocalVerilogSets]
 EnableSLP=1
@@ -44,3 +45,15 @@ SortInfo=u
 HierarchyInformation=
 ShowHide=ShowTopLevel
 Selected=
+
+[Files]
+/top_level.bde=-1
+/..\..\vhdl_src\CRG.vhd=-1
+
+[Files.Data]
+.\src\top_level.bde=Block Diagram
+.\..\vhdl_src\CRG.vhd=VHDL Source Code
+.\compile\top_level.vhd=VHDL Source Code
+
+[file_out:/top_level.bde]
+/..\compile\top_level.vhd=-1
