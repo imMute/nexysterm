@@ -42,7 +42,7 @@ DESIGNS=SPARTAN3E
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=top_level|top_level|0 
+HierarchyInformation=top_level|top_level|0
 ShowHide=ShowTopLevel
 Selected=
 
@@ -51,23 +51,31 @@ VGA=1
 TestBench=1
 
 [Files]
-/top_level.bde=-1
+/vga_top.bde=-1
 /..\..\vhdl_src\CRG.vhd=-1
+/top_level.bde=-1
+/crap.bde=-1
 VGA/..\..\..\vhdl_src\VGA\VGA_Timing_640x480.vhd=-1
-VGA/..\..\..\vhdl_src\VGA\VGA_Timer.vhd=-1
 VGA/..\..\..\vhdl_src\VGA\g_counter.vhd=-1
+VGA/..\..\..\vhdl_src\VGA\VGA_Timer.vhd=-1
 TestBench/..\..\TestBench\VGA_Timing_TB.vhd=-1
 TestBench/..\..\TestBench\VGA_Timing_TB_runtest.do=-1
 
 [Files.Data]
-.\src\top_level.bde=Block Diagram
+.\src\vga_top.bde=Block Diagram
 .\..\vhdl_src\CRG.vhd=VHDL Source Code
+.\src\top_level.bde=Block Diagram
+.\src\crap.bde=Block Diagram
 .\..\vhdl_src\VGA\VGA_Timing_640x480.vhd=VHDL Source Code
-.\..\vhdl_src\VGA\VGA_Timer.vhd=VHDL Source Code
 .\..\vhdl_src\VGA\g_counter.vhd=VHDL Source Code
+.\..\vhdl_src\VGA\VGA_Timer.vhd=VHDL Source Code
 .\TestBench\VGA_Timing_TB.vhd=VHDL Source Code
 .\TestBench\VGA_Timing_TB_runtest.do=Macro
+.\compile\top_level.vhd=VHDL Source Code
+.\compile\vga_top.vhd=VHDL Source Code
+
 
 [file_out:/top_level.bde]
 /..\compile\top_level.vhd=-1
-
+[file_out:/vga_top.bde]
+/..\compile\vga_top.vhd=-1

@@ -4,20 +4,20 @@
 NET "i_board_clk"   LOC = "B8"; # Bank = 0, Pin name = IP_L13P_0/GCLK8, Type = GCLK, Sch name = GCLK0
 #NET "clk1" LOC = "U9"; # Bank = 2, Pin name = IO_L13P_2/D4/GCLK14, Type = DUAL/GCLK, Sch name = GCLK1
 
-# 7 segment display
-NET "o_ssd_seg<0>" LOC = "L18"; # Bank = 1, Pin name = IO_L10P_1, Type = I/O, Sch name = CA
-NET "o_ssd_seg<1>" LOC = "F18"; # Bank = 1, Pin name = IO_L19P_1, Type = I/O, Sch name = CB
-NET "o_ssd_seg<2>" LOC = "D17"; # Bank = 1, Pin name = IO_L23P_1/HDC, Type = DUAL, Sch name = CC
-NET "o_ssd_seg<3>" LOC = "D16"; # Bank = 1, Pin name = IO_L23N_1/LDC0, Type = DUAL, Sch name = CD
-NET "o_ssd_seg<4>" LOC = "G14"; # Bank = 1, Pin name = IO_L20P_1, Type = I/O, Sch name = CE
-NET "o_ssd_seg<5>" LOC = "J17"; # Bank = 1, Pin name = IO_L13P_1/A6/RHCLK4/IRDY1, Type = RHCLK/DUAL, Sch name = CF
-NET "o_ssd_seg<6>" LOC = "H14"; # Bank = 1, Pin name = IO_L17P_1, Type = I/O, Sch name = CG
-NET "o_ssd_seg<7>" LOC = "C17"; # Bank = 1, Pin name = IO_L24N_1/LDC2, Type = DUAL, Sch name = DP
-
-NET "o_ssd_an<0>" LOC = "F17"; # Bank = 1, Pin name = IO_L19N_1, Type = I/O, Sch name = AN0
-NET "o_ssd_an<1>" LOC = "H17"; # Bank = 1, Pin name = IO_L16N_1/A0, Type = DUAL, Sch name = AN1
-NET "o_ssd_an<2>" LOC = "C18"; # Bank = 1, Pin name = IO_L24P_1/LDC1, Type = DUAL, Sch name = AN2
-NET "o_ssd_an<3>" LOC = "F15"; # Bank = 1, Pin name = IO_L21P_1, Type = I/O, Sch name = AN3
+## 7 segment display
+#NET "o_ssd_seg<0>" LOC = "L18"; # Bank = 1, Pin name = IO_L10P_1, Type = I/O, Sch name = CA
+#NET "o_ssd_seg<1>" LOC = "F18"; # Bank = 1, Pin name = IO_L19P_1, Type = I/O, Sch name = CB
+#NET "o_ssd_seg<2>" LOC = "D17"; # Bank = 1, Pin name = IO_L23P_1/HDC, Type = DUAL, Sch name = CC
+#NET "o_ssd_seg<3>" LOC = "D16"; # Bank = 1, Pin name = IO_L23N_1/LDC0, Type = DUAL, Sch name = CD
+#NET "o_ssd_seg<4>" LOC = "G14"; # Bank = 1, Pin name = IO_L20P_1, Type = I/O, Sch name = CE
+#NET "o_ssd_seg<5>" LOC = "J17"; # Bank = 1, Pin name = IO_L13P_1/A6/RHCLK4/IRDY1, Type = RHCLK/DUAL, Sch name = CF
+#NET "o_ssd_seg<6>" LOC = "H14"; # Bank = 1, Pin name = IO_L17P_1, Type = I/O, Sch name = CG
+#NET "o_ssd_seg<7>" LOC = "C17"; # Bank = 1, Pin name = IO_L24N_1/LDC2, Type = DUAL, Sch name = DP
+#
+#NET "o_ssd_an<0>" LOC = "F17"; # Bank = 1, Pin name = IO_L19N_1, Type = I/O, Sch name = AN0
+#NET "o_ssd_an<1>" LOC = "H17"; # Bank = 1, Pin name = IO_L16N_1/A0, Type = DUAL, Sch name = AN1
+#NET "o_ssd_an<2>" LOC = "C18"; # Bank = 1, Pin name = IO_L24P_1/LDC1, Type = DUAL, Sch name = AN2
+#NET "o_ssd_an<3>" LOC = "F15"; # Bank = 1, Pin name = IO_L21P_1, Type = I/O, Sch name = AN3
 
 # Leds
 NET "o_led<0>"  LOC = "J14"; # Bank = 1, Pin name = IO_L14N_1/A3/RHCLK7, Type = RHCLK/DUAL, Sch name = JD10/LD0
@@ -43,11 +43,11 @@ NET "i_switch<5>" LOC = "L13"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name
 NET "i_switch<6>" LOC = "N17"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name = SW6
 NET "i_switch<7>" LOC = "R17"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name = SW7
 
-# Buttons
-NET "i_button<0>" LOC = "B18"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name = BTN0
-NET "i_button<1>" LOC = "D18"; # Bank = 1, Pin name = IP/VREF_1, Type = VREF, Sch name = BTN1
-NET "i_button<2>" LOC = "E18"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name = BTN2
-NET "i_button<3>" LOC = "H13"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name = BTN3
+## Buttons
+#NET "i_button<0>" LOC = "B18"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name = BTN0
+#NET "i_button<1>" LOC = "D18"; # Bank = 1, Pin name = IP/VREF_1, Type = VREF, Sch name = BTN1
+#NET "i_button<2>" LOC = "E18"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name = BTN2
+#NET "i_button<3>" LOC = "H13"; # Bank = 1, Pin name = IP, Type = INPUT, Sch name = BTN3
 
 # VGA Connector 
 NET "o_vga_red<0>" LOC = "R9"; # Bank = 2, Pin name = IO/D5, Type = DUAL, Sch name = RED0
@@ -62,13 +62,13 @@ NET "o_vga_blu<1>" LOC = "U4"; # Bank = 2, Pin name = IO_L03P_2/DOUT/BUSY, Type 
 NET "o_vga_hsync" LOC = "T4"; # Bank = 2, Pin name = IO_L03N_2/MOSI/CSI_B, Type = DUAL, Sch name = HSYNC
 NET "o_vga_vsync" LOC = "U3"; # Bank = 2, Pin name = IO_L01P_2/CSO_B, Type = DUAL, Sch name = VSYNC
 
-# PS/2 connector
-NET "o_ps2c" LOC = "R12"; # Bank = 2, Pin name = IO_L20N_2, Type = I/O, Sch name = PS2C
-NET "i_ps2d" LOC = "P11"; # Bank = 2, Pin name = IO_L18P_2, Type = I/O, Sch name = PS2D
+## PS/2 connector
+#NET "o_ps2c" LOC = "R12"; # Bank = 2, Pin name = IO_L20N_2, Type = I/O, Sch name = PS2C
+#NET "i_ps2d" LOC = "P11"; # Bank = 2, Pin name = IO_L18P_2, Type = I/O, Sch name = PS2D
 
-# RS232 connector
-NET "i_serial_rx" LOC = "U6"; # Bank = 2, Pin name = IP, Type = INPUT, Sch name = RS-RX
-NET "o_serial_tx" LOC = "P9"; # Bank = 2, Pin name = IO, Type = I/O, Sch name = RS-TX
+## RS232 connector
+#NET "i_serial_rx" LOC = "U6"; # Bank = 2, Pin name = IP, Type = INPUT, Sch name = RS-RX
+#NET "o_serial_tx" LOC = "P9"; # Bank = 2, Pin name = IO, Type = I/O, Sch name = RS-TX
 
 ## onBoard USB controller
 #NET "EppAstb"   LOC = "V14"; # Bank = 2, Pin name = IP_L23P_2, Type = INPUT, Sch name = U-FLAGA

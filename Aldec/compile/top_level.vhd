@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 --
 -- File        : U:\workspace\nexysterm\Aldec\compile\top_level.vhd
--- Generated   : Mon Jul  2 23:05:03 2012
+-- Generated   : Tue Jul  3 18:33:27 2012
 -- From        : U:\workspace\nexysterm\Aldec\src\top_level.bde
 -- By          : Bde2Vhdl ver. 2.6
 --
@@ -20,22 +20,17 @@
 -- Design unit header --
 library IEEE;
 use IEEE.std_logic_1164.all;
-
+use IEEE.numeric_std.all;
+library unisim;
+use unisim.vcomponents.all;
 
 entity top_level is
   port(
        i_board_clk : in STD_LOGIC;
-       i_ps2d : in STD_LOGIC;
-       i_serial_rx : in STD_LOGIC;
-       i_button : in STD_LOGIC_VECTOR(3 downto 0);
        i_switch : in STD_LOGIC_VECTOR(7 downto 0);
-       o_ps2c : out STD_LOGIC;
-       o_serial_tx : out STD_LOGIC;
        o_vga_hsync : out STD_LOGIC;
        o_vga_vsync : out STD_LOGIC;
        o_led : out STD_LOGIC_VECTOR(7 downto 0);
-       o_ssd_an : out STD_LOGIC_VECTOR(3 downto 0);
-       o_ssd_seg : out STD_LOGIC_VECTOR(7 downto 0);
        o_vga_blu : out STD_LOGIC_VECTOR(1 downto 0);
        o_vga_grn : out STD_LOGIC_VECTOR(2 downto 0);
        o_vga_red : out STD_LOGIC_VECTOR(2 downto 0)
@@ -58,6 +53,17 @@ component CRG
        status : out STD_LOGIC_VECTOR(7 downto 0)
   );
 end component;
+component vga_top
+  port (
+       i_sys_reset : in STD_LOGIC;
+       i_vga_refclk : in STD_LOGIC;
+       o_vga_blu : out STD_LOGIC_VECTOR(1 downto 0);
+       o_vga_grn : out STD_LOGIC_VECTOR(2 downto 0);
+       o_vga_hsync : out STD_LOGIC;
+       o_vga_red : out STD_LOGIC_VECTOR(2 downto 0);
+       o_vga_vsync : out STD_LOGIC
+  );
+end component;
 
 ---- Signal declarations used on the diagram ----
 
@@ -67,6 +73,7 @@ signal s_sys_clk3 : STD_LOGIC;
 signal s_sys_clk4 : STD_LOGIC;
 signal s_sys_dll_locked : STD_LOGIC;
 signal s_sys_reset : STD_LOGIC;
+signal BUS488 : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
 
@@ -84,6 +91,26 @@ CRG_inst : CRG
   );
 
 s_sys_reset <= not(s_sys_dll_locked);
+
+vga_top_inst : vga_top
+  port map(
+       i_sys_reset => s_sys_reset,
+       i_vga_refclk => s_sys_clk2,
+       o_vga_blu => o_vga_blu,
+       o_vga_grn => o_vga_grn,
+       o_vga_hsync => o_vga_hsync,
+       o_vga_red => o_vga_red,
+       o_vga_vsync => o_vga_vsync
+  );
+
+
+---- Terminal assignment ----
+
+    -- Inputs terminals
+	BUS488 <= i_switch;
+
+    -- Output\buffer terminals
+	o_led <= BUS488;
 
 
 end top_level;

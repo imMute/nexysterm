@@ -66,6 +66,13 @@ chrx_rs <= '1' when hctr=H_VIS_E or hvisi='0' else '0';
 chry_en <= '1' when schry_en='1' and schry_rs='1' else '0';
 chry_rs <= '1' when (hctr=H_VIS_E and vctr=V_VIS_E) or vvisi='0' else '0';
 
+o_x_blank <= not hvisi;
+o_y_blank <= not vvisi;
+
+o_x_sync <= '1' when hctr>=H_SPULSE_S and hctr<=H_SPULSE_E else '0';
+o_y_sync <= '1' when vctr>=V_SPULSE_S and vctr<=V_SPULSE_E else '0';
+
+
 -- Output assignments
 o_x_pos <= std_logic_vector(to_unsigned(hctr, o_x_pos'length));
 o_y_pos <= std_logic_vector(to_unsigned(vctr, o_y_pos'length));
@@ -77,4 +84,3 @@ o_chrx <= std_logic_vector(to_unsigned(chrx, o_chrx'length));
 o_chry <= std_logic_vector(to_unsigned(chry, o_chry'length));
 
 end BEHAV;
-

@@ -1,6 +1,7 @@
-.\src\top_level.bde
+.\src\vga_top.bde
 .\..\vhdl_src\CRG.vhd
+.\src\top_level.bde
 .\..\vhdl_src\VGA\VGA_Timing_640x480.vhd
-.\..\vhdl_src\VGA\VGA_Timer.vhd
 .\..\vhdl_src\VGA\g_counter.vhd
+.\..\vhdl_src\VGA\VGA_Timer.vhd
 .\TestBench\VGA_Timing_TB.vhd
