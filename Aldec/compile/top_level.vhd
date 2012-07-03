@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 --
 -- File        : U:\workspace\nexysterm\Aldec\compile\top_level.vhd
--- Generated   : Mon Jul  2 20:01:25 2012
+-- Generated   : Mon Jul  2 23:05:03 2012
 -- From        : U:\workspace\nexysterm\Aldec\src\top_level.bde
 -- By          : Bde2Vhdl ver. 2.6
 --

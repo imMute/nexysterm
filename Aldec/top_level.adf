@@ -24,7 +24,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN3E
-fileopenfolder=U:\workspace\nexysterm\vhdl_src
+fileopenfolder=U:\workspace\nexysterm\vhdl_src\VGA
 
 [LocalVerilogSets]
 EnableSLP=1
@@ -42,18 +42,32 @@ DESIGNS=SPARTAN3E
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=
+HierarchyInformation=top_level|top_level|0 
 ShowHide=ShowTopLevel
 Selected=
+
+[Groups]
+VGA=1
+TestBench=1
 
 [Files]
 /top_level.bde=-1
 /..\..\vhdl_src\CRG.vhd=-1
+VGA/..\..\..\vhdl_src\VGA\VGA_Timing_640x480.vhd=-1
+VGA/..\..\..\vhdl_src\VGA\VGA_Timer.vhd=-1
+VGA/..\..\..\vhdl_src\VGA\g_counter.vhd=-1
+TestBench/..\..\TestBench\VGA_Timing_TB.vhd=-1
+TestBench/..\..\TestBench\VGA_Timing_TB_runtest.do=-1
 
 [Files.Data]
 .\src\top_level.bde=Block Diagram
 .\..\vhdl_src\CRG.vhd=VHDL Source Code
-.\compile\top_level.vhd=VHDL Source Code
+.\..\vhdl_src\VGA\VGA_Timing_640x480.vhd=VHDL Source Code
+.\..\vhdl_src\VGA\VGA_Timer.vhd=VHDL Source Code
+.\..\vhdl_src\VGA\g_counter.vhd=VHDL Source Code
+.\TestBench\VGA_Timing_TB.vhd=VHDL Source Code
+.\TestBench\VGA_Timing_TB_runtest.do=Macro
 
 [file_out:/top_level.bde]
 /..\compile\top_level.vhd=-1
+

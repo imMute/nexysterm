@@ -1,5 +1,13 @@
-18
+64
 ~E 1 "./../vhdl_src/CRG.vhd" 26 CRG
 ~A 1 "./../vhdl_src/CRG.vhd" 40 behavioral
+~E 1 "./../vhdl_src/VGA/g_counter.vhd" 7 g_counter
+~A 1 "./../vhdl_src/VGA/g_counter.vhd" 17 BEHAV
+~C 1 "./TestBench/VGA_Timing_TB.vhd" 79 testbench_for_vga_timing_tb
 ~E 1 "./compile/top_level.vhd" 25 top_level
 ~A 1 "./compile/top_level.vhd" 45 top_level
+~E 1 "./../vhdl_src/VGA/VGA_Char_Timer.vhd" 8 VGA_Char_Timer
+~E 1 "./../vhdl_src/VGA/VGA_Timer.vhd" 8 VGA_Timer
+~A 1 "./../vhdl_src/VGA/VGA_Timer.vhd" 27 BEHAV
+~E 1 "./TestBench/VGA_Timing_TB.vhd" 4 VGA_Timing_TB
+~A 1 "./TestBench/VGA_Timing_TB.vhd" 7 TB_ARCHITECTURE

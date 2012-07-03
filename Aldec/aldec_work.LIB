@@ -1,39 +1,100 @@
-timestamp=1341277286590
+timestamp=1341288434233
 
 [crg]
-A/behavioral=21|./../vhdl_src/CRG.vhd|40|1*0
-BinI32/behavioral=3*0
-I=0*752
-I/behavioral=0*2364
-M=11|0|v98|1341277074015|./../vhdl_src/CRG.vhd|0*285*0xae6b04e8775a6e96789e024c93134c3b4d6d4edc|0*677*0xab32bc1a2daf049573e14469f634e0e6
-M/behavioral=21|0|v98|1341277074036|./../vhdl_src/CRG.vhd|0*913*0x48d8e21136b701318c6b5231937e3736efdc52c4|0*2275*0xb33770ff1c10522f9491560174ac8e6c
+A/behavioral=21|./../vhdl_src/CRG.vhd|40|1*5224
+BinI32/behavioral=3*354
+I=0*3158
+I/behavioral=0*4770
+M=11|0|v98|1341288304088|./../vhdl_src/CRG.vhd|0*2691*0xae6b04e8775a6e96789e024c93134c3b4d6d4edc|0*3083*0xab32bc1a2daf049573e14469f634e0e6
+M/behavioral=21|0|v98|1341288304142|./../vhdl_src/CRG.vhd|0*3319*0x48d8e21136b701318c6b5231937e3736efdc52c4|0*4681*0xb33770ff1c10522f9491560174ac8e6c
 R=./../vhdl_src/CRG.vhd|26
-S/crg=S/CRG 40|0|2*0
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/behavioral=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
+[g_counter]
+A/behav=A/BEHAV 21|./../vhdl_src/VGA/g_counter.vhd|17|1*19153
+BinI32/behav=3*620
+I=0*9336
+I/behav=I/BEHAV 0*9886
+M=11|0|v98|1341288304530|./../vhdl_src/VGA/g_counter.vhd|0*8928*0xe012a073ebd740d3472c41f2686259a45c318cf9|0*9245*0xab32bc1a2daf049573e14469f634e0e6
+M/behav=M/BEHAV 21|0|v98|1341288304540|./../vhdl_src/VGA/g_counter.vhd|0*9501*0x6d1c1e85feea3d8703b9fa29eebf5f12a18a2b4c|0*9786*0xb33770ff1c10522f9491560174ac8e6c
+R=./../vhdl_src/VGA/g_counter.vhd|7
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/behav=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[testbench_for_vga_timing_tb]
+Configures=VGA_Timing_TB.TB_ARCHITECTURE
+E=1*60977
+I=0*16804
+M=2|0|v98|1341288434145|./TestBench/VGA_Timing_TB.vhd|0*16440*0x8dba250e757488a2bdd475582ef920a42b4f8dce|0*16681*0xb33770ff1c10522f9491560174ac8e6c
+R=./TestBench/VGA_Timing_TB.vhd|79
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
 [top_level]
-A/top_level=24|.\src\top_level.bde|10000|1*11325
-BinI32/top_level=3*266
-I=0*4072
-I/top_level=0*5045
-M=11|0|v98|1341277286265|./compile/top_level.vhd|0*3305*0x200263723a1cd247839c105ead4d754a1f9b01e2|0*3989*0xab32bc1a2daf049573e14469f634e0e6
-M/top_level=21|0|v98|1341277286457|./compile/top_level.vhd|0*4175*0xc5a43438384ac708185351ee2d1e0a0820d43508|0*4949*0xb33770ff1c10522f9491560174ac8e6c
+A/top_level=24|.\src\top_level.bde|10000|1*41236
+BinI32/top_level=3*5342
+I=0*1365
+I/top_level=0*19174
+M=11|0|v98|1341288303758|./compile/top_level.vhd|0*598*0x200263723a1cd247839c105ead4d754a1f9b01e2|0*1282*0xab32bc1a2daf049573e14469f634e0e6
+M/top_level=21|0|v98|1341288305845|./compile/top_level.vhd|0*18304*0xc5a43438384ac708185351ee2d1e0a0820d43508|0*19078*0xb33770ff1c10522f9491560174ac8e6c
 R=./compile/top_level.vhd|25
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/top_level=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
+[vga_char_timer]
+BinI32/behav=3*1276
+I=0*11327
+I/behav=I/BEHAV 0*13915
+M=11|0|v98|1341288304827|./../vhdl_src/VGA/VGA_Char_Timer.vhd|0*10551*0xfb5eaab8cee42bdf8830842bb8c3dd5c62fc3220|0*11226*0xab32bc1a2daf049573e14469f634e0e6
+R=./../vhdl_src/VGA/VGA_Char_Timer.vhd|8
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/behav=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[vga_timer]
+A/behav=A/BEHAV 21|./../vhdl_src/VGA/VGA_Timer.vhd|27|1*46464
+BinI32/behav=3*5696
+I=0*20563
+I/behav=I/BEHAV 0*23121
+M=11|0|v98|1341288432269|./../vhdl_src/VGA/VGA_Timer.vhd|0*19817*0x0d92447d23b1f84796036b9d9bf4c62f30f8cd2a|0*20472*0xab32bc1a2daf049573e14469f634e0e6
+M/behav=M/BEHAV 21|0|v98|1341288432279|./../vhdl_src/VGA/VGA_Timer.vhd|0*20848*0x262a591c7659ef4bb3a7623a031bb71b6970eb7b|0*23021*0xb33770ff1c10522f9491560174ac8e6c
+R=./../vhdl_src/VGA/VGA_Timer.vhd|8
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/behav=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[vga_timing]
+E=1*16549
+I=0*7377
+M=3|0|v98|1341288304250|./../vhdl_src/VGA/VGA_Timing_640x480.vhd|0*5946*0x0acd929621eb638e4833f03e917fec1483e9c8a1|0*7276*0xab32bc1a2daf049573e14469f634e0e6
+R=./../vhdl_src/VGA/VGA_Timing_640x480.vhd|4
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[vga_timing_tb]
+A/tb_architecture=A/TB_ARCHITECTURE 21|./TestBench/VGA_Timing_TB.vhd|7|1*56062
+BinI32/tb_architecture=3*7939
+I=0*14626
+I/tb_architecture=I/TB_ARCHITECTURE 0*24980
+M=11|0|v98|1341288304959|./TestBench/VGA_Timing_TB.vhd|0*14352*0x84fb505b27d074c6a067798f662c23f5121e4e6a|0*14533*0xab32bc1a2daf049573e14469f634e0e6
+M/tb_architecture=M/TB_ARCHITECTURE 21|0|v98|1341288434126|./TestBench/VGA_Timing_TB.vhd|0*23468*0x009c6f7b4525da142daaceed293c3301b9e14365|0*24868*0xb33770ff1c10522f9491560174ac8e6c
+R=./TestBench/VGA_Timing_TB.vhd|4
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/tb_architecture=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
 [~A]
-ModifyID=18
+ModifyID=64
 Version=73
 
 [~MFT]
-0=13|0aldec_work.mgf|5045|0
-1=1|1aldec_work.mgf|11325|0
-2=0|2aldec_work.mgf|0|0
-3=1|3aldec_work.mgf|266|0
+0=77|0aldec_work.mgf|24980|7548
+1=16|1aldec_work.mgf|60977|25615
+3=11|3aldec_work.mgf|7939|2177
 
 [~U]
-crg=CRG 11|0*0||0x3
-top_level=11|0*2707|
+crg=CRG 11|0*2406|
+g_counter=11|0*8707|
+testbench_for_vga_timing_tb=TESTBENCH_FOR_VGA_Timing_TB 2||
+top_level=11|0*0|
+vga_char_timer=VGA_Char_Timer 11|0*10057|
+vga_timer=VGA_Timer 11|0*19338|
+vga_timing=VGA_TIMING 3|0*5113|0*5189
+vga_timing_tb=VGA_Timing_TB 11|0*14267|
 
