@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 --
 -- File        : U:\workspace\nexysterm\Aldec\compile\vga_top.vhd
--- Generated   : Wed Jul  4 10:17:38 2012
+-- Generated   : Wed Jul  4 10:40:42 2012
 -- From        : U:\workspace\nexysterm\Aldec\src\vga_top.bde
 -- By          : Bde2Vhdl ver. 2.6
 --

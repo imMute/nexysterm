@@ -24,4 +24,17 @@
     ; Initialization
     ;
 cold_start:
-    
+    LOAD s1, 01
+    LOAD s2, 02
+    LOAD s3, 04
+    LOAD s4, 08
+main_loop:
+    ;INPUT sD, P_SWITCH
+    ;OUTPUT sD, P_LED
+    LOAD sD, 00
+    OUTPUT sD, P_LED
+    OUTPUT s1, P_SSD1
+    OUTPUT s2, P_SSD2
+    OUTPUT s3, P_SSD3
+    OUTPUT s4, P_SSD4
+    JUMP main_loop
