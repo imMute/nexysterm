@@ -1,0 +1,27 @@
+    ; KCPSM3 Program - NexysTerm
+    ; Matt Sickler - 2012
+    
+    ; Port Definitions
+    CONSTANT  P_SWITCH, 00
+    CONSTANT  P_BTN, 01
+    CONSTANT  P_LED, 02
+    CONSTANT  P_SSD1, 03
+    CONSTANT  P_SSD2, 04
+    CONSTANT  P_SSD3, 05
+    CONSTANT  P_SSD4, 06
+    
+    CONSTANT  P_TRAM_ADDR_LOW, 07
+    CONSTANT  P_TRAM_ADDR_HIGH, 08
+    CONSTANT  P_TRAM_DATA_CHAR, 09
+    CONSTANT  P_TRAM_DATA_COLO, 10
+    
+    ; Register names
+    
+    ; Scratchpad Memory Locations
+    
+    
+    ;
+    ; Initialization
+    ;
+cold_start:
+    
