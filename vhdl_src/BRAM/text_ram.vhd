@@ -29,12 +29,12 @@ entity text_ram is
         i_wr_clk    : in std_logic;
         i_wr_en     : in std_logic;
         i_wr_addr   : in std_logic_vector(10 downto 0);
-        i_wr_data   : in std_logic_vector(7 downto 0);
+        i_wr_data   : in std_logic_vector(15 downto 0);
         -- Port B (reader)
         i_rd_clk    : in std_logic;
         --i_rd_en     : in std_logic;
         i_rd_addr   : in std_logic_vector(10 downto 0);
-        o_rd_data   : out std_logic_vector(7 downto 0)
+        o_rd_data   : out std_logic_vector(15 downto 0)
     );
 end text_ram;
 
@@ -42,17 +42,20 @@ architecture Behavioral of text_ram is
     signal CLKA,CLKB    : std_logic;
     signal ADDRA,ADDRB  : std_logic_vector(10 downto 0);
     signal DIA,DOB      : std_logic_vector(7 downto 0);
+    signal DIAx,DOBx    : std_logic_vector(7 downto 0);
     
     signal ENA,WEA      : std_logic;
 begin
 CLKB <= i_rd_clk;
 ADDRB <= i_rd_addr;
-o_rd_data <= DOB;
+o_rd_data(7 downto 0) <= DOB;
+o_rd_data(15 downto 8) <= DOBx;
 
 CLKA <= i_wr_clk;
 ENA <= i_wr_en;
 WEA <= ENA;
-DIA <= i_wr_data;
+DIA <= i_wr_data(7 downto 0);
+DIAx <= i_wr_data(15 downto 8);
 
 
 text_ram_bram : RAMB16_S9_S9
@@ -91,5 +94,39 @@ text_ram_bram : RAMB16_S9_S9
         WEB     => '0'
     );
 
-
+control_ram_bram : RAMB16_S9_S9
+    generic map (
+        INIT_A => X"000", -- Value of output RAM registers on Port A at startup
+        INIT_B => X"000", -- Value of output RAM registers on Port B at startup
+        SRVAL_A => X"000", -- Port A ouput value upon SSR assertion
+        SRVAL_B => X"000", -- Port B ouput value upon SSR assertion
+        WRITE_MODE_A => "READ_FIRST", -- WRITE_FIRST, READ_FIRST or NO_CHANGE
+        WRITE_MODE_B => "READ_FIRST", -- WRITE_FIRST, READ_FIRST or NO_CHANGE
+        SIM_COLLISION_CHECK => "NONE", -- "NONE", "WARNING", "GENERATE_X_ONLY", "ALL"
+        INIT_00 => X"000000000000000000000000000000000000000000FF00FF00FF00FF00FF00FF",
+        INIT_01 => X"000000000000000000000000000000000000000000FF00FF00FF00FF00FF00FF",
+        INIT_02 => X"000000000000000000000000000000000000000000FF00FF00FF00FF00FF00FF",
+        INIT_03 => X"000000000000000000000000000000000000000000FF00FF00FF00FF00FF00FF"
+    )
+    port map (
+        DOA     => open,
+        DOPA    => open,
+        ADDRA   => ADDRA,
+        CLKA    => CLKA,
+        DIA     => DIAx,
+        DIPA    => (others => '0'),
+        ENA     => ENA,
+        SSRA    => '0',
+        WEA     => WEA,
+        
+        DOB     => DOBx,
+        DOPB    => open,
+        ADDRB   => ADDRB,
+        CLKB    => CLKB,
+        DIB     => (others => '0'),
+        DIPB    => (others => '0'),
+        ENB     => '1',
+        SSRB    => '0',
+        WEB     => '0'
+    );
 end architecture;

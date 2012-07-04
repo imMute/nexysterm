@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 --
 -- File        : U:\workspace\nexysterm\Aldec\compile\vga_top.vhd
--- Generated   : Wed Jul  4 00:55:17 2012
+-- Generated   : Wed Jul  4 10:17:38 2012
 -- From        : U:\workspace\nexysterm\Aldec\src\vga_top.bde
 -- By          : Bde2Vhdl ver. 2.6
 --
@@ -28,7 +28,11 @@ use work.VGA_TIMING.all;
 entity vga_top is
   port(
        i_sys_reset : in STD_LOGIC;
+       i_tram_clk : in STD_LOGIC;
+       i_tram_en : in STD_LOGIC;
        i_vga_refclk : in STD_LOGIC;
+       i_tram_addr : in STD_LOGIC_VECTOR(10 downto 0);
+       i_tram_data : in STD_LOGIC_VECTOR(15 downto 0);
        o_vga_hsync : out STD_LOGIC;
        o_vga_vsync : out STD_LOGIC;
        o_vga_blu : out STD_LOGIC_VECTOR(1 downto 0);
@@ -56,9 +60,9 @@ component text_ram
        i_rd_clk : in STD_LOGIC;
        i_wr_addr : in STD_LOGIC_VECTOR(10 downto 0);
        i_wr_clk : in STD_LOGIC;
-       i_wr_data : in STD_LOGIC_VECTOR(7 downto 0);
+       i_wr_data : in STD_LOGIC_VECTOR(15 downto 0);
        i_wr_en : in STD_LOGIC;
-       o_rd_data : out STD_LOGIC_VECTOR(7 downto 0)
+       o_rd_data : out STD_LOGIC_VECTOR(15 downto 0)
   );
 end component;
 component VGA_Timer
@@ -80,7 +84,6 @@ end component;
 
 ---- Signal declarations used on the diagram ----
 
-signal NET3408 : STD_LOGIC;
 signal s_bit : STD_LOGIC;
 signal s_chrx : INTEGER range 79 downto 0;
 signal s_chry : INTEGER range 39 downto 0;
@@ -97,7 +100,7 @@ signal s_yblank : STD_LOGIC;
 signal s_ypos : INTEGER range V_TOTAL-1 downto 0;
 signal s_ysync : STD_LOGIC;
 signal s_blu : STD_LOGIC_VECTOR (1 downto 0);
-signal s_char : STD_LOGIC_VECTOR (7 downto 0);
+signal s_char : STD_LOGIC_VECTOR (15 downto 0);
 signal s_col : STD_LOGIC_VECTOR (2 downto 0);
 signal s_grn : STD_LOGIC_VECTOR (2 downto 0);
 signal s_rd_addr : STD_LOGIC_VECTOR (10 downto 0);
@@ -107,51 +110,47 @@ signal s_row : STD_LOGIC_VECTOR (3 downto 0);
 begin
 
 ---- User Signal Assignments ----
-process(s_clk) begin
-if rising_edge(s_clk) then
+-- chrx,chry  to address conversion
+s_rd_addr <= std_logic_vector(to_unsigned((s_chrx + (5*s_chry)),s_rd_addr'length));
 
-s_hsync <= s_xsync;
-s_vsync <= s_ysync;
-s_red <= "000";
-s_grn <= "000";
-s_blu <= "00";
-if (s_xblank='0' and s_yblank='0') then
-
-
-if (s_xpos = H_VIS_S or s_xpos=H_VIS_E) then
-	s_red <= "111";
-elsif (s_ypos = V_VIS_S or s_ypos=V_VIS_E) then
-	s_grn <= "111";
-else
-
-	s_blu <= s_bit & s_bit;
-	s_red <= "000";
-	s_grn <= "000";
-
-end if;
-
-
-
-
-
-end if;
-end if;
-end process;
+-- schrx,schry to col,row  (int -> slv) conversion
 s_col <= std_logic_vector(to_unsigned(s_schrx,s_col'length));
 s_row <= std_logic_vector(to_unsigned(s_schry,s_row'length));
-
+-- same conversion, but on chrx,chry (bit letters)
 --s_col <= std_logic_vector(to_unsigned(s_chrx,s_col'length));
 --s_row <= std_logic_vector(to_unsigned(s_chry,s_row'length));
-s_rd_addr <= std_logic_vector(to_unsigned(
-(s_chrx + (s_chry))
-,s_rd_addr'length));
+--s_red <= s_bit & s_bit & s_bit when s_xblank='0' and s_yblank='0' else "000";
+--s_grn <= s_bit & s_bit & s_bit when s_xblank='0' and s_yblank='0' else "000";
+--s_blu <= s_bit & s_bit when s_xblank='0' and s_yblank='0' else "00";
+process (s_clk) begin
+if rising_edge(s_clk) then
+	s_hsync <= s_xsync;
+	s_vsync <= s_ysync;
+	if (s_xblank='0' and s_yblank='0' and s_bit='1') then
+		s_red <= s_char(15 downto 13);
+		s_grn <= s_char(12 downto 10);
+	   s_blu <= s_char(9 downto 8);
+	else
+		s_red <= (others => '0');
+		s_grn <= (others => '0');
+		s_blu <= (others => '0');
+	end if;
+end if;
+end process;
 
 ----  Component instantiations  ----
 
 crom_inst : char_rom
   port map(
        CLK => s_clk,
-       i_char => s_char,
+       i_char(0) => s_char(0),
+       i_char(1) => s_char(1),
+       i_char(2) => s_char(2),
+       i_char(3) => s_char(3),
+       i_char(4) => s_char(4),
+       i_char(5) => s_char(5),
+       i_char(6) => s_char(6),
+       i_char(7) => s_char(7),
        i_col => s_col,
        i_row => s_row,
        o_bit => s_bit
@@ -161,10 +160,10 @@ tram_inst : text_ram
   port map(
        i_rd_addr => s_rd_addr,
        i_rd_clk => s_clk,
-       i_wr_addr => "00000000000",
-       i_wr_clk => '0',
-       i_wr_data => "00000000",
-       i_wr_en => '0',
+       i_wr_addr => i_tram_addr,
+       i_wr_clk => i_tram_clk,
+       i_wr_data => i_tram_data,
+       i_wr_en => i_tram_en,
        o_rd_data => s_char
   );
 

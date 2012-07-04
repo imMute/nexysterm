@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 --
 -- File        : U:\workspace\nexysterm\Aldec\compile\top_level.vhd
--- Generated   : Wed Jul  4 00:56:26 2012
+-- Generated   : Wed Jul  4 10:20:15 2012
 -- From        : U:\workspace\nexysterm\Aldec\src\top_level.bde
 -- By          : Bde2Vhdl ver. 2.6
 --
@@ -56,6 +56,10 @@ end component;
 component vga_top
   port (
        i_sys_reset : in STD_LOGIC;
+       i_tram_addr : in STD_LOGIC_VECTOR(10 downto 0);
+       i_tram_clk : in STD_LOGIC;
+       i_tram_data : in STD_LOGIC_VECTOR(15 downto 0);
+       i_tram_en : in STD_LOGIC;
        i_vga_refclk : in STD_LOGIC;
        o_vga_blu : out STD_LOGIC_VECTOR(1 downto 0);
        o_vga_grn : out STD_LOGIC_VECTOR(2 downto 0);
@@ -64,6 +68,9 @@ component vga_top
        o_vga_vsync : out STD_LOGIC
   );
 end component;
+
+----     Constants     -----
+constant DANGLING_INPUT_CONSTANT : STD_LOGIC := 'Z';
 
 ---- Signal declarations used on the diagram ----
 
@@ -74,6 +81,9 @@ signal s_sys_clk4 : STD_LOGIC;
 signal s_sys_dll_locked : STD_LOGIC;
 signal s_sys_reset : STD_LOGIC;
 signal BUS853 : STD_LOGIC_VECTOR (7 downto 0);
+
+---- Declaration for Dangling input ----
+signal Dangling_Input_Signal : STD_LOGIC;
 
 begin
 
@@ -94,7 +104,36 @@ s_sys_reset <= not(s_sys_dll_locked);
 
 vga_top_inst : vga_top
   port map(
+       i_tram_addr(0) => Dangling_Input_Signal,
+       i_tram_addr(1) => Dangling_Input_Signal,
+       i_tram_addr(2) => Dangling_Input_Signal,
+       i_tram_addr(3) => Dangling_Input_Signal,
+       i_tram_addr(4) => Dangling_Input_Signal,
+       i_tram_addr(5) => Dangling_Input_Signal,
+       i_tram_addr(6) => Dangling_Input_Signal,
+       i_tram_addr(7) => Dangling_Input_Signal,
+       i_tram_addr(8) => Dangling_Input_Signal,
+       i_tram_addr(9) => Dangling_Input_Signal,
+       i_tram_addr(10) => Dangling_Input_Signal,
+       i_tram_data(0) => Dangling_Input_Signal,
+       i_tram_data(1) => Dangling_Input_Signal,
+       i_tram_data(2) => Dangling_Input_Signal,
+       i_tram_data(3) => Dangling_Input_Signal,
+       i_tram_data(4) => Dangling_Input_Signal,
+       i_tram_data(5) => Dangling_Input_Signal,
+       i_tram_data(6) => Dangling_Input_Signal,
+       i_tram_data(7) => Dangling_Input_Signal,
+       i_tram_data(8) => Dangling_Input_Signal,
+       i_tram_data(9) => Dangling_Input_Signal,
+       i_tram_data(10) => Dangling_Input_Signal,
+       i_tram_data(11) => Dangling_Input_Signal,
+       i_tram_data(12) => Dangling_Input_Signal,
+       i_tram_data(13) => Dangling_Input_Signal,
+       i_tram_data(14) => Dangling_Input_Signal,
+       i_tram_data(15) => Dangling_Input_Signal,
        i_sys_reset => s_sys_reset,
+       i_tram_clk => Dangling_Input_Signal,
+       i_tram_en => Dangling_Input_Signal,
        i_vga_refclk => s_sys_clk1,
        o_vga_blu => o_vga_blu,
        o_vga_grn => o_vga_grn,
@@ -112,5 +151,9 @@ vga_top_inst : vga_top
     -- Output\buffer terminals
 	o_led <= BUS853;
 
+
+---- Dangling input signal assignment ----
+
+Dangling_Input_Signal <= DANGLING_INPUT_CONSTANT;
 
 end top_level;

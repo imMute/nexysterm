@@ -2,7 +2,7 @@ SCHM0103
 
 HEADER
 {
- FREEID 3461
+ FREEID 4086
  VARIABLES
  {
   #ARCHITECTURE="vga_top"
@@ -529,14 +529,14 @@ HEADER
 "library IEEE;\n"+
 "use ieee.std_logic_1164.all;"
     #LANGUAGE="VHDL"
-    #MODIFIED="1341380892"
+    #MODIFIED="1341382476"
    }
   }
   PAGE "" 
   {
    PAGEHEADER
    {
-    RECT (0,0,400,160)
+    RECT (0,-20,400,180)
     FREEID 16
    }
    
@@ -561,7 +561,7 @@ HEADER
     TEXT  5, 0, 0
     {
      TEXT "$#NAME"
-     RECT (248,130,375,154)
+     RECT (237,130,375,154)
      ALIGN 6
      MARGINS (1,1)
      PARENT 4
@@ -585,7 +585,7 @@ HEADER
     TEXT  11, 0, 0
     {
      TEXT "$#NAME"
-     RECT (25,130,147,154)
+     RECT (25,130,158,154)
      ALIGN 4
      MARGINS (1,1)
      PARENT 10
@@ -619,7 +619,6 @@ HEADER
       #NAME="i_wr_clk"
       #NUMBER="0"
       #SIDE="left"
-      #VHDL_TYPE="STD_LOGIC"
      }
      LINE  2, 0, 0
      {
@@ -635,10 +634,9 @@ HEADER
       #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="o_rd_data(7:0)"
+      #NAME="o_rd_data(15:0)"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="STD_LOGIC_VECTOR"
      }
      LINE  2, 0, 0
      {
@@ -656,7 +654,6 @@ HEADER
       #NAME="i_wr_en"
       #NUMBER="0"
       #SIDE="left"
-      #VHDL_TYPE="STD_LOGIC"
      }
      LINE  2, 0, 0
      {
@@ -675,7 +672,6 @@ HEADER
       #NAME="i_wr_addr(10:0)"
       #NUMBER="0"
       #SIDE="left"
-      #VHDL_TYPE="STD_LOGIC_VECTOR"
      }
      LINE  2, 0, 0
      {
@@ -691,10 +687,9 @@ HEADER
       #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="i_wr_data(7:0)"
+      #NAME="i_wr_data(15:0)"
       #NUMBER="0"
       #SIDE="left"
-      #VHDL_TYPE="STD_LOGIC_VECTOR"
      }
      LINE  2, 0, 0
      {
@@ -712,7 +707,6 @@ HEADER
       #NAME="i_rd_clk"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="STD_LOGIC"
      }
      LINE  2, 0, 0
      {
@@ -731,7 +725,6 @@ HEADER
       #NAME="i_rd_addr(10:0)"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="STD_LOGIC_VECTOR"
      }
      LINE  2, 0, 0
      {
@@ -830,7 +823,7 @@ PAGE ""
     #SYMBOL="VGA_Timer"
    }
    COORD (280,840)
-   VERTEXES ( (6,2266), (18,2464), (20,2469), (22,2474), (24,2479), (4,2662), (16,2665), (8,2668), (10,2671), (12,2701), (14,2704), (2,2761) )
+   VERTEXES ( (6,2266), (18,2464), (20,2469), (22,2474), (24,2479), (4,2662), (16,2665), (8,2668), (10,2671), (12,2701), (2,2761), (14,2704) )
    PINPROP 2,"#PIN_STATE","0"
   }
   TEXT  80, 0, 0
@@ -1135,48 +1128,6 @@ PAGE ""
    {
     #NAMED="1"
    }
-  }
-  SIGNALASSIGN  2318, 0, 0
-  {
-   LABEL "SignalAssignments_1"
-   TEXT 
-"process(s_clk) begin\n"+
-"if rising_edge(s_clk) then\n"+
-"\n"+
-"s_hsync <= s_xsync;\n"+
-"s_vsync <= s_ysync;\n"+
-"s_red <= \"000\";\n"+
-"s_grn <= \"000\";\n"+
-"s_blu <= \"00\";\n"+
-"if (s_xblank='0' and s_yblank='0') then\n"+
-"\n"+
-"\n"+
-"if (s_xpos = H_VIS_S or s_xpos=H_VIS_E) then\n"+
-"\ts_red <= \"111\";\n"+
-"elsif (s_ypos = V_VIS_S or s_ypos=V_VIS_E) then\n"+
-"\ts_grn <= \"111\";\n"+
-"else\n"+
-"\n"+
-"\ts_blu <= s_bit & s_bit;\n"+
-"\ts_red <= \"000\";\n"+
-"\ts_grn <= \"000\";\n"+
-"\n"+
-"end if;\n"+
-"\n"+
-"\n"+
-"\n"+
-"\n"+
-"\n"+
-"end if;\n"+
-"end if;\n"+
-"end process;"
-   RECT (880,520,1940,1640)
-   MARGINS (20,20)
-   MULTILINE
-   SYNTAXCOLORED
-   SHOWLABEL
-   SHOWTEXT
-   CORNER 10
   }
   INSTANCE  2370, 0, 0
   {
@@ -1598,18 +1549,19 @@ PAGE ""
    VARIABLES
    {
     #COMPONENT="char_rom"
+    #IMPL="Behavioral"
     #LIBRARY="#default"
     #REFERENCE="crom_inst"
     #SYMBOL="char_rom"
    }
-   COORD (340,1380)
-   VERTEXES ( (2,2839), (6,2835), (8,2833), (10,2837), (4,2845) )
+   COORD (1120,920)
+   VERTEXES ( (2,3494), (8,3488), (10,3492), (6,3594), (4,3676) )
    PINPROP 4,"#PIN_STATE","0"
   }
   TEXT  2799, 0, 0
   {
    TEXT "$#REFERENCE"
-   RECT (360,1345,490,1380)
+   RECT (1140,885,1270,920)
    ALIGN 8
    MARGINS (1,1)
    PARENT 2798
@@ -1617,102 +1569,17 @@ PAGE ""
   TEXT  2803, 0, 0
   {
    TEXT "$#COMPONENT"
-   RECT (360,1580,486,1615)
+   RECT (1140,1120,1266,1155)
    MARGINS (1,1)
    PARENT 2798
-  }
-  VTX  2833, 0, 0
-  {
-   COORD (340,1500)
-  }
-  VTX  2834, 0, 0
-  {
-   COORD (160,1500)
-  }
-  VTX  2835, 0, 0
-  {
-   COORD (340,1460)
-  }
-  VTX  2836, 0, 0
-  {
-   COORD (160,1460)
-  }
-  VTX  2837, 0, 0
-  {
-   COORD (340,1540)
-  }
-  VTX  2838, 0, 0
-  {
-   COORD (160,1540)
-  }
-  VTX  2839, 0, 0
-  {
-   COORD (340,1420)
-  }
-  VTX  2840, 0, 0
-  {
-   COORD (160,1420)
-  }
-  BUS  2841, 0, 0
-  {
-   NET 2859
-   VTX 2833, 2834
-   VARIABLES
-   {
-    #NAMED="1"
-   }
-  }
-  BUS  2842, 0, 0
-  {
-   NET 2854
-   VTX 2835, 2836
-   VARIABLES
-   {
-    #NAMED="1"
-   }
-  }
-  BUS  2843, 0, 0
-  {
-   NET 2864
-   VTX 2837, 2838
-   VARIABLES
-   {
-    #NAMED="1"
-   }
-  }
-  WIRE  2844, 0, 0
-  {
-   NET 114
-   VTX 2839, 2840
-   VARIABLES
-   {
-    #NAMED="1"
-   }
-  }
-  VTX  2845, 0, 0
-  {
-   COORD (500,1420)
-  }
-  VTX  2846, 0, 0
-  {
-   COORD (700,1420)
-  }
-  WIRE  2848, 0, 0
-  {
-   NET 2869
-   VTX 2845, 2846
-   VARIABLES
-   {
-    #NAMED="1"
-   }
   }
   TEXT  2850, 0, 0
   {
    TEXT "$#NAME"
-   RECT (222,1390,279,1419)
+   RECT (1002,930,1059,959)
    ALIGN 9
    MARGINS (1,1)
-   PARENT 2844
+   PARENT 3501
   }
   NET BUS  2854, 0, 0
   {
@@ -1726,10 +1593,10 @@ PAGE ""
   TEXT  2855, 0, 0
   {
    TEXT "$#NAME"
-   RECT (189,1430,312,1459)
+   RECT (979,971,1102,1000)
    ALIGN 9
    MARGINS (1,1)
-   PARENT 2842
+   PARENT 3609
   }
   NET BUS  2859, 0, 0
   {
@@ -1743,10 +1610,10 @@ PAGE ""
   TEXT  2860, 0, 0
   {
    TEXT "$#NAME"
-   RECT (197,1470,304,1499)
+   RECT (977,1010,1084,1039)
    ALIGN 9
    MARGINS (1,1)
-   PARENT 2841
+   PARENT 3498
   }
   NET BUS  2864, 0, 0
   {
@@ -1760,10 +1627,10 @@ PAGE ""
   TEXT  2865, 0, 0
   {
    TEXT "$#NAME"
-   RECT (193,1510,307,1539)
+   RECT (973,1050,1087,1079)
    ALIGN 9
    MARGINS (1,1)
-   PARENT 2843
+   PARENT 3500
   }
   NET WIRE  2869, 0, 0
   {
@@ -1775,66 +1642,30 @@ PAGE ""
   TEXT  2870, 0, 0
   {
    TEXT "$#NAME"
-   RECT (574,1390,627,1419)
+   RECT (1274,931,1327,960)
    ALIGN 9
    MARGINS (1,1)
-   PARENT 2848
-  }
-  SIGNALASSIGN  2925, 0, 0
-  {
-   LABEL "SignalAssignments_2"
-   TEXT 
-"s_col <= std_logic_vector(to_unsigned(s_schrx,s_col'length));\n"+
-"s_row <= std_logic_vector(to_unsigned(s_schry,s_row'length));\n"+
-"\n"+
-"--s_col <= std_logic_vector(to_unsigned(s_chrx,s_col'length));\n"+
-"--s_row <= std_logic_vector(to_unsigned(s_chry,s_row'length));\n"+
-""
-   RECT (100,1800,960,2020)
-   MARGINS (20,20)
-   MULTILINE
-   SYNTAXCOLORED
-   SHOWLABEL
-   SHOWTEXT
-   CORNER 10
+   PARENT 3678
   }
   INSTANCE  3194, 0, 0
   {
    VARIABLES
    {
     #COMPONENT="text_ram"
-    #IMPL="Behavioral"
     #LIBRARY="#default"
     #NO_CONF="1"
     #PRAGMED_GENERICS=""
     #REFERENCE="tram_inst"
     #SYMBOL="text_ram"
    }
-   COORD (1340,180)
-   VERTEXES ( (14,3250), (4,3253), (12,3256) )
-   PINPROP 6,"#PIN_COMMENT",""
-   PINPROP 6,"#PIN_STATE","2"
-   PINPROP 6,"#PORTVALUE","'0'"
-   PINPROP 8,"#PIN_COMMENT",""
-   PINPROP 8,"#PIN_STATE","2"
-   PINPROP 8,"#PORTVALUE","\"00000000000\""
-   PINPROP 14,"#PIN_COMMENT",""
-   PINPROP 14,"#PIN_STATE","0"
-   PINPROP 4,"#PIN_COMMENT",""
-   PINPROP 4,"#PIN_STATE","0"
-   PINPROP 2,"#PIN_COMMENT",""
-   PINPROP 2,"#PIN_STATE","2"
-   PINPROP 2,"#PORTVALUE","'0'"
-   PINPROP 12,"#PIN_COMMENT",""
-   PINPROP 12,"#PIN_STATE","0"
-   PINPROP 10,"#PIN_COMMENT",""
-   PINPROP 10,"#PIN_STATE","2"
-   PINPROP 10,"#PORTVALUE","\"00000000\""
+   COORD (560,500)
+   VERTEXES ( (14,3479), (12,3481), (4,3595), (10,4041), (8,4049), (6,4059), (2,4066) )
+   PINPROP 2,"#PIN_STATE","0"
   }
   TEXT  3195, 0, 0
   {
    TEXT "$#REFERENCE"
-   RECT (1370,145,1493,180)
+   RECT (590,465,713,500)
    ALIGN 8
    MARGINS (1,1)
    PARENT 3194
@@ -1842,67 +1673,25 @@ PAGE ""
   TEXT  3199, 0, 0
   {
    TEXT "$#COMPONENT"
-   RECT (1370,340,1484,375)
+   RECT (590,680,704,715)
    MARGINS (1,1)
    PARENT 3194
-  }
-  VTX  3250, 0, 0
-  {
-   COORD (1740,280)
-  }
-  VTX  3251, 0, 0
-  {
-   COORD (1940,280)
-  }
-  BUS  3252, 0, 0
-  {
-   NET 3268
-   VTX 3250, 3251
-   VARIABLES
-   {
-    #NAMED="1"
-   }
-  }
-  VTX  3253, 0, 0
-  {
-   COORD (1740,320)
-  }
-  VTX  3254, 0, 0
-  {
-   COORD (1940,320)
-  }
-  VTX  3256, 0, 0
-  {
-   COORD (1740,200)
-  }
-  VTX  3257, 0, 0
-  {
-   COORD (1940,200)
-  }
-  WIRE  3258, 0, 0
-  {
-   NET 114
-   VTX 3256, 3257
-   VARIABLES
-   {
-    #NAMED="1"
-   }
   }
   TEXT  3259, 0, 0
   {
    TEXT "$#NAME"
-   RECT (1812,170,1869,199)
+   RECT (1032,490,1089,519)
    ALIGN 9
    MARGINS (1,1)
-   PARENT 3258
+   PARENT 3486
   }
   TEXT  3264, 0, 0
   {
    TEXT "$#NAME"
-   RECT (1779,290,1902,319)
+   RECT (983,610,1119,639)
    ALIGN 9
    MARGINS (1,1)
-   PARENT 3370
+   PARENT 3604
   }
   NET BUS  3268, 0, 0
   {
@@ -1916,49 +1705,358 @@ PAGE ""
   TEXT  3269, 0, 0
   {
    TEXT "$#NAME"
-   RECT (1754,250,1927,279)
+   RECT (974,570,1147,599)
    ALIGN 9
    MARGINS (1,1)
-   PARENT 3252
-  }
-  BUS  3370, 0, 0
-  {
-   NET 2854
-   VTX 3253, 3254
-   VARIABLES
-   {
-    #NAMED="1"
-   }
+   PARENT 3485
   }
   SIGNALASSIGN  3388, 0, 0
   {
-   LABEL "SignalAssignments_3"
+   LABEL "SignalAssignments_1"
    TEXT 
-"s_rd_addr <= std_logic_vector(to_unsigned(\n"+
-"(s_chrx + (s_chry))\n"+
-",s_rd_addr'length));"
-   RECT (100,460,860,680)
+"-- chrx,chry  to address conversion\n"+
+"s_rd_addr <= std_logic_vector(to_unsigned((s_chrx + (5*s_chry)),s_rd_addr'length));\n"+
+"\n"+
+"-- schrx,schry to col,row  (int -> slv) conversion\n"+
+"s_col <= std_logic_vector(to_unsigned(s_schrx,s_col'length));\n"+
+"s_row <= std_logic_vector(to_unsigned(s_schry,s_row'length));\n"+
+"-- same conversion, but on chrx,chry (bit letters)\n"+
+"--s_col <= std_logic_vector(to_unsigned(s_chrx,s_col'length));\n"+
+"--s_row <= std_logic_vector(to_unsigned(s_chry,s_row'length));"
+   RECT (780,1380,1940,1780)
    MARGINS (20,20)
    MULTILINE
    SYNTAXCOLORED
    SHOWLABEL
    SHOWTEXT
    CORNER 10
-   VTX (  3407, 3406 )
   }
-  VTX  3406, 0, 0
+  VTX  3479, 0, 0
   {
-   COORD (500,460)
+   COORD (960,600)
   }
-  VTX  3407, 0, 0
+  VTX  3480, 0, 0
   {
-   COORD (440,460)
+   COORD (1160,600)
   }
-  NET WIRE  3408, 0, 0
-  WIRE  3409, 0, 0
+  VTX  3481, 0, 0
   {
-   NET 3408
-   VTX 3406, 3407
+   COORD (960,520)
+  }
+  VTX  3482, 0, 0
+  {
+   COORD (1160,520)
+  }
+  BUS  3485, 0, 0
+  {
+   NET 3268
+   VTX 3479, 3480
+   VARIABLES
+   {
+    #NAMED="1"
+   }
+  }
+  WIRE  3486, 0, 0
+  {
+   NET 114
+   VTX 3481, 3482
+   VARIABLES
+   {
+    #NAMED="1"
+   }
+  }
+  VTX  3488, 0, 0
+  {
+   COORD (1120,1040)
+  }
+  VTX  3489, 0, 0
+  {
+   COORD (940,1040)
+  }
+  VTX  3492, 0, 0
+  {
+   COORD (1120,1080)
+  }
+  VTX  3493, 0, 0
+  {
+   COORD (940,1080)
+  }
+  VTX  3494, 0, 0
+  {
+   COORD (1120,960)
+  }
+  VTX  3495, 0, 0
+  {
+   COORD (940,960)
+  }
+  BUS  3498, 0, 0
+  {
+   NET 2859
+   VTX 3488, 3489
+   VARIABLES
+   {
+    #NAMED="1"
+   }
+  }
+  BUS  3500, 0, 0
+  {
+   NET 2864
+   VTX 3492, 3493
+   VARIABLES
+   {
+    #NAMED="1"
+   }
+  }
+  WIRE  3501, 0, 0
+  {
+   NET 114
+   VTX 3494, 3495
+   VARIABLES
+   {
+    #NAMED="1"
+   }
+  }
+  VTX  3594, 0, 0
+  {
+   COORD (1120,1000)
+  }
+  VTX  3595, 0, 0
+  {
+   COORD (960,640)
+  }
+  VTX  3602, 0, 0
+  {
+   COORD (1160,640)
+  }
+  BUS  3604, 0, 0
+  {
+   NET 3784
+   VTX 3602, 3595
+   VARIABLES
+   {
+    #NAMED="1"
+   }
+  }
+  VTX  3606, 0, 0
+  {
+   COORD (900,1000)
+  }
+  BUS  3609, 0, 0
+  {
+   NET 2854
+   VTX 3594, 3606
+   VARIABLES
+   {
+    #NAMED="1"
+   }
+  }
+  SIGNALASSIGN  3664, 0, 0
+  {
+   LABEL "SignalAssignments_2"
+   TEXT 
+"--s_red <= s_bit & s_bit & s_bit when s_xblank='0' and s_yblank='0' else \"000\";\n"+
+"--s_grn <= s_bit & s_bit & s_bit when s_xblank='0' and s_yblank='0' else \"000\";\n"+
+"--s_blu <= s_bit & s_bit when s_xblank='0' and s_yblank='0' else \"00\";"
+   RECT (1300,200,2400,340)
+   MARGINS (20,20)
+   MULTILINE
+   SYNTAXCOLORED
+   SHOWLABEL
+   SHOWTEXT
+   CORNER 10
+  }
+  VTX  3676, 0, 0
+  {
+   COORD (1280,960)
+  }
+  VTX  3677, 0, 0
+  {
+   COORD (1340,960)
+  }
+  WIRE  3678, 0, 0
+  {
+   NET 2869
+   VTX 3676, 3677
+   VARIABLES
+   {
+    #NAMED="1"
+   }
+  }
+  SIGNALASSIGN  3732, 0, 0
+  {
+   LABEL "SignalAssignments_3"
+   TEXT 
+"process (s_clk) begin\n"+
+"if rising_edge(s_clk) then\n"+
+"\ts_hsync <= s_xsync;\n"+
+"\ts_vsync <= s_ysync;\n"+
+"\tif (s_xblank='0' and s_yblank='0' and s_bit='1') then\n"+
+"\t\ts_red <= s_char(15 downto 13);\n"+
+"\t\ts_grn <= s_char(12 downto 10);\n"+
+"\t   s_blu <= s_char(9 downto 8);\n"+
+"\telse\n"+
+"\t\ts_red <= (others => '0');\n"+
+"\t\ts_grn <= (others => '0');\n"+
+"\t\ts_blu <= (others => '0');\n"+
+"\tend if;\n"+
+"end if;\n"+
+"end process;"
+   RECT (1360,820,1960,1360)
+   MARGINS (20,20)
+   MULTILINE
+   SYNTAXCOLORED
+   SHOWLABEL
+   SHOWTEXT
+   CORNER 10
+  }
+  NET BUS  3784, 0, 0
+  {
+   VARIABLES
+   {
+    #DOWNTO="1"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="s_char(15:0)"
+   }
+  }
+  INSTANCE  3992, 0, 0
+  {
+   VARIABLES
+   {
+    #COMPONENT="Input"
+    #LIBRARY="#terminals"
+    #REFERENCE="i_tram_en"
+    #SYMBOL="Input"
+   }
+   COORD (460,560)
+   VERTEXES ( (2,4060) )
+  }
+  TEXT  3993, 0, 0
+  {
+   TEXT "$#REFERENCE"
+   RECT (268,543,400,578)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 3992
+   ORIENTATION 2
+  }
+  INSTANCE  3994, 0, 0
+  {
+   VARIABLES
+   {
+    #COMPONENT="Input"
+    #LIBRARY="#terminals"
+    #REFERENCE="i_tram_clk"
+    #SYMBOL="Input"
+   }
+   COORD (460,520)
+   VERTEXES ( (2,4067) )
+  }
+  TEXT  3995, 0, 0
+  {
+   TEXT "$#REFERENCE"
+   RECT (264,503,400,538)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 3994
+   ORIENTATION 2
+  }
+  INSTANCE  4026, 0, 0
+  {
+   VARIABLES
+   {
+    #COMPONENT="BusInput"
+    #LIBRARY="#terminals"
+    #MDA_RECORD_TOKEN="OTHER"
+    #REFERENCE="i_tram_addr(10:0)"
+    #SYMBOL="BusInput"
+   }
+   COORD (460,600)
+   VERTEXES ( (2,4050) )
+  }
+  TEXT  4027, 0, 0
+  {
+   TEXT "$#REFERENCE"
+   RECT (166,583,400,618)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 4026
+  }
+  INSTANCE  4031, 0, 0
+  {
+   VARIABLES
+   {
+    #COMPONENT="BusInput"
+    #LIBRARY="#terminals"
+    #MDA_RECORD_TOKEN="OTHER"
+    #REFERENCE="i_tram_data(15:0)"
+    #SYMBOL="BusInput"
+   }
+   COORD (460,640)
+   VERTEXES ( (2,4042) )
+  }
+  TEXT  4032, 0, 0
+  {
+   TEXT "$#REFERENCE"
+   RECT (168,623,400,658)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 4031
+  }
+  NET BUS  4040, 0, 0
+  VTX  4041, 0, 0
+  {
+   COORD (560,640)
+  }
+  VTX  4042, 0, 0
+  {
+   COORD (460,640)
+  }
+  BUS  4043, 0, 0
+  {
+   NET 4040
+   VTX 4041, 4042
+  }
+  NET BUS  4048, 0, 0
+  VTX  4049, 0, 0
+  {
+   COORD (560,600)
+  }
+  VTX  4050, 0, 0
+  {
+   COORD (460,600)
+  }
+  BUS  4051, 0, 0
+  {
+   NET 4048
+   VTX 4049, 4050
+  }
+  NET WIRE  4052, 0, 0
+  VTX  4059, 0, 0
+  {
+   COORD (560,560)
+  }
+  VTX  4060, 0, 0
+  {
+   COORD (460,560)
+  }
+  WIRE  4061, 0, 0
+  {
+   NET 4052
+   VTX 4059, 4060
+  }
+  NET WIRE  4062, 0, 0
+  VTX  4066, 0, 0
+  {
+   COORD (560,520)
+  }
+  VTX  4067, 0, 0
+  {
+   COORD (460,520)
+  }
+  WIRE  4068, 0, 0
+  {
+   NET 4062
+   VTX 4066, 4067
   }
  }
  
@@ -1985,7 +2083,7 @@ PAGE ""
  
  BODY
  {
-  TEXT  3444, 0, 0
+  TEXT  4069, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -1996,7 +2094,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (12,0,0,700,0,0,0,"Arial")
   }
-  TEXT  3445, 0, 0
+  TEXT  4070, 0, 0
   {
    PAGEALIGN 10
    TEXT "$CREATIONDATE"
@@ -2007,7 +2105,7 @@ PAGE ""
    FONT (12,0,0,700,0,128,0,"Arial")
    UPDATE 0
   }
-  TEXT  3446, 0, 0
+  TEXT  4071, 0, 0
   {
    PAGEALIGN 10
    TEXT "Title:"
@@ -2017,7 +2115,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (12,0,0,700,0,0,0,"Arial")
   }
-  TEXT  3447, 0, 0
+  TEXT  4072, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -2029,7 +2127,7 @@ PAGE ""
    FONT (12,0,0,700,0,128,0,"Arial")
    UPDATE 0
   }
-  TEXT  3448, 0, 0
+  TEXT  4073, 0, 0
   {
    PAGEALIGN 10
    TEXT 
@@ -2042,7 +2140,7 @@ PAGE ""
    FONT (12,0,0,700,0,0,0,"Arial")
    MULTILINE
   }
-  TEXT  3449, 0, 0
+  TEXT  4074, 0, 0
   {
    PAGEALIGN 10
    TEXT "Page:"
@@ -2052,7 +2150,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (12,0,0,700,0,0,0,"Arial")
   }
-  TEXT  3450, 0, 0
+  TEXT  4075, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -2064,7 +2162,7 @@ PAGE ""
    FONT (12,0,0,700,0,128,0,"Arial")
    UPDATE 0
   }
-  TEXT  3451, 0, 0
+  TEXT  4076, 0, 0
   {
    PAGEALIGN 10
    TEXT "Revision:"
@@ -2074,7 +2172,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (12,0,0,700,0,0,0,"Arial")
   }
-  TEXT  3452, 0, 0
+  TEXT  4077, 0, 0
   {
    PAGEALIGN 10
    TEXT "$Revision"
@@ -2085,14 +2183,14 @@ PAGE ""
    FONT (12,0,0,700,0,204,0,"Arial")
    UPDATE 0
   }
-  BMPPICT  3453, 0, 0
+  BMPPICT  4078, 0, 0
   {
    PAGEALIGN 10
    RECT (2440,1740,2560,1840)
    TEXT
    "KAAAADAAAAAsAAAAAQAYAAAAAADCGAAAEgsAABILAAAAAAAAAAAAAP////////////////////////////////////////////////////////////////////////38+fXt1e3gtufWoN/Hfta2WNKxSdGvP9KwQdS0S9i6Wt7GderapfXu1v79+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////379+3guuHIi97BgeHFjeTLmuXNnuXMnOLIkt/ChNm5bdKtTcujLMWaEMKVAMedFNW3TuXTkvjy4P/////////////////////////////////////////////////////////////////////////////////////////////////////////////+/fHlxufSouzaufPo1ffu4vnz6fv27vv27/v27vr17Pnw5fXr2vDgx+jUrN/Ch9OvU8ieIMKWAcKVAMmhGd/Iefr26P////////////////////////////////////////////////////////////////////////////////////////////////z58u3eufXq2Pz38f78+v/////////////////////////////////////+/vz59fjw5PDgxubOoda0YsieH8KWAMKWAMymJevdrP////////////////////////////////////////////////////////////////////////////////////////z58/fu3/36+f/////////////////////////////////////////////+/fz48v////////n06fXq2PLkzOLJltGrScSZC8KVAMOXAd7GdP79+/////////////////////////////////////////////////////////////////////////////379/z48f///v////////////////////////////////79+vnz6Pjy5f38+P///vfv4fjv4v////7+/fjx4/z69fjw4+vXtNi3a8acGMKVAMOXANi7Wfz68/////////////////////////////////////////////////////////////////////79+/78+f///////////////////////////vv37/jv4f379/379vTo0/fu3vbs2v////37+Pjx5f///v////////////////v28PDhx97AgcmgI8KVAMOXANe5U/389////////////////////////////////////////////////////////////////v/+/v///////////////////vv48P/+/f78+vPo0ffx4/Tp1f////v37/fu3vv38P///////////////////////////////v////789/Pm0uDEjMuhJ8KVAMOXANq/Y//+/f///////////////////////////////////////////////////////////v/////////////////+/vfw4fXr2Pfu3v////fw4fTp1fjw4v////////////////////////////////78+v79/P////z69Pfv4v////78+fPn0d7ChcedG8KVAMOXAOXTkv/////////////////////////////////////////////////////////////////+/vnz6Pv37////vTp1Pnx5vTo1P/+/v////379/////////////////////////////////z59PTo0vXr2P78+f/+/vbt3fz38P////379/Hiytm6csWZDMKWAMeeEPTs0P////////////////////////////////////////////////////////////r06vbt3PXq1f79+/v38PXq2Pz48v////////////////////////////////n06Pv38P////v48vXq1vr16ffu3v////r17PXq2P////////z48+3bvdOvU8OWAcOXANS1Sv/+/f////////////////////////////////////////////7+/f369f////ny5/Xr2PXr2f38+f////////////////////////////v38Pz58/////////r16/To1P////////bv3/Tq1PTq1v////79+/z69f////////////ry5+XMnsqhKMKVAMOYAu3gs/////////////////////////////////////////////79+/bt3P79+//9/Pbu3vv48f////////////////////////////r16/Ln0PPmzvv48f////////Po0vn06v/////+/vnz5/z59P/////////////////////////+/PPm0Nq6b8SYB8OWANS0R//+/f////////////////////////////////79+/v38P////bt3Pz58v////////////////////////79+/fv3/v37/////jw4vbu3vv37/Tq1f////////bs2/nz5/////////////////////////////////////////////z28OnUrs2lMsKVAMSZBPLoxv////////////////////////////////z48vbs2v38+fv27v78+f////////////////////////Xs2/Tq1/Pmzv38+f78+vPmz/Xr1/Tp1P///v////////////////////////////////////////38+vr17P/////////+/fTn1Nm4asOWA8OXAN/Hdf////////////////////////////////z58/jx4/////////////////////////fw4f359P////bu3vz48/ny5vrz6f////77+Pbu3v379/////////////////////////////////79/P79+v////r16/Tp1P359P////////r17OXMnMeeHMKVAM+rMv379v////r37vr37v/////////////////+/fXu3fj06Pj06fj06fj06fj06fLmzvDixu/hxP38+vbu3u7fwO/gxPTq1/j06fj16v////////jz6Pf05/j06Pj06Pj06Pj06Pfz5v37+Pjx4/Pmz/fw4vTs2fPo0/Po0vjz5/v58//+/u7dwM+rQ8KVAMacDfTs0P///9S3b72SJN7Jm////////////+zhxbiKJbaGF7iKHbeIGrWFFLWFFLSCDraFFLSDFNe+gb6TNrSDEbOBCrWFFLWEErWEGM+vavHo0LuNI7aHGbWFErWEErWFErWFFLF+D8+vZ+vcusCVN7aFFLWFE7WDELWEEbOBEL6TM/jz5/bs3dm3aMOVAsOWAOjXnf///+7jx7OBArWFFvv48v79/P///8OcQat1AMSfRa99ALKBCLqMJLuOJrqOJ7mMIrmMJb6UL7KABrJ/BLqOJrqNJ7uOJ7F9Bqx3ANe9fbWFD7F/BryQLLyRLLyQLLqNJLqNKL+WOL6ULax2ALJ/BrqOJ7qOJrqNJbqNJbWGId7Jl/z38+DEicWZDsKWAOHLf////////9a7d7KBAMWfS9i/g9Gya6t1AMWfRODKmat1AMmmUvfu3vr27fr37/n16/r37uzgw7F9B72RKPj06fr38Pr38Ni+gKp0AM2tXrWFD7+VLvbw4vfy5ffy5PLmzvjw4vn27cGYNq14AOLOn/r37/r37/r27vr27vn16/r27fz38+bOocieHcKVANvAZP////////r27byRIrF/AL+VMLF+Bq57Au3fwufVr6lyAMuoVfr06v////////////////Lq1rB9CL2RKv///v///////+PSpat1AM2sXbiJFbKABbuQK7yRMLyQLreIJuLNn////8OcP698AvXu3v////////////////////////779+rWr8uhKcKVANe6V////////////+PRorJ/ALqNHK97A8yrXv///+DJl6lyAMqoVv////////////////////Ho0rB9CL2SKv////z48vnv4t3Eiqt1AM6uX7iJFbSEDr+WM8GYOcGYO76UO+bVrf///8ObPK98AvXv4P////////////////////////78+ezauM2lM8KVANe6Vv////////////7+/MikSa98ALSEE/Ps2f///+HMnqlxAMqoVv////////////////////Hn0LB9CLuPI/Tt2ezcu/Ln0dCwZKt0AM6uYbaGEb2TKO3cvPPr2fTs2vPr1vv58////8OdP613AN/Jl/Xv3/Xv3/Pr1+7fwP369f/////9+u3bvM2mOMKVANi8Wv///////////////+/lzK97C9i/hf///////+LQpqVrAMekTv///////////////////+rZta56AK15ALB9BLB8ArB8A614AK14ANi+gLSDCq54ALF9BLF/CbF+CKx3BeHNnv///9CybahvAK13ALF+B7B+B6x2AcKZPP379v////79+u3aus2lNcKVANzDbP///////////////////9zGk/n27f///////+nbu7uQPNa8ff////78+fr16v///////+ratsKcQ8CWNcCXN8KaPL+WNL6TM9e9gfPr1sSfRMGaPcGaO8GZOsGZOr2TOOfXsv////bx5c6uZsGYOsCWNMCWNL2TOMypWvz48f////77+OvWscuiK8KVAOHLgP////////////////////r37//////////////+/fz58fv27/////79+/To0/37+P////fw4ffv3vTp1Pr27f79+/379v369P////////79+v79+v79+v79+v79+v79+P/+/f369v359P////z48ffw4Pny5vz58fr16v369f////z48ufPosmeHsKVAOnZof////////////////////////////////////////ny5vTp1Pv48f////jw4/jx5P////7+/Pbt3Pbt3P///v////////////////////////////////////////////////z58/To0v////////bs2fTq1/37+P////////////rz6eHFjMWaEcadEfXu1v////////////////////////////////////////nz6fjy5Pfv4P////r06fPo1P////////////////////////////////////////////////////v27/r06v////////////Xr1/z48P////v38Pnz5/////////////////br3Nq6cMOWA8+tN/38+P////////////////////////////////////////37+PTp1fXs2v////79+/38+f////////////////////////////////////379/78+f////////v38PPn0P/+/v////////Xr2Pfv4f////////////////////38+P79+u/gxdKsSsKVAODKff////////////////////////////////////////////////369v38+P////////////////////////////////////////////v48fLmzfPmz/369v////////Pp1fr17f////////v37/37+P////////////////////v27fnz6OfPo8qfIsSZCfTrz/////////////////////////////////////////////////////////////////////////////////////z69PXs2vr27v////jw4/fu3vnz5/Xr2f////////Tq1ffw4f////////////////////////////nz5/38+Pz58vLl0Ny9d8OXBta3T/7+/P/////////////////////////////////////////////////////////////////////+/fz58v////////Xr2Pbt3fTo0v369f379vPmz/jy5fPn0f///v////369v7+/P////////////////////////v38PTp1fn06fz38OnVsc+oPsOVA+/kvf////////////////////////////////////////////////////////////n06fjz6P/////+/vXr1vz48f////nz5/fu3vjw4/ft3P////r17PPo0vv27f////////////////////////////79+vfv4P78+fr27ffu3vrz6Pbs292+fcWZDNi7Wv/////////////////////////////////////////////////////////////+/vXr2PXs2fr16/////v37/Xr2P7+/v/+/vbt3fPm0Pn06f////////////////////////////////////////////fv4PXr2Pfv3v79/Pbs2vny5erUr86nOcefFffy3v////////////////////////////////////////////////////////////////r27ffv4PXp1P/9/P79+/Tp1P379v////////38+f////////////////////////////////379/Xr2Pjx4/////bt3Pjw4vfu3f////79+vLjzNi2Z8OYCOnZov////////////////////////////////////////////////////////////////////////n16vfw4f/+/f////7+/f///v/////////////////////////////+/vr16/z59P////bu3ffv3/Xq1vz69fz69fXq2P369f7+/vbr2uDDisidGd/HeP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////+/fv37v379v////jw4/Xq1/Tq1f379/v37/Xp1fbs2vz69v////////////jv4uXNn8ykL9q/Zv79+//////////////////////////////////////////////////////////////////////////////////////+/v37+P/+/v////z58/z69f////r06fTp0/Xs2fz69Pv27vXt3PXr2Pr17P////v48f369f/////////+/vjw5OfRp9CpQdzCbP79+/////////////////////////////////////////////////////////////////////////////////////////z69vTq1fjw4v379/369vXr2Pz69v78+fjw4fXs2/jz5/////v48Pv37//+/v////////////////38+PXr2ubMn9GsR+PQjP///////////////////////////////////////////////////////////////////////////////////////////////////vv48ffw4vr06v////v48fz58//////+/f379////////////////////////////////vv27vHiyeDEiti5YPHmxP///////////////////////////////////////////////////////////////////////////////////////////////////////////////v////////////////////////////////////////////////////z58vXr1+jTq93BfefVnf379f////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7+/f769vnz6fPn0ezbuOjUqe7fuvv37f/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+/v/+/v79+/38+Pz58vv17Pnx5ffv4Pfv3/ny5vv38P///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////wAA"
   }
-  GROUP  3454, 0, 0
+  GROUP  4079, 0, 0
   {
    PAGEALIGN 10
    RECT (2420,1720,3301,2101)
@@ -2104,7 +2202,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  3455, 0, 0
+  GROUP  4080, 0, 0
   {
    PAGEALIGN 10
    RECT (2420,1920,3301,1921)
@@ -2116,7 +2214,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  3456, 0, 0
+  GROUP  4081, 0, 0
   {
    PAGEALIGN 10
    RECT (2420,1860,3301,1861)
@@ -2128,7 +2226,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  3457, 0, 0
+  GROUP  4082, 0, 0
   {
    PAGEALIGN 10
    RECT (2420,1980,3301,1981)
@@ -2140,7 +2238,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  3458, 0, 0
+  GROUP  4083, 0, 0
   {
    PAGEALIGN 10
    RECT (2420,2040,3301,2041)
@@ -2152,7 +2250,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  3459, 0, 0
+  GROUP  4084, 0, 0
   {
    PAGEALIGN 10
    RECT (2600,1720,2601,1861)
@@ -2163,7 +2261,7 @@ PAGE ""
     POINTS ( (0,0), (0,140) )
    }
   }
-  GROUP  3460, 0, 0
+  GROUP  4085, 0, 0
   {
    PAGEALIGN 10
    RECT (2600,1860,2601,2101)
