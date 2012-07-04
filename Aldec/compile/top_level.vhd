@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 --
 -- File        : U:\workspace\nexysterm\Aldec\compile\top_level.vhd
--- Generated   : Tue Jul  3 18:33:27 2012
+-- Generated   : Wed Jul  4 00:56:26 2012
 -- From        : U:\workspace\nexysterm\Aldec\src\top_level.bde
 -- By          : Bde2Vhdl ver. 2.6
 --
@@ -73,7 +73,7 @@ signal s_sys_clk3 : STD_LOGIC;
 signal s_sys_clk4 : STD_LOGIC;
 signal s_sys_dll_locked : STD_LOGIC;
 signal s_sys_reset : STD_LOGIC;
-signal BUS488 : STD_LOGIC_VECTOR (7 downto 0);
+signal BUS853 : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
 
@@ -95,7 +95,7 @@ s_sys_reset <= not(s_sys_dll_locked);
 vga_top_inst : vga_top
   port map(
        i_sys_reset => s_sys_reset,
-       i_vga_refclk => s_sys_clk2,
+       i_vga_refclk => s_sys_clk1,
        o_vga_blu => o_vga_blu,
        o_vga_grn => o_vga_grn,
        o_vga_hsync => o_vga_hsync,
@@ -107,10 +107,10 @@ vga_top_inst : vga_top
 ---- Terminal assignment ----
 
     -- Inputs terminals
-	BUS488 <= i_switch;
+	BUS853 <= i_switch;
 
     -- Output\buffer terminals
-	o_led <= BUS488;
+	o_led <= BUS853;
 
 
 end top_level;

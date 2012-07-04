@@ -11,16 +11,22 @@ entity VGA_Timer is
         ref_clk : in  std_logic;
         reset   : in  std_logic;
     -- Raw pixel outputs
-        o_x_pos   : out std_logic_vector(15 downto 0);
-        o_y_pos   : out std_logic_vector(15 downto 0);
         o_x_blank : out std_logic;
         o_y_blank : out std_logic;
         o_x_sync  : out std_logic;
         o_y_sync  : out std_logic;
-        o_schrx   : out std_logic_vector(3 downto 0);
-        o_schry   : out std_logic_vector(3 downto 0);
-        o_chrx   : out std_logic_vector(7 downto 0);
-        o_chry   : out std_logic_vector(7 downto 0)
+        --o_x_pos   : out std_logic_vector(15 downto 0);
+        --o_y_pos   : out std_logic_vector(15 downto 0);
+        --o_schrx   : out std_logic_vector(3 downto 0);
+        --o_schry   : out std_logic_vector(3 downto 0);
+        --o_chrx    : out std_logic_vector(7 downto 0);
+        --o_chry    : out std_logic_vector(7 downto 0)
+        o_x_pos   : out integer range (H_TOTAL-1) downto 0;
+        o_y_pos   : out integer range (V_TOTAL-1) downto 0;
+        o_schrx   : out integer range 7 downto 0;
+        o_schry   : out integer range 11 downto 0;
+        o_chrx    : out integer range 79 downto 0;
+        o_chry    : out integer range 39 downto 0
     );
 end VGA_Timer;
 
@@ -74,13 +80,19 @@ o_y_sync <= '1' when vctr>=V_SPULSE_S and vctr<=V_SPULSE_E else '0';
 
 
 -- Output assignments
-o_x_pos <= std_logic_vector(to_unsigned(hctr, o_x_pos'length));
-o_y_pos <= std_logic_vector(to_unsigned(vctr, o_y_pos'length));
+--o_x_pos <= std_logic_vector(to_unsigned(hctr, o_x_pos'length));
+--o_y_pos <= std_logic_vector(to_unsigned(vctr, o_y_pos'length));
+o_x_pos <= hctr;
+o_y_pos <= vctr;
 
-o_schrx <= std_logic_vector(to_unsigned(schrx, o_schrx'length));
-o_schry <= std_logic_vector(to_unsigned(schry, o_schry'length));
+--o_schrx <= std_logic_vector(to_unsigned(schrx, o_schrx'length));
+--o_schry <= std_logic_vector(to_unsigned(schry, o_schry'length));
+o_schrx <= schrx;
+o_schry <= schry;
 
-o_chrx <= std_logic_vector(to_unsigned(chrx, o_chrx'length));
-o_chry <= std_logic_vector(to_unsigned(chry, o_chry'length));
+--o_chrx <= std_logic_vector(to_unsigned(chrx, o_chrx'length));
+--o_chry <= std_logic_vector(to_unsigned(chry, o_chry'length));
+o_chrx <= chrx;
+o_chry <= chry;
 
 end BEHAV;

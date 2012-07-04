@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use work.VGA_TIMING.ALL;
 
 entity VGA_Timing_TB is
 end VGA_Timing_TB;
@@ -11,16 +12,22 @@ architecture TB_ARCHITECTURE of VGA_Timing_TB is
             ref_clk : in  std_logic;
             reset   : in  std_logic;
         -- Raw pixel outputs
-            o_x_pos   : out std_logic_vector(15 downto 0);
-            o_y_pos   : out std_logic_vector(15 downto 0);
             o_x_blank : out std_logic;
             o_y_blank : out std_logic;
             o_x_sync  : out std_logic;
             o_y_sync  : out std_logic;
-            o_schrx   : out std_logic_vector(3 downto 0);
-            o_schry   : out std_logic_vector(3 downto 0);
-            o_chrx   : out std_logic_vector(7 downto 0);
-            o_chry   : out std_logic_vector(7 downto 0)
+            --o_x_pos   : out std_logic_vector(15 downto 0);
+            --o_y_pos   : out std_logic_vector(15 downto 0);
+            --o_schrx   : out std_logic_vector(3 downto 0);
+            --o_schry   : out std_logic_vector(3 downto 0);
+            --o_chrx   : out std_logic_vector(7 downto 0);
+            --o_chry   : out std_logic_vector(7 downto 0)
+            o_x_pos   : out integer range (H_TOTAL-1) downto 0;
+            o_y_pos   : out integer range (V_TOTAL-1) downto 0;
+            o_schrx   : out integer range 7 downto 0;
+            o_schry   : out integer range 11 downto 0;
+            o_chrx    : out integer range 79 downto 0;
+            o_chry    : out integer range 39 downto 0
         );
     end component;
     
@@ -29,16 +36,22 @@ architecture TB_ARCHITECTURE of VGA_Timing_TB is
     signal reset : std_logic := '1';
 -- Output signals
     signal en : std_logic;
-    signal x_pos : std_logic_vector(15 downto 0);
-    signal y_pos : std_logic_vector(15 downto 0);
     signal x_blank : std_logic;
     signal y_blank : std_logic;
     signal x_sync : std_logic;
     signal y_sync : std_logic;
-    signal schrx  : std_logic_vector(3 downto 0);
-    signal schry  : std_logic_vector(3 downto 0);
-    signal chrx   : std_logic_vector(7 downto 0);
-    signal chry   : std_logic_vector(7 downto 0);
+    --signal x_pos  : std_logic_vector(15 downto 0);
+    --signal y_pos  : std_logic_vector(15 downto 0);
+    --signal schrx  : std_logic_vector(3 downto 0);
+    --signal schry  : std_logic_vector(3 downto 0);
+    --signal chrx   : std_logic_vector(7 downto 0);
+    --signal chry   : std_logic_vector(7 downto 0);
+    signal x_pos  : integer range (H_TOTAL-1) downto 0;
+    signal y_pos  : integer range (V_TOTAL-1) downto 0;
+    signal schrx  : integer range 7 downto 0;
+    signal schry  : integer range 11 downto 0;
+    signal chrx   : integer range 79 downto 0;
+    signal chry   : integer range 39 downto 0;
 begin
 
 UUT: VGA_Timer port map (
