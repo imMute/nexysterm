@@ -89,7 +89,7 @@ end process;
 
 end TB_ARCHITECTURE;
 
-configuration TESTBENCH_FOR_VGA_Timing_TB of VGA_Timing_TB is
+configuration TESTBENCH_FOR_DCM_TB of DCM_TB is
 	for TB_ARCHITECTURE
 	end for;
-end TESTBENCH_FOR_VGA_Timing_TB;
+end TESTBENCH_FOR_DCM_TB;

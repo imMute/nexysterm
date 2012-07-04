@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 --
 -- File        : U:\workspace\nexysterm\Aldec\compile\top_level.vhd
--- Generated   : Wed Jul  4 12:24:46 2012
+-- Generated   : Wed Jul  4 15:01:50 2012
 -- From        : U:\workspace\nexysterm\Aldec\src\top_level.bde
 -- By          : Bde2Vhdl ver. 2.6
 --
@@ -27,8 +27,10 @@ use unisim.vcomponents.all;
 entity top_level is
   port(
        i_board_clk : in STD_LOGIC;
+       i_serial_rx : in STD_LOGIC;
        i_button : in STD_LOGIC_VECTOR(3 downto 0);
        i_switch : in STD_LOGIC_VECTOR(7 downto 0);
+       o_serial_tx : out STD_LOGIC;
        o_vga_hsync : out STD_LOGIC;
        o_vga_vsync : out STD_LOGIC;
        o_led : out STD_LOGIC_VECTOR(7 downto 0);
@@ -45,15 +47,17 @@ architecture top_level of top_level is
 ---- Component declarations -----
 
 component CRG
+  generic(
+       G_BAUD_DIVIDER : INTEGER := 108
+  );
   port (
        board_clk : in STD_LOGIC;
        i_reset : in STD_LOGIC;
-       clk1 : out STD_LOGIC;
-       clk2 : out STD_LOGIC;
-       clk3 : out STD_LOGIC;
-       clk4 : out STD_LOGIC;
+       kc_clk : out STD_LOGIC;
        locked : out STD_LOGIC;
-       status : out STD_LOGIC_VECTOR(7 downto 0)
+       srl_clkx16 : out STD_LOGIC;
+       status : out STD_LOGIC_VECTOR(7 downto 0);
+       vga_clk : out STD_LOGIC
   );
 end component;
 component g_ireg
@@ -112,6 +116,31 @@ component SSD_Driver
        segments : out STD_LOGIC_VECTOR(7 downto 0)
   );
 end component;
+component uart_rx
+  port (
+       clk : in STD_LOGIC;
+       en_16_x_baud : in STD_LOGIC;
+       read_buffer : in STD_LOGIC;
+       reset_buffer : in STD_LOGIC;
+       serial_in : in STD_LOGIC;
+       buffer_data_present : out STD_LOGIC;
+       buffer_full : out STD_LOGIC;
+       buffer_half_full : out STD_LOGIC;
+       data_out : out STD_LOGIC_VECTOR(7 downto 0)
+  );
+end component;
+component uart_tx
+  port (
+       clk : in STD_LOGIC;
+       data_in : in STD_LOGIC_VECTOR(7 downto 0);
+       en_16_x_baud : in STD_LOGIC;
+       reset_buffer : in STD_LOGIC;
+       write_buffer : in STD_LOGIC;
+       buffer_full : out STD_LOGIC;
+       buffer_half_full : out STD_LOGIC;
+       serial_out : out STD_LOGIC
+  );
+end component;
 component vga_top
   port (
        i_sys_reset : in STD_LOGIC;
@@ -128,26 +157,35 @@ component vga_top
   );
 end component;
 
+----     Constants     -----
+constant DANGLING_INPUT_CONSTANT : STD_LOGIC := 'Z';
+
 ---- Signal declarations used on the diagram ----
 
 signal rd_strobe : STD_LOGIC;
-signal s_sys_clk1 : STD_LOGIC;
-signal s_sys_clk2 : STD_LOGIC;
-signal s_sys_clk3 : STD_LOGIC;
-signal s_sys_clk4 : STD_LOGIC;
+signal s_kc_clk : STD_LOGIC;
+signal s_srl_clkx16 : STD_LOGIC;
 signal s_sys_dll_locked : STD_LOGIC;
 signal s_sys_reset : STD_LOGIC;
+signal s_vga_clk : STD_LOGIC;
 signal wr_strobe : STD_LOGIC;
 signal BUS4544 : STD_LOGIC_VECTOR (7 downto 0);
 signal BUS4553 : STD_LOGIC_VECTOR (7 downto 0);
 signal BUS4558 : STD_LOGIC_VECTOR (7 downto 0);
 signal BUS4567 : STD_LOGIC_VECTOR (7 downto 0);
+signal BUS4705 : STD_LOGIC_VECTOR (7 downto 0);
+signal BUS4710 : STD_LOGIC_VECTOR (7 downto 0);
 signal in_port : STD_LOGIC_VECTOR (7 downto 0);
 signal out_port : STD_LOGIC_VECTOR (7 downto 0);
 signal port_id : STD_LOGIC_VECTOR (7 downto 0);
 signal prog_addr : STD_LOGIC_VECTOR (9 downto 0);
 signal prog_inst : STD_LOGIC_VECTOR (17 downto 0);
 signal s_reg_button : STD_LOGIC_VECTOR (7 downto 0);
+signal s_srl_ctrl : STD_LOGIC_VECTOR (7 downto 0);
+signal s_srl_status : STD_LOGIC_VECTOR (7 downto 0);
+
+---- Declaration for Dangling input ----
+signal Dangling_Input_Signal : STD_LOGIC;
 
 begin
 
@@ -159,18 +197,17 @@ s_reg_button <= i_button & "0000";
 CRG_inst : CRG
   port map(
        board_clk => i_board_clk,
-       clk1 => s_sys_clk1,
-       clk2 => s_sys_clk2,
-       clk3 => s_sys_clk3,
-       clk4 => s_sys_clk4,
        i_reset => '0',
-       locked => s_sys_dll_locked
+       kc_clk => s_kc_clk,
+       locked => s_sys_dll_locked,
+       srl_clkx16 => s_srl_clkx16,
+       vga_clk => s_vga_clk
   );
 
 SSD_Driver_inst : SSD_Driver
   port map(
        anodes => o_ssd_an,
-       clk => s_sys_clk1,
+       clk => s_kc_clk,
        data1 => BUS4567,
        data2 => BUS4558,
        data3 => BUS4553,
@@ -183,7 +220,7 @@ s_sys_reset <= not(s_sys_dll_locked);
 pico : kcpsm3
   port map(
        address => prog_addr,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        in_port => in_port,
        instruction => prog_inst,
        interrupt => '0',
@@ -198,7 +235,7 @@ pico : kcpsm3
 prog_rom : nterm
   port map(
        address => prog_addr,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        instruction => prog_inst
   );
 
@@ -208,8 +245,30 @@ ri_button : g_ireg
   )
   port map(
        addr => port_id,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        d => s_reg_button,
+       q => in_port
+  );
+
+ri_srl_data : g_ireg
+  generic map (
+       ID => X"13"
+  )
+  port map(
+       addr => port_id,
+       clk => s_kc_clk,
+       d => BUS4705,
+       q => in_port
+  );
+
+ri_srl_status : g_ireg
+  generic map (
+       ID => X"13"
+  )
+  port map(
+       addr => port_id,
+       clk => s_kc_clk,
+       d => s_srl_status,
        q => in_port
   );
 
@@ -219,7 +278,7 @@ ri_switch : g_ireg
   )
   port map(
        addr => port_id,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        d => i_switch,
        q => in_port
   );
@@ -230,9 +289,33 @@ ro_led : g_oreg
   )
   port map(
        addr => port_id,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        d => out_port,
        q => o_led,
+       we => wr_strobe
+  );
+
+ro_srl_ctrl : g_oreg
+  generic map (
+       ID => X"11"
+  )
+  port map(
+       addr => port_id,
+       clk => s_kc_clk,
+       d => out_port,
+       q => s_srl_ctrl,
+       we => wr_strobe
+  );
+
+ro_srl_dout : g_oreg
+  generic map (
+       ID => X"14"
+  )
+  port map(
+       addr => port_id,
+       clk => s_kc_clk,
+       d => out_port,
+       q => BUS4710,
        we => wr_strobe
   );
 
@@ -242,7 +325,7 @@ ro_ssd1 : g_oreg
   )
   port map(
        addr => port_id,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        d => out_port,
        q => BUS4567,
        we => wr_strobe
@@ -254,7 +337,7 @@ ro_ssd2 : g_oreg
   )
   port map(
        addr => port_id,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        d => out_port,
        q => BUS4558,
        we => wr_strobe
@@ -266,7 +349,7 @@ ro_ssd3 : g_oreg
   )
   port map(
        addr => port_id,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        d => out_port,
        q => BUS4553,
        we => wr_strobe
@@ -278,10 +361,35 @@ ro_ssd4 : g_oreg
   )
   port map(
        addr => port_id,
-       clk => s_sys_clk4,
+       clk => s_kc_clk,
        d => out_port,
        q => BUS4544,
        we => wr_strobe
+  );
+
+uart_rx_inst : uart_rx
+  port map(
+       buffer_data_present => s_srl_status(0),
+       buffer_full => s_srl_status(1),
+       buffer_half_full => s_srl_status(2),
+       clk => Dangling_Input_Signal,
+       data_out => BUS4705,
+       en_16_x_baud => Dangling_Input_Signal,
+       read_buffer => Dangling_Input_Signal,
+       reset_buffer => Dangling_Input_Signal,
+       serial_in => i_serial_rx
+  );
+
+uart_tx_inst : uart_tx
+  port map(
+       buffer_full => s_srl_status(4),
+       buffer_half_full => s_srl_status(5),
+       clk => Dangling_Input_Signal,
+       data_in => BUS4710,
+       en_16_x_baud => Dangling_Input_Signal,
+       reset_buffer => Dangling_Input_Signal,
+       serial_out => o_serial_tx,
+       write_buffer => Dangling_Input_Signal
   );
 
 vga_top_inst : vga_top
@@ -291,7 +399,7 @@ vga_top_inst : vga_top
        i_tram_clk => '0',
        i_tram_data => X"0000",
        i_tram_en => '0',
-       i_vga_refclk => s_sys_clk1,
+       i_vga_refclk => s_vga_clk,
        o_vga_blu => o_vga_blu,
        o_vga_grn => o_vga_grn,
        o_vga_hsync => o_vga_hsync,
@@ -299,5 +407,9 @@ vga_top_inst : vga_top
        o_vga_vsync => o_vga_vsync
   );
 
+
+---- Dangling input signal assignment ----
+
+Dangling_Input_Signal <= DANGLING_INPUT_CONSTANT;
 
 end top_level;
