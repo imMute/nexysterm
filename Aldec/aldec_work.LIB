@@ -1,12 +1,23 @@
-timestamp=1341415216061
+timestamp=1341422688280
+
+[bbfifo_16x8]
+A/low_level_definition=21|./../picoblaze/bbfifo_16x8.vhd|72|1*857313
+BinI32/low_level_definition=3*25003
+I=0*226038
+I/low_level_definition=0*229362
+M=11|0|v98|1341415539103|./../picoblaze/bbfifo_16x8.vhd|0*225417*0x64c9a6b0bf9a13ae57a3c2f7065bac9d4eab3239|0*225946*0xab32bc1a2daf049573e14469f634e0e6
+M/low_level_definition=21|0|v98|1341415539168|./../picoblaze/bbfifo_16x8.vhd|0*226340*0x0c47a72b1c20a41c59e057ef6abc724194176a6c|0*229246*0xb33770ff1c10522f9491560174ac8e6c
+R=./../picoblaze/bbfifo_16x8.vhd|56
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/low_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [char_rom]
-A/behavioral=A/Behavioral 21|./../vhdl_src/BRAM/char_rom.vhd|39|1*320673
-BinI32/behavioral=3*10730
+A/behavioral=A/Behavioral 21|./../vhdl_src/BRAM/char_rom.vhd|39|1*1000724
+BinI32/behavioral=3*32955
 I=0*735
 I/behavioral=I/Behavioral 0*151626
 M=11|0|v98|1341376125992|./../vhdl_src/BRAM/char_rom.vhd|0*248*0x27472417a3b5bbbccd41e0d8729a14ad0eadf928|0*645*0xab32bc1a2daf049573e14469f634e0e6
-M/behavioral=M/Behavioral 21|0|v98|1341380817975|./../vhdl_src/BRAM/char_rom.vhd|0*106678*0x9c08585ac54d73c20950d3643fd851bab624f046|0*151522*0xb33770ff1c10522f9491560174ac8e6c
+M/behavioral=M/Behavioral 21|0|v98|1341416432777|./../vhdl_src/BRAM/char_rom.vhd|0*106678*0x9c08585ac54d73c20950d3643fd851bab624f046|0*151522*0xb33770ff1c10522f9491560174ac8e6c
 R=./../vhdl_src/BRAM/char_rom.vhd|26
 S/char_rom=40|0|2*5151
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
@@ -35,6 +46,87 @@ R=./../vhdl_src/VGA/g_counter.vhd|7
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/behav=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
+[g_ireg]
+A/low_level_definition=21|./../vhdl_src/g_ireg.vhd|19|1*1713863
+BinI32/low_level_definition=3*40944
+I=0*487635
+I/low_level_definition=0*487860
+M=11|0|v98|1341421636506|./../vhdl_src/g_ireg.vhd|0*487143*0x5a329f00bac51c1701e1590658e6c487fa4e6de6|0*487554*0xab32bc1a2daf049573e14469f634e0e6
+M/low_level_definition=21|0|v98|1341421636517|./../vhdl_src/g_ireg.vhd|0*338356*0xc3f3a09e8c9234736226cb8a244c5e9105ce28b2|0*338702*0xb33770ff1c10522f9491560174ac8e6c
+R=./../vhdl_src/g_ireg.vhd|7
+S/g_ireg=40|0|2*100086
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/low_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[g_oreg]
+A/low_level_definition=21|./../vhdl_src/g_oreg.vhd|20|1*1716089
+BinI32/low_level_definition=3*41689
+I=0*488882
+I/low_level_definition=0*489107
+M=11|0|v98|1341421638030|./../vhdl_src/g_oreg.vhd|0*488370*0x7a3960b1e581da21d521461eb0e954ce232f6dfb|0*488801*0xab32bc1a2daf049573e14469f634e0e6
+M/low_level_definition=21|0|v98|1341421638041|./src/g_oreg.vhd|0*336766*0xfb0c281b3c51876cf286452ca43902f4f39e0dc7|0*337051*0xb33770ff1c10522f9491560174ac8e6c
+R=./../vhdl_src/g_oreg.vhd|7
+S/g_oreg=40|0|2*102302
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/low_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[kcpsm3]
+A/low_level_definition=21|./../picoblaze/kcpsm3.vhd|95|1*869775
+BinI32/low_level_definition=3*25608
+I=0*231228
+I/low_level_definition=0*269335
+M=11|0|v98|1341415541115|./../picoblaze/kcpsm3.vhd|0*230523*0x2fdeb0c638e90c763a2061bd731d328fbcb37c2b|0*231146*0xab32bc1a2daf049573e14469f634e0e6
+M/low_level_definition=21|0|v98|1341415541626|./../picoblaze/kcpsm3.vhd|0*231525*0x36d2f4599e7a65a1a700a4d7425741a25c9eef94|0*269229*0xb33770ff1c10522f9491560174ac8e6c
+R=./../picoblaze/kcpsm3.vhd|77
+S/kcpsm3=40|0|2*48901
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/low_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[kcuart_rx]
+A/low_level_definition=21|./../picoblaze/kcuart_rx.vhd|66|1*957677
+BinI32/low_level_definition=3*32243
+I=0*271372
+I/low_level_definition=0*275498
+M=11|0|v98|1341415543731|./../picoblaze/kcuart_rx.vhd|0*270863*0xd51f2f83701137a5368384a93a9a1e5f97cbb0ff|0*271284*0xab32bc1a2daf049573e14469f634e0e6
+M/low_level_definition=21|0|v98|1341415543959|./../picoblaze/kcuart_rx.vhd|0*271672*0x4b95740f2781fedacc00a255476f9eec6cf48b46|0*275386*0xb33770ff1c10522f9491560174ac8e6c
+R=./../picoblaze/kcuart_rx.vhd|54
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/low_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[kcuart_tx]
+A/low_level_definition=21|./../picoblaze/kcuart_tx.vhd|67|1*972098
+BinI32/low_level_definition=3*32683
+I=0*276973
+I/low_level_definition=0*282426
+M=11|0|v98|1341415545710|./../picoblaze/kcuart_tx.vhd|0*276432*0x3e9fb4dfe8d8a71b73f9c1333dea8719663202d2|0*276885*0xab32bc1a2daf049573e14469f634e0e6
+M/low_level_definition=21|0|v98|1341415546134|./../picoblaze/kcuart_tx.vhd|0*277273*0x793bb84b1714bd1f82c4204b91dee8fad2f51172|0*282314*0xb33770ff1c10522f9491560174ac8e6c
+R=./../picoblaze/kcuart_tx.vhd|54
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/low_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[nterm]
+A/low_level_definition=21|./../picoblaze/assembler/NTERM.VHD|26|1*1718367
+I=0*298762
+I/low_level_definition=0*523436
+M=11|0|v98|1341416457974|./../picoblaze/assembler/NTERM.VHD|0*298301*0x4435c0a3d5f03f1cef9e8b720e602bef91268d47|0*298672*0xab32bc1a2daf049573e14469f634e0e6
+M/low_level_definition=21|0|v98|1341421641991|./../picoblaze/assembler/NTERM.VHD|0*489353*0x2718072a10aeee2e33e87035beb811f56c00b538|0*523322*0xb33770ff1c10522f9491560174ac8e6c
+R=./../picoblaze/assembler/NTERM.VHD|20
+S/nterm=40|0|2*55544
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/low_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[ssd_driver]
+A/behav=A/BEHAV 21|./../vhdl_src/SSD.vhd|17|1*1817374
+BinI32/behav=3*43071
+I=0*530197
+I/behav=I/BEHAV 0*531447
+M=11|0|v98|1341421871825|./../vhdl_src/SSD.vhd|0*529671*0x55742ca0fbe1650b4787c6ab0be8b3623e7d8abc|0*530115*0xab32bc1a2daf049573e14469f634e0e6
+M/behav=M/BEHAV 21|0|v98|1341421871830|./../vhdl_src/SSD.vhd|0*530363*0xdf90529804a05bacbffb9fd1984a64469deed8a9|0*531356*0xb33770ff1c10522f9491560174ac8e6c
+R=./../vhdl_src/SSD.vhd|5
+S/ssd_driver=S/SSD_Driver 40|0|2*110101
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/behav=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
 [testbench_for_vga_timing_tb]
 Configures=VGA_Timing_TB.TB_ARCHITECTURE
 E=1*263118
@@ -44,27 +136,49 @@ R=./TestBench/VGA_Timing_TB.vhd|92
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [text_ram]
-A/behavioral=A/Behavioral 21|./../vhdl_src/BRAM/text_ram.vhd|41|1*656019
-BinI32/behavioral=3*18138
+A/behavioral=A/Behavioral 21|./../vhdl_src/BRAM/text_ram.vhd|41|1*1110537
+BinI32/behavioral=3*33549
 I=0*184214
 I/behavioral=I/Behavioral 0*188920
 M=11|0|v98|1341382468050|./../vhdl_src/BRAM/text_ram.vhd|0*183642*0x7aad42047230f24008ee16610fdbc4b75776c869|0*184124*0xab32bc1a2daf049573e14469f634e0e6
-M/behavioral=M/Behavioral 21|0|v98|1341382468068|./../vhdl_src/BRAM/text_ram.vhd|0*184441*0xf57516fe097c07c8a6def098f687e76ad6c02412|0*188816*0xb33770ff1c10522f9491560174ac8e6c
+M/behavioral=M/Behavioral 21|0|v98|1341416434930|./../vhdl_src/BRAM/text_ram.vhd|0*184441*0xf57516fe097c07c8a6def098f687e76ad6c02412|0*188816*0xb33770ff1c10522f9491560174ac8e6c
 R=./../vhdl_src/BRAM/text_ram.vhd|26
 S/text_ram=40|0|2*24548
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/behavioral=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [top_level]
-A/top_level=24|.\src\top_level.bde|10000|1*839963
-BinI32/top_level=3*24476
-I=0*63767
-I/top_level=0*221397
-M=11|0|v98|1341376153460|./compile/top_level.vhd|0*63161*0xb68e13089270bd49f76e39789a5304894243743b|0*63684*0xab32bc1a2daf049573e14469f634e0e6
-M/top_level=21|0|v98|1341415215970|./compile/top_level.vhd|0*218410*0x5508620843c5ccb9c4e86960ac7f9fb59978d345|0*221301*0xb33770ff1c10522f9491560174ac8e6c
+A/top_level=24|.\src\top_level.bde|10000|1*1821268
+BinI32/top_level=3*44577
+I=0*429616
+I/top_level=0*536566
+M=11|0|v98|1341420727414|./compile/top_level.vhd|0*428889*0x420bba58d1fc003cb0580ece5fa654c1b8210478|0*429533*0xab32bc1a2daf049573e14469f634e0e6
+M/top_level=21|0|v98|1341422688195|./compile/top_level.vhd|0*531619*0xa9609fb18f0e2680d358dbe14e1650a1058e3db9|0*536470*0xb33770ff1c10522f9491560174ac8e6c
 R=./compile/top_level.vhd|27
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/top_level=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[uart_rx]
+A/macro_level_definition=21|./../picoblaze/uart_rx.vhd|68|1*991450
+I=0*284478
+I/macro_level_definition=0*286003
+M=11|0|v98|1341415547811|./../picoblaze/uart_rx.vhd|0*283851*0x5667355b914a107ee6d32ccc0fad4ecc2fe57405|0*284394*0xab32bc1a2daf049573e14469f634e0e6
+M/macro_level_definition=21|0|v98|1341415547824|./../picoblaze/uart_rx.vhd|0*284776*0x8132cd06e94dc621731ba8aa13c8c0bb7867a77a|0*285893*0xb33770ff1c10522f9491560174ac8e6c
+R=./../picoblaze/uart_rx.vhd|52
+S/uart_rx=40|0|2*57306
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/macro_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+
+[uart_tx]
+A/macro_level_definition=21|./../picoblaze/uart_tx.vhd|67|1*996016
+I=0*287362
+I/macro_level_definition=0*288989
+M=11|0|v98|1341415549347|./../picoblaze/uart_tx.vhd|0*286771*0x4906a9ca6290991f6cad530289ae4ed4198ae567|0*287278*0xab32bc1a2daf049573e14469f634e0e6
+M/macro_level_definition=21|0|v98|1341415549357|./../picoblaze/uart_tx.vhd|0*287660*0x842b92f728dbddd30fb16124cae7c3181487a546|0*288879*0xb33770ff1c10522f9491560174ac8e6c
+R=./../picoblaze/uart_tx.vhd|52
+S/uart_tx=40|0|2*61206
+Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
+Version/macro_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [vga_timer]
 A/behav=A/BEHAV 21|./../vhdl_src/VGA/VGA_Timer.vhd|33|1*120488
@@ -97,34 +211,44 @@ Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/tb_architecture=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [vga_top]
-A/vga_top=24|.\src\vga_top.bde|10000|1*826124
-BinI32/vga_top=3*22885
+A/vga_top=24|.\src\vga_top.bde|10000|1*1201103
+BinI32/vga_top=3*34222
 I=0*214427
-I/vga_top=0*217953
+I/vga_top=0*292667
 M=11|0|v98|1341415059669|./compile/vga_top.vhd|0*213714*0xad01ab212ed13fd08455ae0fcc5414ea91d09f2a|0*214348*0xab32bc1a2daf049573e14469f634e0e6
-M/vga_top=21|0|v98|1341415059693|./compile/vga_top.vhd|0*214710*0x662f8f6e286dfc9f3f876be2d462156c891580ed|0*217863*0xb33770ff1c10522f9491560174ac8e6c
+M/vga_top=21|0|v98|1341416443688|./compile/vga_top.vhd|0*289424*0x662f8f6e286dfc9f3f876be2d462156c891580ed|0*292577*0xb33770ff1c10522f9491560174ac8e6c
 R=./compile/vga_top.vhd|28
 S/vga_top=40|0|2*39441
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/vga_top=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [~A]
-ModifyID=317
+ModifyID=602
 Version=73
 
 [~MFT]
-0=325|0aldec_work.mgf|221397|146802
-1=85|1aldec_work.mgf|839963|593906
-2=18|2aldec_work.mgf|39441|24871
-3=79|3aldec_work.mgf|24476|17902
+0=599|0aldec_work.mgf|536566|354436
+1=153|1aldec_work.mgf|1821268|1343353
+2=63|2aldec_work.mgf|110101|71751
+3=138|3aldec_work.mgf|44577|27122
 
 [~U]
+bbfifo_16x8=11|0*225068|
 char_rom=11|0*0||0x3
 crg=CRG 11|0*56690||0x3
 g_counter=11|0*52641|
+g_ireg=11|0*486898||0x3
+g_oreg=11|0*488106||0x3
+kcpsm3=11|0*230080||0x3
+kcuart_rx=11|0*270616|
+kcuart_tx=11|0*276154|
+nterm=11|0*298110||0x3
+ssd_driver=SSD_Driver 11|0*529333||0x3
 testbench_for_vga_timing_tb=TESTBENCH_FOR_VGA_Timing_TB 2||
 text_ram=11|0*183309||0x3
-top_level=11|0*62781|
+top_level=11|0*428395|
+uart_rx=11|0*283482||0x3
+uart_tx=11|0*286438||0x3
 vga_timer=VGA_Timer 11|0*51187||0x3
 vga_timing=VGA_TIMING 3|0*46209|0*46285
 vga_timing_tb=VGA_Timing_TB 11|0*48577|

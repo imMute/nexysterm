@@ -1,15 +1,35 @@
-317
+602
+~E 1 "./../picoblaze/bbfifo_16x8.vhd" 56 bbfifo_16x8
+~A 1 "./../picoblaze/bbfifo_16x8.vhd" 72 low_level_definition
 ~E 1 "./../vhdl_src/BRAM/char_rom.vhd" 26 char_rom
 ~A 1 "./../vhdl_src/BRAM/char_rom.vhd" 39 Behavioral
 ~E 1 "./../vhdl_src/CRG.vhd" 26 CRG
 ~A 1 "./../vhdl_src/CRG.vhd" 40 behavioral
 ~E 1 "./../vhdl_src/VGA/g_counter.vhd" 7 g_counter
 ~A 1 "./../vhdl_src/VGA/g_counter.vhd" 17 BEHAV
+~E 1 "./../vhdl_src/g_ireg.vhd" 7 g_ireg
+~A 1 "./../vhdl_src/g_ireg.vhd" 19 low_level_definition
+~E 1 "./../vhdl_src/g_oreg.vhd" 7 g_oreg
+~A 1 "./../vhdl_src/g_oreg.vhd" 20 low_level_definition
+~E 1 "./../picoblaze/kcpsm3.vhd" 77 kcpsm3
+~A 1 "./../picoblaze/kcpsm3.vhd" 95 low_level_definition
+~E 1 "./../picoblaze/kcuart_rx.vhd" 54 kcuart_rx
+~A 1 "./../picoblaze/kcuart_rx.vhd" 66 low_level_definition
+~E 1 "./../picoblaze/kcuart_tx.vhd" 54 kcuart_tx
+~A 1 "./../picoblaze/kcuart_tx.vhd" 67 low_level_definition
+~E 1 "./../picoblaze/assembler/NTERM.VHD" 20 nterm
+~A 1 "./../picoblaze/assembler/NTERM.VHD" 26 low_level_definition
+~E 1 "./../vhdl_src/SSD.vhd" 5 SSD_Driver
+~A 1 "./../vhdl_src/SSD.vhd" 17 BEHAV
 ~C 1 "./TestBench/VGA_Timing_TB.vhd" 92 testbench_for_vga_timing_tb
 ~E 1 "./../vhdl_src/BRAM/text_ram.vhd" 26 text_ram
 ~A 1 "./../vhdl_src/BRAM/text_ram.vhd" 41 Behavioral
 ~E 1 "./compile/top_level.vhd" 27 top_level
-~A 1 "./compile/top_level.vhd" 40 top_level
+~A 1 "./compile/top_level.vhd" 43 top_level
+~E 1 "./../picoblaze/uart_rx.vhd" 52 uart_rx
+~A 1 "./../picoblaze/uart_rx.vhd" 68 macro_level_definition
+~E 1 "./../picoblaze/uart_tx.vhd" 52 uart_tx
+~A 1 "./../picoblaze/uart_tx.vhd" 67 macro_level_definition
 ~E 1 "./../vhdl_src/VGA/VGA_Timer.vhd" 8 VGA_Timer
 ~A 1 "./../vhdl_src/VGA/VGA_Timer.vhd" 33 BEHAV
 ~E 1 "./TestBench/VGA_Timing_TB.vhd" 5 VGA_Timing_TB

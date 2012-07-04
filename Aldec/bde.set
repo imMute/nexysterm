@@ -1,6 +1,6 @@
 ##########
 BUS DEFAULT NAME
-BUS
+
 ##########
 BUS DEFAULT TYPE
 STD_LOGIC_VECTOR
@@ -9,10 +9,10 @@ BUS GLOBAL CONNECTOR
 GlobalBus
 ##########
 BUS INDEX END
-0
+
 ##########
 BUS INDEX START
-7
+
 ##########
 BUS TERMINAL BUFFER
 BusBuffer
