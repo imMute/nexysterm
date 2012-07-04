@@ -1,7 +1,9 @@
 i<>.\src\top_level.bde
 i<>.\..\vhdl_src\CRG.vhd
-i<>.\..\vhdl_src\VGA\VGA_Timing_640x480.vhd
 i<>.\..\vhdl_src\VGA\VGA_Timer.vhd
 i<>.\..\vhdl_src\VGA\g_counter.vhd
 i<>.\TestBench\VGA_Timing_TB.vhd
 i<>.\src\vga_top.bde
+i<>.\..\vhdl_src\BRAM\char_rom.vhd
+i<>.\..\vhdl_src\VGA\VGA_Timing_800x600.vhd
+i<>.\..\vhdl_src\BRAM\text_ram.vhd

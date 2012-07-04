@@ -9,6 +9,7 @@ compile=aldec_work
 
 [Library]
 aldec_work=.\aldec_work.LIB
+unisim=c:\aldec\active-hdl student edition\vlib\unisim\unisim.lib
 
 [Settings]
 AccessRead=0
@@ -24,7 +25,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=Xilinx SPARTAN3E
-fileopenfolder=U:\workspace\nexysterm\vhdl_src\VGA
+fileopenfolder=U:\workspace\nexysterm\vhdl_src\BRAM
 
 [LocalVerilogSets]
 EnableSLP=1
@@ -39,6 +40,7 @@ Active_lib=SPARTAN3E
 xilinxun=SPARTAN3E
 UnlinkedDesignLibrary=SPARTAN3E
 DESIGNS=SPARTAN3E
+unisim=.
 
 [HierarchyViewer]
 SortInfo=u
@@ -49,6 +51,7 @@ Selected=
 [Groups]
 VGA=1
 TestBench=1
+bram=1
 
 [Files]
 /vga_top.bde=-1
@@ -60,6 +63,9 @@ VGA/..\..\..\vhdl_src\VGA\g_counter.vhd=-1
 VGA/..\..\..\vhdl_src\VGA\VGA_Timer.vhd=-1
 TestBench/..\..\TestBench\VGA_Timing_TB.vhd=-1
 TestBench/..\..\TestBench\VGA_Timing_TB_runtest.do=-1
+bram/..\..\..\vhdl_src\BRAM\char_rom.vhd=-1
+VGA/..\..\..\vhdl_src\VGA\VGA_Timing_800x600.vhd=-1
+bram/..\..\..\vhdl_src\BRAM\text_ram.vhd=-1
 
 [Files.Data]
 .\src\vga_top.bde=Block Diagram
@@ -71,11 +77,14 @@ TestBench/..\..\TestBench\VGA_Timing_TB_runtest.do=-1
 .\..\vhdl_src\VGA\VGA_Timer.vhd=VHDL Source Code
 .\TestBench\VGA_Timing_TB.vhd=VHDL Source Code
 .\TestBench\VGA_Timing_TB_runtest.do=Macro
-.\compile\top_level.vhd=VHDL Source Code
+.\..\vhdl_src\BRAM\char_rom.vhd=VHDL Source Code
 .\compile\vga_top.vhd=VHDL Source Code
+.\compile\top_level.vhd=VHDL Source Code
+.\..\vhdl_src\VGA\VGA_Timing_800x600.vhd=VHDL Source Code
+.\..\vhdl_src\BRAM\text_ram.vhd=VHDL Source Code
 
 
-[file_out:/top_level.bde]
-/..\compile\top_level.vhd=-1
 [file_out:/vga_top.bde]
 /..\compile\vga_top.vhd=-1
+[file_out:/top_level.bde]
+/..\compile\top_level.vhd=-1
