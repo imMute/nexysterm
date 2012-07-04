@@ -1170,7 +1170,7 @@ PAGE ""
   }
  }
 }
-V 000040 40 3370 1341380892480 text_ram
+I 000040 40 3370 1341380892480 text_ram
 SYMB0100
 
 HEADER
@@ -1397,7 +1397,7 @@ PAGE ""
  
 }
 
-V 000039 40 3166 1341381382070 vga_top
+I 000039 40 3166 1341381382070 vga_top
 SYMB0100
 HEADER
 {
@@ -1592,3 +1592,1223 @@ PAGE ""
     }
   }
 }
+V 000040 40 3369 1341382476460 text_ram
+SYMB0100
+HEADER
+{
+  VARIABLES
+  {
+    #DESCRIPTION=""
+    #HDL_ENTRIES="library IEEE;\nuse ieee.std_logic_1164.all;"
+    #LANGUAGE="VHDL"
+    #MODIFIED="1341382476"
+  }
+}
+PAGE ""
+{
+  PAGEHEADER 
+  {
+    RECT (0,-20,400,180)
+    FREEID 16
+  }
+  BODY
+  {
+    RECT 1,-1,0
+    {
+      VARIABLES
+      {
+        #OUTLINE_FILLING="1"
+      }
+      AREA (20,0,380,160)
+    }
+    PIN 10,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="i_wr_data(15:0)"
+        #NUMBER="0"
+        #SIDE="left"
+      }
+      COORD (0,140)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 11,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,130,147,154)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 10
+    }
+    PIN 12,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_rd_clk"
+        #NUMBER="0"
+        #SIDE="right"
+      }
+      COORD (400,20)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(-20,0))
+      }
+    }
+    TEXT 13,0,0
+    {
+      TEXT "$#NAME"
+      RECT (307,10,375,34)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 12
+      ORIENTATION 2
+    }
+    PIN 14,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="i_rd_addr(10:0)"
+        #NUMBER="0"
+        #SIDE="right"
+      }
+      COORD (400,100)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(-20,0))
+      }
+    }
+    TEXT 15,0,0
+    {
+      TEXT "$#NAME"
+      RECT (242,90,375,114)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 14
+      ORIENTATION 2
+    }
+    PIN 2,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_wr_clk"
+        #NUMBER="0"
+        #SIDE="left"
+      }
+      COORD (0,20)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 3,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,10,95,34)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 2
+    }
+    PIN 4,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_rd_data(15:0)"
+        #NUMBER="0"
+        #SIDE="right"
+      }
+      COORD (400,140)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 5,0,0
+    {
+      TEXT "$#NAME"
+      RECT (248,130,375,154)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 4
+    }
+    PIN 6,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_wr_en"
+        #NUMBER="0"
+        #SIDE="left"
+      }
+      COORD (0,60)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 7,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,50,93,74)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 6
+    }
+    PIN 8,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="i_wr_addr(10:0)"
+        #NUMBER="0"
+        #SIDE="left"
+      }
+      COORD (0,100)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 9,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,90,160,114)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 8
+    }
+  }
+}
+I 000039 40 3532 1341383143885 vga_top
+SYMB0100
+HEADER
+{
+  VARIABLES
+  {
+    #DESCRIPTION=""
+    #HDL_ENTRIES="library IEEE;\nuse ieee.std_logic_1164.all;"
+    #LANGUAGE="VHDL"
+    #MODIFIED="1341383143"
+  }
+}
+PAGE ""
+{
+  PAGEHEADER 
+  {
+    RECT (0,-20,280,260)
+    FREEID 18
+  }
+  BODY
+  {
+    RECT 1,-1,0
+    {
+      VARIABLES
+      {
+        #OUTLINE_FILLING="1"
+      }
+      AREA (20,0,260,240)
+    }
+    PIN 10,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_blu(1:0)"
+        #NUMBER="0"
+      }
+      COORD (280,120)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 11,0,0
+    {
+      TEXT "$#NAME"
+      RECT (126,110,255,134)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 10
+    }
+    PIN 12,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_grn(2:0)"
+        #NUMBER="0"
+      }
+      COORD (280,160)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 13,0,0
+    {
+      TEXT "$#NAME"
+      RECT (124,150,255,174)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 12
+    }
+    PIN 14,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_red(2:0)"
+        #NUMBER="0"
+      }
+      COORD (280,200)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 15,0,0
+    {
+      TEXT "$#NAME"
+      RECT (123,190,255,214)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 14
+    }
+    PIN 16,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_vga_refclkx2"
+      }
+      COORD (0,120)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 17,0,0
+    {
+      TEXT "$#NAME"
+      MARGINS (1,1)
+      PARENT 16
+      ALIGN 4
+      RECT (25,106,145,138)
+    }
+    PIN 2,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_sys_reset"
+        #NUMBER="0"
+      }
+      COORD (0,40)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 3,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,30,125,54)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 2
+    }
+    PIN 4,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #LENGTH="20"
+        #NAME="o_vga_hsync"
+        #NUMBER="0"
+      }
+      COORD (280,40)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 5,0,0
+    {
+      TEXT "$#NAME"
+      RECT (141,30,255,54)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 4
+    }
+    PIN 6,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_vga_refclk"
+        #NUMBER="0"
+      }
+      COORD (0,80)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 7,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,70,129,94)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 6
+    }
+    PIN 8,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #LENGTH="20"
+        #NAME="o_vga_vsync"
+        #NUMBER="0"
+      }
+      COORD (280,80)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 9,0,0
+    {
+      TEXT "$#NAME"
+      RECT (142,70,255,94)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 8
+    }
+  }
+}
+I 000039 40 3166 1341383264377 vga_top
+SYMB0100
+HEADER
+{
+  VARIABLES
+  {
+    #DESCRIPTION=""
+    #HDL_ENTRIES="library IEEE;\nuse ieee.std_logic_1164.all;"
+    #LANGUAGE="VHDL"
+    #MODIFIED="1341383264"
+  }
+}
+PAGE ""
+{
+  PAGEHEADER 
+  {
+    RECT (0,-20,280,260)
+    FREEID 18
+  }
+  BODY
+  {
+    RECT 1,-1,0
+    {
+      VARIABLES
+      {
+        #OUTLINE_FILLING="1"
+      }
+      AREA (20,0,260,240)
+    }
+    PIN 10,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_blu(1:0)"
+        #NUMBER="0"
+      }
+      COORD (280,120)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 11,0,0
+    {
+      TEXT "$#NAME"
+      RECT (126,110,255,134)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 10
+    }
+    PIN 12,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_grn(2:0)"
+        #NUMBER="0"
+      }
+      COORD (280,160)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 13,0,0
+    {
+      TEXT "$#NAME"
+      RECT (124,150,255,174)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 12
+    }
+    PIN 14,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_red(2:0)"
+        #NUMBER="0"
+      }
+      COORD (280,200)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 15,0,0
+    {
+      TEXT "$#NAME"
+      RECT (123,190,255,214)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 14
+    }
+    PIN 2,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_sys_reset"
+        #NUMBER="0"
+      }
+      COORD (0,40)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 3,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,30,125,54)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 2
+    }
+    PIN 4,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #LENGTH="20"
+        #NAME="o_vga_hsync"
+        #NUMBER="0"
+      }
+      COORD (280,40)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 5,0,0
+    {
+      TEXT "$#NAME"
+      RECT (141,30,255,54)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 4
+    }
+    PIN 6,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_vga_refclk"
+        #NUMBER="0"
+      }
+      COORD (0,80)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 7,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,70,129,94)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 6
+    }
+    PIN 8,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #LENGTH="20"
+        #NAME="o_vga_vsync"
+        #NUMBER="0"
+      }
+      COORD (280,80)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 9,0,0
+    {
+      TEXT "$#NAME"
+      RECT (142,70,255,94)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 8
+    }
+  }
+}
+I 000039 40 4669 1341415087597 vga_top
+SYMB0100
+HEADER
+{
+  VARIABLES
+  {
+    #DESCRIPTION=""
+    #HDL_ENTRIES="library IEEE;\nuse ieee.std_logic_1164.all;"
+    #LANGUAGE="VHDL"
+    #MODIFIED="1341415087"
+  }
+}
+PAGE ""
+{
+  PAGEHEADER 
+  {
+    RECT (0,-20,280,420)
+    FREEID 24
+  }
+  BODY
+  {
+    RECT 1,-1,0
+    {
+      VARIABLES
+      {
+        #OUTLINE_FILLING="1"
+      }
+      AREA (20,0,260,400)
+    }
+    PIN 10,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_blu(1:0)"
+        #NUMBER="0"
+      }
+      COORD (280,120)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 11,0,0
+    {
+      TEXT "$#NAME"
+      RECT (126,110,255,134)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 10
+    }
+    PIN 12,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_grn(2:0)"
+        #NUMBER="0"
+      }
+      COORD (280,160)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 13,0,0
+    {
+      TEXT "$#NAME"
+      RECT (124,150,255,174)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 12
+    }
+    PIN 14,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="o_vga_red(2:0)"
+        #NUMBER="0"
+      }
+      COORD (280,200)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 15,0,0
+    {
+      TEXT "$#NAME"
+      RECT (123,190,255,214)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 14
+    }
+    PIN 16,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="i_tram_addr(10:0)"
+      }
+      COORD (0,120)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 17,0,0
+    {
+      TEXT "$#NAME"
+      MARGINS (1,1)
+      PARENT 16
+      ALIGN 4
+      RECT (25,106,145,138)
+    }
+    PIN 18,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_tram_clk"
+      }
+      COORD (0,160)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 19,0,0
+    {
+      TEXT "$#NAME"
+      MARGINS (1,1)
+      PARENT 18
+      ALIGN 4
+      RECT (25,146,145,178)
+    }
+    PIN 2,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_sys_reset"
+        #NUMBER="0"
+      }
+      COORD (0,40)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    PIN 20,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #DOWNTO="1"
+        #LENGTH="20"
+        #NAME="i_tram_data(15:0)"
+      }
+      COORD (0,200)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 21,0,0
+    {
+      TEXT "$#NAME"
+      MARGINS (1,1)
+      PARENT 20
+      ALIGN 4
+      RECT (25,186,145,218)
+    }
+    PIN 22,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_tram_en"
+      }
+      COORD (0,240)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 23,0,0
+    {
+      TEXT "$#NAME"
+      MARGINS (1,1)
+      PARENT 22
+      ALIGN 4
+      RECT (25,226,145,258)
+    }
+    TEXT 3,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,30,125,54)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 2
+    }
+    PIN 4,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #LENGTH="20"
+        #NAME="o_vga_hsync"
+        #NUMBER="0"
+      }
+      COORD (280,40)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 5,0,0
+    {
+      TEXT "$#NAME"
+      RECT (141,30,255,54)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 4
+    }
+    PIN 6,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="IN"
+        #LENGTH="20"
+        #NAME="i_vga_refclk"
+        #NUMBER="0"
+      }
+      COORD (0,80)
+      LINE 2,0,0
+      {
+        POINTS ((0,0),(20,0))
+      }
+    }
+    TEXT 7,0,0
+    {
+      TEXT "$#NAME"
+      RECT (25,70,129,94)
+      ALIGN 4
+      MARGINS (1,1)
+      PARENT 6
+    }
+    PIN 8,0,0
+    {
+      VARIABLES
+      {
+        #DIRECTION="OUT"
+        #LENGTH="20"
+        #NAME="o_vga_vsync"
+        #NUMBER="0"
+      }
+      COORD (280,80)
+      LINE 2,0,0
+      {
+        POINTS ((-20,0),(0,0))
+      }
+    }
+    TEXT 9,0,0
+    {
+      TEXT "$#NAME"
+      RECT (142,70,255,94)
+      ALIGN 6
+      MARGINS (1,1)
+      PARENT 8
+    }
+  }
+}
+V 000039 40 4652 1341415174717 vga_top
+SYMB0100
+
+HEADER
+{
+ FREEID 26
+ VARIABLES
+ {
+  #DESCRIPTION=""
+  #HDL_ENTRIES=
+"library IEEE;\n"+
+"use ieee.std_logic_1164.all;"
+  #LANGUAGE="VHDL"
+  #MODIFIED="1341415174"
+ }
+}
+
+PAGE ""
+{
+ PAGEHEADER
+ {
+  MARGINS (200,200,200,200)
+  RECT (0,0,380,280)
+ }
+ 
+ BODY
+ {
+  RECT  1, -1, 0
+  {
+   VARIABLES
+   {
+    #OUTLINE_FILLING="1"
+   }
+   AREA (20,0,360,280)
+  }
+  PIN  2, 0, 0
+  {
+   COORD (0,60)
+   VARIABLES
+   {
+    #DIRECTION="IN"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="i_sys_reset"
+    #NUMBER="0"
+    #SIDE="left"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (0,0), (20,0) )
+   }
+  }
+  TEXT  3, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (25,50,125,74)
+   ALIGN 4
+   MARGINS (1,1)
+   PARENT 2
+  }
+  PIN  4, 0, 0
+  {
+   COORD (380,100)
+   VARIABLES
+   {
+    #DIRECTION="OUT"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="o_vga_hsync"
+    #NUMBER="0"
+    #SIDE="right"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (-20,0), (0,0) )
+   }
+  }
+  TEXT  5, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (241,90,355,114)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 4
+  }
+  PIN  6, 0, 0
+  {
+   COORD (0,20)
+   VARIABLES
+   {
+    #DIRECTION="IN"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="i_vga_refclk"
+    #NUMBER="0"
+    #SIDE="left"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (0,0), (20,0) )
+   }
+  }
+  TEXT  7, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (25,10,129,34)
+   ALIGN 4
+   MARGINS (1,1)
+   PARENT 6
+  }
+  PIN  8, 0, 0
+  {
+   COORD (380,140)
+   VARIABLES
+   {
+    #DIRECTION="OUT"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="o_vga_vsync"
+    #NUMBER="0"
+    #SIDE="right"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (-20,0), (0,0) )
+   }
+  }
+  TEXT  9, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (242,130,355,154)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 8
+  }
+  PIN  10, 0, 0
+  {
+   COORD (380,260)
+   VARIABLES
+   {
+    #DIRECTION="OUT"
+    #DOWNTO="1"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="o_vga_blu(1:0)"
+    #NUMBER="0"
+    #SIDE="right"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (-20,0), (0,0) )
+   }
+  }
+  TEXT  11, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (226,250,355,274)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 10
+  }
+  PIN  12, 0, 0
+  {
+   COORD (380,220)
+   VARIABLES
+   {
+    #DIRECTION="OUT"
+    #DOWNTO="1"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="o_vga_grn(2:0)"
+    #NUMBER="0"
+    #SIDE="right"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (-20,0), (0,0) )
+   }
+  }
+  TEXT  13, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (224,210,355,234)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 12
+  }
+  PIN  14, 0, 0
+  {
+   COORD (380,180)
+   VARIABLES
+   {
+    #DIRECTION="OUT"
+    #DOWNTO="1"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="o_vga_red(2:0)"
+    #NUMBER="0"
+    #SIDE="right"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (-20,0), (0,0) )
+   }
+  }
+  TEXT  15, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (223,170,355,194)
+   ALIGN 6
+   MARGINS (1,1)
+   PARENT 14
+  }
+  PIN  16, 0, 0
+  {
+   COORD (0,220)
+   VARIABLES
+   {
+    #DIRECTION="IN"
+    #DOWNTO="1"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="i_tram_addr(10:0)"
+    #NUMBER="0"
+    #SIDE="left"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (0,0), (20,0) )
+   }
+  }
+  TEXT  17, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (25,210,178,234)
+   ALIGN 4
+   MARGINS (1,1)
+   PARENT 16
+  }
+  PIN  18, 0, 0
+  {
+   COORD (0,140)
+   VARIABLES
+   {
+    #DIRECTION="IN"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="i_tram_clk"
+    #NUMBER="0"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (0,0), (20,0) )
+   }
+  }
+  TEXT  19, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (25,130,113,154)
+   ALIGN 4
+   MARGINS (1,1)
+   PARENT 18
+  }
+  PIN  20, 0, 0
+  {
+   COORD (0,260)
+   VARIABLES
+   {
+    #DIRECTION="IN"
+    #DOWNTO="1"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="i_tram_data(15:0)"
+    #NUMBER="0"
+    #SIDE="left"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (0,0), (20,0) )
+   }
+  }
+  TEXT  21, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (25,250,176,274)
+   ALIGN 4
+   MARGINS (1,1)
+   PARENT 20
+  }
+  PIN  22, 0, 0
+  {
+   COORD (0,180)
+   VARIABLES
+   {
+    #DIRECTION="IN"
+    #LENGTH="20"
+    #MDA_RECORD_TOKEN="OTHER"
+    #NAME="i_tram_en"
+    #NUMBER="0"
+    #SIDE="left"
+   }
+   LINE  2, 0, 0
+   {
+    POINTS ( (0,0), (20,0) )
+   }
+  }
+  TEXT  23, 0, 0
+  {
+   TEXT "$#NAME"
+   RECT (25,170,111,194)
+   ALIGN 4
+   MARGINS (1,1)
+   PARENT 22
+  }
+ }
+ 
+}
+

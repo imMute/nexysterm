@@ -1,4 +1,4 @@
-217
+317
 ~E 1 "./../vhdl_src/BRAM/char_rom.vhd" 26 char_rom
 ~A 1 "./../vhdl_src/BRAM/char_rom.vhd" 39 Behavioral
 ~E 1 "./../vhdl_src/CRG.vhd" 26 CRG
@@ -15,4 +15,4 @@
 ~E 1 "./TestBench/VGA_Timing_TB.vhd" 5 VGA_Timing_TB
 ~A 1 "./TestBench/VGA_Timing_TB.vhd" 8 TB_ARCHITECTURE
 ~E 1 "./compile/vga_top.vhd" 28 vga_top
-~A 1 "./compile/vga_top.vhd" 40 vga_top
+~A 1 "./compile/vga_top.vhd" 44 vga_top

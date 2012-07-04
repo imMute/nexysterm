@@ -1,4 +1,4 @@
-timestamp=1341381387146
+timestamp=1341415216061
 
 [char_rom]
 A/behavioral=A/Behavioral 21|./../vhdl_src/BRAM/char_rom.vhd|39|1*320673
@@ -44,24 +44,24 @@ R=./TestBench/VGA_Timing_TB.vhd|92
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [text_ram]
-A/behavioral=A/Behavioral 21|./../vhdl_src/BRAM/text_ram.vhd|41|1*523193
-BinI32/behavioral=3*13640
-I=0*152828
-I/behavioral=I/Behavioral 0*164047
-M=11|0|v98|1341380849452|./../vhdl_src/BRAM/text_ram.vhd|0*152256*0x62e5182e715a7e3e2932115ee33fa10c669785ec|0*152738*0xab32bc1a2daf049573e14469f634e0e6
-M/behavioral=M/Behavioral 21|0|v98|1341381270188|./../vhdl_src/BRAM/text_ram.vhd|0*161601*0xc5e35e79dcdf712ec8aaf80eb834d37cf19958e7|0*163943*0xb33770ff1c10522f9491560174ac8e6c
+A/behavioral=A/Behavioral 21|./../vhdl_src/BRAM/text_ram.vhd|41|1*656019
+BinI32/behavioral=3*18138
+I=0*184214
+I/behavioral=I/Behavioral 0*188920
+M=11|0|v98|1341382468050|./../vhdl_src/BRAM/text_ram.vhd|0*183642*0x7aad42047230f24008ee16610fdbc4b75776c869|0*184124*0xab32bc1a2daf049573e14469f634e0e6
+M/behavioral=M/Behavioral 21|0|v98|1341382468068|./../vhdl_src/BRAM/text_ram.vhd|0*184441*0xf57516fe097c07c8a6def098f687e76ad6c02412|0*188816*0xb33770ff1c10522f9491560174ac8e6c
 R=./../vhdl_src/BRAM/text_ram.vhd|26
-S/text_ram=40|0|2*17933
+S/text_ram=40|0|2*24548
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/behavioral=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [top_level]
-A/top_level=24|.\src\top_level.bde|10000|1*610340
-BinI32/top_level=3*15912
+A/top_level=24|.\src\top_level.bde|10000|1*839963
+BinI32/top_level=3*24476
 I=0*63767
-I/top_level=0*172586
+I/top_level=0*221397
 M=11|0|v98|1341376153460|./compile/top_level.vhd|0*63161*0xb68e13089270bd49f76e39789a5304894243743b|0*63684*0xab32bc1a2daf049573e14469f634e0e6
-M/top_level=21|0|v98|1341381387044|./compile/top_level.vhd|0*171140*0xabfaf9ff0f5123712bab4f104878c51a5c22df02|0*172490*0xb33770ff1c10522f9491560174ac8e6c
+M/top_level=21|0|v98|1341415215970|./compile/top_level.vhd|0*218410*0x5508620843c5ccb9c4e86960ac7f9fb59978d345|0*221301*0xb33770ff1c10522f9491560174ac8e6c
 R=./compile/top_level.vhd|27
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/top_level=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
@@ -97,36 +97,36 @@ Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/tb_architecture=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [vga_top]
-A/vga_top=24|.\src\vga_top.bde|10000|1*589920
-BinI32/vga_top=3*14206
-I=0*165252
-I/vga_top=0*168684
-M=11|0|v98|1341381318392|./compile/vga_top.vhd|0*164680*0x2d66c9f334a09c61e927b61be8f6f933a4190ea6|0*165173*0xab32bc1a2daf049573e14469f634e0e6
-M/vga_top=21|0|v98|1341381318403|./compile/vga_top.vhd|0*165535*0x6a7e18d76854909058bba0353e54955f1f2baf14|0*168594*0xb33770ff1c10522f9491560174ac8e6c
+A/vga_top=24|.\src\vga_top.bde|10000|1*826124
+BinI32/vga_top=3*22885
+I=0*214427
+I/vga_top=0*217953
+M=11|0|v98|1341415059669|./compile/vga_top.vhd|0*213714*0xad01ab212ed13fd08455ae0fcc5414ea91d09f2a|0*214348*0xab32bc1a2daf049573e14469f634e0e6
+M/vga_top=21|0|v98|1341415059693|./compile/vga_top.vhd|0*214710*0x662f8f6e286dfc9f3f876be2d462156c891580ed|0*217863*0xb33770ff1c10522f9491560174ac8e6c
 R=./compile/vga_top.vhd|28
-S/vga_top=40|0|2*21343
+S/vga_top=40|0|2*39441
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/vga_top=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [~A]
-ModifyID=217
+ModifyID=317
 Version=73
 
 [~MFT]
-0=215|0aldec_work.mgf|172586|101937
-1=59|1aldec_work.mgf|610340|388687
-2=8|2aldec_work.mgf|21343|6772
-3=53|3aldec_work.mgf|15912|9330
+0=325|0aldec_work.mgf|221397|146802
+1=85|1aldec_work.mgf|839963|593906
+2=18|2aldec_work.mgf|39441|24871
+3=79|3aldec_work.mgf|24476|17902
 
 [~U]
 char_rom=11|0*0||0x3
 crg=CRG 11|0*56690||0x3
 g_counter=11|0*52641|
 testbench_for_vga_timing_tb=TESTBENCH_FOR_VGA_Timing_TB 2||
-text_ram=11|0*151925||0x3
+text_ram=11|0*183309||0x3
 top_level=11|0*62781|
 vga_timer=VGA_Timer 11|0*51187||0x3
 vga_timing=VGA_TIMING 3|0*46209|0*46285
 vga_timing_tb=VGA_Timing_TB 11|0*48577|
-vga_top=11|0*164349||0x3
+vga_top=11|0*213248||0x3
 

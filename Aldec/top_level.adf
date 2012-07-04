@@ -9,7 +9,6 @@ compile=aldec_work
 
 [Library]
 aldec_work=.\aldec_work.LIB
-unisim=c:\aldec\active-hdl student edition\vlib\unisim\unisim.lib
 
 [Settings]
 AccessRead=0
@@ -40,7 +39,6 @@ Active_lib=SPARTAN3E
 xilinxun=SPARTAN3E
 UnlinkedDesignLibrary=SPARTAN3E
 DESIGNS=SPARTAN3E
-unisim=.
 
 [HierarchyViewer]
 SortInfo=u
