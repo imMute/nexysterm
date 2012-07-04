@@ -18,3 +18,4 @@ i<>.\src\g_reg.vhd
 i<>.\..\vhdl_src\g_ireg.vhd
 i<>.\..\vhdl_src\g_oreg.vhd
 i<>.\..\vhdl_src\SSD.vhd
+i<>.\TestBench\DCM_TB.vhd

@@ -9,6 +9,7 @@
 .\..\vhdl_src\VGA\VGA_Timer.vhd
 .\..\vhdl_src\VGA\VGA_Timing_800x600.vhd
 .\TestBench\VGA_Timing_TB.vhd
+.\TestBench\DCM_TB.vhd
 .\..\vhdl_src\BRAM\char_rom.vhd
 .\..\vhdl_src\BRAM\text_ram.vhd
 .\..\picoblaze\bbfifo_16x8.vhd
