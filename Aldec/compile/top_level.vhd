@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 --
 -- File        : U:\workspace\nexysterm\Aldec\compile\top_level.vhd
--- Generated   : Wed Jul  4 15:01:50 2012
+-- Generated   : Wed Jul  4 18:51:54 2012
 -- From        : U:\workspace\nexysterm\Aldec\src\top_level.bde
 -- By          : Bde2Vhdl ver. 2.6
 --
@@ -180,6 +180,7 @@ signal out_port : STD_LOGIC_VECTOR (7 downto 0);
 signal port_id : STD_LOGIC_VECTOR (7 downto 0);
 signal prog_addr : STD_LOGIC_VECTOR (9 downto 0);
 signal prog_inst : STD_LOGIC_VECTOR (17 downto 0);
+signal s_button : STD_LOGIC_VECTOR (3 downto 0);
 signal s_reg_button : STD_LOGIC_VECTOR (7 downto 0);
 signal s_srl_ctrl : STD_LOGIC_VECTOR (7 downto 0);
 signal s_srl_status : STD_LOGIC_VECTOR (7 downto 0);
@@ -190,7 +191,7 @@ signal Dangling_Input_Signal : STD_LOGIC;
 begin
 
 ---- User Signal Assignments ----
-s_reg_button <= i_button & "0000";
+s_reg_button <= s_button & "0000";
 
 ----  Component instantiations  ----
 
@@ -263,7 +264,7 @@ ri_srl_data : g_ireg
 
 ri_srl_status : g_ireg
   generic map (
-       ID => X"13"
+       ID => X"12"
   )
   port map(
        addr => port_id,
@@ -372,9 +373,9 @@ uart_rx_inst : uart_rx
        buffer_data_present => s_srl_status(0),
        buffer_full => s_srl_status(1),
        buffer_half_full => s_srl_status(2),
-       clk => Dangling_Input_Signal,
+       clk => s_kc_clk,
        data_out => BUS4705,
-       en_16_x_baud => Dangling_Input_Signal,
+       en_16_x_baud => s_srl_clkx16,
        read_buffer => Dangling_Input_Signal,
        reset_buffer => Dangling_Input_Signal,
        serial_in => i_serial_rx
@@ -384,9 +385,9 @@ uart_tx_inst : uart_tx
   port map(
        buffer_full => s_srl_status(4),
        buffer_half_full => s_srl_status(5),
-       clk => Dangling_Input_Signal,
+       clk => s_kc_clk,
        data_in => BUS4710,
-       en_16_x_baud => Dangling_Input_Signal,
+       en_16_x_baud => s_srl_clkx16,
        reset_buffer => Dangling_Input_Signal,
        serial_out => o_serial_tx,
        write_buffer => Dangling_Input_Signal
@@ -406,6 +407,12 @@ vga_top_inst : vga_top
        o_vga_red => o_vga_red,
        o_vga_vsync => o_vga_vsync
   );
+
+
+---- Terminal assignment ----
+
+    -- Inputs terminals
+	s_button <= i_button;
 
 
 ---- Dangling input signal assignment ----

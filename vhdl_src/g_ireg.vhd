@@ -17,7 +17,7 @@ entity g_ireg is
 end g_ireg;
 
 architecture low_level_definition of g_ireg is
-    signal reg : std_logic_vector(7 downto 0);
+    signal reg : std_logic_vector(7 downto 0) := X"00";
 begin
     
 process (clk) begin

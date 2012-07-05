@@ -94,7 +94,7 @@ clk2x_bufg_inst: BUFG port map (I => CLK2X_BUF, O => CLK2X_BUFG);
 clkfx_bufg_inst: BUFG port map (I => CLKFX_BUF, O => CLKFX_BUFG);
 
 vga_clk <= CLK0_BUFG;
-kc_clk <= CLKFX_BUFG;
+kc_clk <= CLK2X_BUF;
 
 baud_timer: process(CLKFX_BUFG) begin
     if rising_edge(CLKFX_BUFG) then

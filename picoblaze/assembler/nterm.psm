@@ -41,5 +41,6 @@ main_loop:
     OUTPUT s1, P_SSD1
     OUTPUT s2, P_SSD2
     OUTPUT s3, P_SSD3
+    INPUT s4, P_BTN
     OUTPUT s4, P_SSD4
     JUMP main_loop
