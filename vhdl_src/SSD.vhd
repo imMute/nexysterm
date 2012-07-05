@@ -5,25 +5,19 @@ use IEEE.NUMERIC_STD.ALL;
 entity SSD_Driver is
     Port (
         clk : in  STD_LOGIC;
-        data1 : in  STD_LOGIC_VECTOR (7 downto 0);
-        data2 : in  STD_LOGIC_VECTOR (7 downto 0);
-        data3 : in  STD_LOGIC_VECTOR (7 downto 0);
-        data4 : in  STD_LOGIC_VECTOR (7 downto 0);
+        data : in  STD_LOGIC_VECTOR (31 downto 0);
         segments : out  STD_LOGIC_VECTOR (7 downto 0);
         anodes : out  STD_LOGIC_VECTOR (3 downto 0)
     );
 end SSD_Driver;
 
 architecture BEHAV of SSD_Driver is
-   signal data : std_logic_vector(31 downto 0);
    signal clk_cnt : integer := 0;
    signal ssd : std_logic_vector(7 downto 0);
    signal ssd_an : std_logic_vector(3 downto 0);
    signal actr : std_logic_vector(3 downto 0);
    signal actr_en : std_logic;
 begin
-    data <= data4 & data3 & data2 & data1;
-    
     -- Clock Division
     process (clk) begin
         if rising_edge(clk) then

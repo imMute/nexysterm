@@ -25,7 +25,7 @@ use UNISIM.VComponents.all;
 
 entity CRG is
     Generic (
-        G_BAUD_DIVIDER : integer := 108
+        G_BAUD_DIVIDER : integer := 54
     );
     Port (
         board_clk   : in  std_logic; -- 50 MHz
