@@ -1,15 +1,7 @@
 /Xilinx/isework/
+/Xilinx/xstwork/
+/Xilinx/iseconfig/nexysterm.projectmgr
 /Xilinx/iseconfig/*.xreport
-
-/Aldec/log/
-/Aldec/elaboration.log
-/Aldec/compile/*.epr
-/Aldec/compile/*.erf
-/Aldec/compile/*.sth
-/Aldec/compile/*.bdeid
-/Aldec/compile/*.cmd
-
-/Aldec/src/*.bak
 
 /picoblaze/assembler/CONSTANT.TXT
 /picoblaze/assembler/LABELS.TXT
