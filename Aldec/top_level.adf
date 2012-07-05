@@ -42,11 +42,9 @@ DESIGNS=SPARTAN3E
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=top_level|top_level|0
+HierarchyInformation=dcm_tb|testbench_for_dcm_tb|1 
 ShowHide=ShowTopLevel
 Selected=
-
-
 
 [Groups]
 VGA=1
@@ -105,10 +103,10 @@ picoblaze/..\..\..\picoblaze\uart_tx.vhd=-1
 .\..\picoblaze\kcuart_tx.vhd=VHDL Source Code
 .\..\picoblaze\uart_rx.vhd=VHDL Source Code
 .\..\picoblaze\uart_tx.vhd=VHDL Source Code
-.\compile\vga_top.vhd=VHDL Source Code
-.\compile\top_level.vhd=VHDL Source Code
 
 [file_out:/vga_top.bde]
 /..\compile\vga_top.vhd=-1
+
 [file_out:/top_level.bde]
 /..\compile\top_level.vhd=-1
+

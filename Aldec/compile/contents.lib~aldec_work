@@ -1,4 +1,4 @@
-144
+165
 ~E 1 "./../picoblaze/bbfifo_16x8.vhd" 56 bbfifo_16x8
 ~A 1 "./../picoblaze/bbfifo_16x8.vhd" 72 low_level_definition
 ~E 1 "./../vhdl_src/BRAM/char_rom.vhd" 26 char_rom

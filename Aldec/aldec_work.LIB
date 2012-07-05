@@ -1,4 +1,4 @@
-timestamp=1341445915978
+timestamp=1341457593558
 
 [bbfifo_16x8]
 A/low_level_definition=21|./../picoblaze/bbfifo_16x8.vhd|72|1*0
@@ -23,12 +23,12 @@ Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/behavioral=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [crg]
-A/behavioral=21|./../vhdl_src/CRG.vhd|43|1*462230
-BinI32/behavioral=3*16555
+A/behavioral=21|./../vhdl_src/CRG.vhd|43|1*710927
+BinI32/behavioral=3*20021
 I=0*171091
-I/behavioral=0*173035
+I/behavioral=0*259195
 M=11|0|v98|1341444412826|./../vhdl_src/CRG.vhd|0*170596*0xe9dd4e2352d360ed0e9fe5651bd5340ce7234e7b|0*171016*0xab32bc1a2daf049573e14469f634e0e6
-M/behavioral=21|0|v98|1341444412842|./../vhdl_src/CRG.vhd|0*171252*0xc8b7204cc55ac22435ccd20679e9cb487f29f54f|0*172946*0xb33770ff1c10522f9491560174ac8e6c
+M/behavioral=21|0|v98|1341457591281|./../vhdl_src/CRG.vhd|0*257413*0x5ad9bdc43e8bbb74ab91594157980d97ebf773f9|0*259106*0xb33770ff1c10522f9491560174ac8e6c
 R=./../vhdl_src/CRG.vhd|26
 S/crg=S/CRG 40|0|2*0
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
@@ -104,11 +104,11 @@ Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/low_level_definition=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [nterm]
-A/low_level_definition=21|./../picoblaze/assembler/NTERM.VHD|26|1*504038
+A/low_level_definition=21|./../picoblaze/assembler/NTERM.VHD|26|1*723043
 I=0*130354
-I/low_level_definition=0*218124
+I/low_level_definition=0*293621
 M=11|0|v98|1341444405724|./../picoblaze/assembler/NTERM.VHD|0*129893*0x4435c0a3d5f03f1cef9e8b720e602bef91268d47|0*130264*0xab32bc1a2daf049573e14469f634e0e6
-M/low_level_definition=21|0|v98|1341445138079|./../picoblaze/assembler/NTERM.VHD|0*184041*0xacf7b6dd6223737a07f553cab7cd886f56bc95ed|0*218010*0xb33770ff1c10522f9491560174ac8e6c
+M/low_level_definition=21|0|v98|1341457593515|./../picoblaze/assembler/NTERM.VHD|0*259538*0x74e04f0ea0ab6a2559a1296791d93ce3b003fe9a|0*293507*0xb33770ff1c10522f9491560174ac8e6c
 R=./../picoblaze/assembler/NTERM.VHD|20
 S/nterm=40|0|2*8412
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
@@ -138,12 +138,12 @@ Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/behavioral=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [top_level]
-A/top_level=24|.\src\top_level.bde|10000|1*634823
+A/top_level=24|.\src\top_level.bde|10000|1*685559
 BinI32/top_level=3*19392
 I=0*174714
-I/top_level=0*241131
+I/top_level=0*256695
 M=11|0|v98|1341444414657|./compile/top_level.vhd|0*173929*0x49e4f980536232e7413fb1dce6623b7443153514|0*174631*0xab32bc1a2daf049573e14469f634e0e6
-M/top_level=21|0|v98|1341445915861|./compile/top_level.vhd|0*234067*0x158394218e2a459498483cc3ba0a36b3fa2af247|0*241035*0xb33770ff1c10522f9491560174ac8e6c
+M/top_level=21|0|v98|1341457573400|./compile/top_level.vhd|0*249631*0x158394218e2a459498483cc3ba0a36b3fa2af247|0*256599*0xb33770ff1c10522f9491560174ac8e6c
 R=./compile/top_level.vhd|27
 Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/top_level=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
@@ -201,14 +201,14 @@ Version=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 Version/vga_top=9.1.2354.4209  (Windows)|00000003789cd3f5370600015b00b0
 
 [~A]
-ModifyID=144
+ModifyID=165
 Version=73
 
 [~MFT]
-0=159|0aldec_work.mgf|241131|59085
-1=31|1aldec_work.mgf|634823|162124
+0=183|0aldec_work.mgf|293621|111237
+1=39|1aldec_work.mgf|723043|305026
 2=8|2aldec_work.mgf|26505|0
-3=25|3aldec_work.mgf|19392|2052
+3=31|3aldec_work.mgf|20021|2837
 
 [~U]
 bbfifo_16x8=11|0*0|
