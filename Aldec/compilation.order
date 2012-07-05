@@ -5,9 +5,9 @@
 .\..\vhdl_src\g_ireg.vhd
 .\..\vhdl_src\g_oreg.vhd
 .\..\vhdl_src\SSD.vhd
+.\..\vhdl_src\VGA\VGA_Timing_800x600.vhd
 .\..\vhdl_src\VGA\g_counter.vhd
 .\..\vhdl_src\VGA\VGA_Timer.vhd
-.\..\vhdl_src\VGA\VGA_Timing_800x600.vhd
 .\TestBench\VGA_Timing_TB.vhd
 .\TestBench\DCM_TB.vhd
 .\..\vhdl_src\BRAM\char_rom.vhd

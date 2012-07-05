@@ -46,14 +46,13 @@ HierarchyInformation=top_level|top_level|0
 ShowHide=ShowTopLevel
 Selected=
 
+
+
 [Groups]
 VGA=1
 TestBench=1
 bram=1
 picoblaze=1
-
-[file_out:/vga_top.bde]
-/..\compile\vga_top.vhd=-1
 
 [Files]
 /vga_top.bde=-1
@@ -65,11 +64,13 @@ picoblaze=1
 /..\..\vhdl_src\g_oreg.vhd=-1
 /..\..\vhdl_src\SSD.vhd=-1
 VGA/..\..\..\vhdl_src\VGA\VGA_Timing_640x480.vhd=-1
+VGA/..\..\..\vhdl_src\VGA\VGA_Timing_800x600.vhd=-1
 VGA/..\..\..\vhdl_src\VGA\g_counter.vhd=-1
 VGA/..\..\..\vhdl_src\VGA\VGA_Timer.vhd=-1
-VGA/..\..\..\vhdl_src\VGA\VGA_Timing_800x600.vhd=-1
 TestBench/..\..\TestBench\VGA_Timing_TB.vhd=-1
 TestBench/..\..\TestBench\VGA_Timing_TB_runtest.do=-1
+TestBench/..\..\TestBench\DCM_TB.vhd=-1
+TestBench/..\..\TestBench\DCM_TB_runtest.do=-1
 bram/..\..\..\vhdl_src\BRAM\char_rom.vhd=-1
 bram/..\..\..\vhdl_src\BRAM\text_ram.vhd=-1
 picoblaze/..\..\..\picoblaze\bbfifo_16x8.vhd=-1
@@ -78,8 +79,6 @@ picoblaze/..\..\..\picoblaze\kcuart_rx.vhd=-1
 picoblaze/..\..\..\picoblaze\kcuart_tx.vhd=-1
 picoblaze/..\..\..\picoblaze\uart_rx.vhd=-1
 picoblaze/..\..\..\picoblaze\uart_tx.vhd=-1
-TestBench/..\..\TestBench\DCM_TB.vhd=-1
-TestBench/..\..\TestBench\DCM_TB_runtest.do=-1
 
 [Files.Data]
 .\src\vga_top.bde=Block Diagram
@@ -91,11 +90,13 @@ TestBench/..\..\TestBench\DCM_TB_runtest.do=-1
 .\..\vhdl_src\g_oreg.vhd=VHDL Source Code
 .\..\vhdl_src\SSD.vhd=VHDL Source Code
 .\..\vhdl_src\VGA\VGA_Timing_640x480.vhd=VHDL Source Code
+.\..\vhdl_src\VGA\VGA_Timing_800x600.vhd=VHDL Source Code
 .\..\vhdl_src\VGA\g_counter.vhd=VHDL Source Code
 .\..\vhdl_src\VGA\VGA_Timer.vhd=VHDL Source Code
-.\..\vhdl_src\VGA\VGA_Timing_800x600.vhd=VHDL Source Code
 .\TestBench\VGA_Timing_TB.vhd=VHDL Source Code
 .\TestBench\VGA_Timing_TB_runtest.do=Macro
+.\TestBench\DCM_TB.vhd=VHDL Source Code
+.\TestBench\DCM_TB_runtest.do=Macro
 .\..\vhdl_src\BRAM\char_rom.vhd=VHDL Source Code
 .\..\vhdl_src\BRAM\text_ram.vhd=VHDL Source Code
 .\..\picoblaze\bbfifo_16x8.vhd=VHDL Source Code
@@ -104,9 +105,10 @@ TestBench/..\..\TestBench\DCM_TB_runtest.do=-1
 .\..\picoblaze\kcuart_tx.vhd=VHDL Source Code
 .\..\picoblaze\uart_rx.vhd=VHDL Source Code
 .\..\picoblaze\uart_tx.vhd=VHDL Source Code
+.\compile\vga_top.vhd=VHDL Source Code
 .\compile\top_level.vhd=VHDL Source Code
-.\TestBench\DCM_TB.vhd=VHDL Source Code
-.\TestBench\DCM_TB_runtest.do=Macro
 
+[file_out:/vga_top.bde]
+/..\compile\vga_top.vhd=-1
 [file_out:/top_level.bde]
 /..\compile\top_level.vhd=-1
