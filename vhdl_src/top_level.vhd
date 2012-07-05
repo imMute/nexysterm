@@ -130,47 +130,52 @@ component vga_top
 end component;
 
 ---- Constant declarations ----
-constant C_PL_SWITCH : std_logic_vector(7 downto 0) := X"00";
-constant C_PL_BTN : std_logic_vector(7 downto 0) := X"01";
-constant C_PL_LED : std_logic_vector(7 downto 0) := X"02";
-constant C_PL_SSD1 : std_logic_vector(7 downto 0) := X"03";
-constant C_PL_SSD2 : std_logic_vector(7 downto 0) := X"04";
-constant C_PL_SSD3 : std_logic_vector(7 downto 0) := X"05";
-constant C_PL_SSD4 : std_logic_vector(7 downto 0) := X"06";
-constant C_PL_SRL_CTRL : std_logic_vector(7 downto 0) := X"11";
-constant C_PL_SRL_STATUS : std_logic_vector(7 downto 0) := X"12";
-constant C_PL_SRL_DIN : std_logic_vector(7 downto 0) := X"13";
-constant C_PL_SRL_DOUT : std_logic_vector(7 downto 0) := X"14";
-constant C_PL_TRAM_ADDR_LOW : std_logic_vector(7 downto 0) := X"21";
-constant C_PL_TRAM_ADDR_HIGH : std_logic_vector(7 downto 0) := X"22";
-constant C_PL_TRAM_DATA_CHAR : std_logic_vector(7 downto 0) := X"23";
-constant C_PL_TRAM_DATA_COLOR : std_logic_vector(7 downto 0) := X"24";
+constant C_PL_SWITCH            : std_logic_vector(7 downto 0) := X"00";
+constant C_PL_BTN               : std_logic_vector(7 downto 0) := X"01";
+constant C_PL_LED               : std_logic_vector(7 downto 0) := X"02";
+constant C_PL_SSD1              : std_logic_vector(7 downto 0) := X"03";
+constant C_PL_SSD2              : std_logic_vector(7 downto 0) := X"04";
+constant C_PL_SSD3              : std_logic_vector(7 downto 0) := X"05";
+constant C_PL_SSD4              : std_logic_vector(7 downto 0) := X"06";
+constant C_PL_SRL_CTRL          : std_logic_vector(7 downto 0) := X"11";
+constant C_PL_SRL_STATUS        : std_logic_vector(7 downto 0) := X"12";
+constant C_PL_SRL_READ          : std_logic_vector(7 downto 0) := X"13";
+constant C_PL_SRL_WRITE         : std_logic_vector(7 downto 0) := X"14";
+constant C_PL_TRAM_ADDR_LOW     : std_logic_vector(7 downto 0) := X"21";
+constant C_PL_TRAM_ADDR_HIGH    : std_logic_vector(7 downto 0) := X"22";
+constant C_PL_TRAM_DATA_CHAR    : std_logic_vector(7 downto 0) := X"23";
+constant C_PL_TRAM_DATA_COLOR   : std_logic_vector(7 downto 0) := X"24";
 
 ---- Signal declarations used on the diagram ----
 ---- Signals ---
-signal s_kc_clk : STD_LOGIC;
-signal s_vga_clk : STD_LOGIC;
-signal s_srl_clkx16 : STD_LOGIC;
+signal s_kc_clk         : STD_LOGIC;
+signal s_vga_clk        : STD_LOGIC;
+signal s_srl_clkx16     : STD_LOGIC;
 signal s_sys_dll_locked : STD_LOGIC;
-signal s_sys_reset : STD_LOGIC;
+signal s_sys_reset      : STD_LOGIC;
 
 -- kc signals
-signal prog_addr : STD_LOGIC_VECTOR (9 downto 0);
-signal prog_inst : STD_LOGIC_VECTOR (17 downto 0);
-signal port_id : STD_LOGIC_VECTOR (7 downto 0);
-signal in_port : STD_LOGIC_VECTOR (7 downto 0);
-signal wr_strobe : STD_LOGIC;
-signal out_port : STD_LOGIC_VECTOR (7 downto 0);
-signal out_port_q : STD_LOGIC_VECTOR (7 downto 0);
-signal rd_strobe : STD_LOGIC;
+signal prog_addr    : STD_LOGIC_VECTOR (9 downto 0);
+signal prog_inst    : STD_LOGIC_VECTOR (17 downto 0);
+signal port_id      : STD_LOGIC_VECTOR (7 downto 0);
+signal in_port      : STD_LOGIC_VECTOR (7 downto 0);
+signal wr_strobe    : STD_LOGIC;
+signal out_port     : STD_LOGIC_VECTOR (7 downto 0);
+signal out_port_q   : STD_LOGIC_VECTOR (7 downto 0);
+signal rd_strobe    : STD_LOGIC;
 
 -- io stuff
-signal s_button : std_logic_vector(7 downto 0);
-signal s_switch : std_logic_vector(7 downto 0);
-signal s_ssd_data : std_logic_vector(31 downto 0);
-signal s_tram_addr : std_logic_vector(10 downto 0);
-signal s_tram_data : std_logic_vector(15 downto 0);
+signal s_button     : std_logic_vector(7 downto 0);
+signal s_switch     : std_logic_vector(7 downto 0);
+signal s_ssd_data   : std_logic_vector(31 downto 0);
+signal s_tram_addr  : std_logic_vector(10 downto 0);
+signal s_tram_data  : std_logic_vector(15 downto 0);
 signal s_tram_wr_en : std_logic;
+signal s_srl_status     : std_logic_vector(7 downto 0);
+signal s_srl_dout       : std_logic_vector(7 downto 0);
+signal s_srl_din        : std_logic_vector(7 downto 0);
+signal s_srl_wr_strobe  : std_logic;
+signal s_srl_rd_strobe  : std_logic;
 
 begin
 CRG_inst : CRG
@@ -235,6 +240,8 @@ output_stage_1: process (s_kc_clk) begin
     if rising_edge(s_kc_clk) then
         if wr_strobe='1' then
             s_tram_wr_en <= '0';
+            s_srl_wr_strobe <= '0';
+            s_srl_rd_strobe <= '0';
             case (port_id) is
                 when C_PL_LED =>
                     o_led <= out_port;
@@ -255,6 +262,9 @@ output_stage_1: process (s_kc_clk) begin
                 when C_PL_TRAM_DATA_COLOR =>
                     s_tram_data(15 downto 8) <= out_port;
                     s_tram_wr_en <= '1';
+                when C_PL_SRL_WRITE =>
+                    s_srl_din <= out_port;
+                    s_srl_wr_strobe <= '1';
                 when others => null;
             end case;
         end if;
@@ -288,35 +298,34 @@ SSD_Driver_inst : SSD_Driver
         segments => o_ssd_seg
     );
 
---uart_rx_inst : uart_rx
---    port map (
---        buffer_data_present => s_srl_status(0),
---        buffer_full => s_srl_status(1),
---        buffer_half_full => s_srl_status(2),
---        clk => s_kc_clk,
---        data_out => BUS4705,
---        en_16_x_baud => s_srl_clkx16,
---        read_buffer => '0',
---        reset_buffer => '0',
---        serial_in => i_serial_rx
---    );
---
---uart_tx_inst : uart_tx
---    port map (
---        buffer_full => s_srl_status(4),
---        buffer_half_full => s_srl_status(5),
---        clk => s_kc_clk,
---        data_in => BUS4710,
---        en_16_x_baud => s_srl_clkx16,
---        reset_buffer => '0',
---        serial_out => o_serial_tx,
---        write_buffer => '0'
---    );
+uart_rx_inst : uart_rx
+    port map (
+        buffer_data_present => s_srl_status(0),
+        buffer_full => s_srl_status(1),
+        buffer_half_full => s_srl_status(2),
+        clk => s_kc_clk,
+        data_out => s_srl_dout,
+        en_16_x_baud => s_srl_clkx16,
+        read_buffer => s_srl_rd_strobe,
+        reset_buffer => '0',
+        serial_in => i_serial_rx
+    );
+
+uart_tx_inst : uart_tx
+    port map (
+        buffer_full => s_srl_status(4),
+        buffer_half_full => s_srl_status(5),
+        clk => s_kc_clk,
+        data_in => s_srl_din,
+        en_16_x_baud => s_srl_clkx16,
+        reset_buffer => '0',
+        serial_out => o_serial_tx,
+        write_buffer => s_srl_wr_strobe
+    );
 
 -------------------
 --   Intermediate signal assignments
 -------------------
-o_serial_tx <= i_serial_rx; -- temp until the shit gets implemented
 
 
 
