@@ -58,29 +58,6 @@ component CRG
         vga_clk : out STD_LOGIC
     );
 end component;
-component g_ireg
-    generic(
-        ID : STD_LOGIC_VECTOR(7 downto 0) := X"00"
-    );
-    port (
-        addr : in STD_LOGIC_VECTOR(7 downto 0);
-        clk : in STD_LOGIC;
-        d : in STD_LOGIC_VECTOR(7 downto 0);
-        q : out STD_LOGIC_VECTOR(7 downto 0)
-    );
-end component;
-component g_oreg
-    generic(
-        ID : STD_LOGIC_VECTOR(7 downto 0) := X"00"
-    );
-    port (
-        addr : in STD_LOGIC_VECTOR(7 downto 0);
-        clk : in STD_LOGIC;
-        d : in STD_LOGIC_VECTOR(7 downto 0);
-        we : in STD_LOGIC;
-        q : out STD_LOGIC_VECTOR(7 downto 0)
-    );
-end component;
 component kcpsm3
     port (
         clk : in STD_LOGIC;
@@ -191,6 +168,9 @@ signal rd_strobe : STD_LOGIC;
 signal s_button : std_logic_vector(7 downto 0);
 signal s_switch : std_logic_vector(7 downto 0);
 signal s_ssd_data : std_logic_vector(31 downto 0);
+signal s_tram_addr : std_logic_vector(10 downto 0);
+signal s_tram_data : std_logic_vector(15 downto 0);
+signal s_tram_wr_en : std_logic;
 
 begin
 CRG_inst : CRG
@@ -254,6 +234,7 @@ end process;
 output_stage_1: process (s_kc_clk) begin
     if rising_edge(s_kc_clk) then
         if wr_strobe='1' then
+            s_tram_wr_en <= '0';
             case (port_id) is
                 when C_PL_LED =>
                     o_led <= out_port;
@@ -265,6 +246,15 @@ output_stage_1: process (s_kc_clk) begin
                     s_ssd_data(23 downto 16) <= out_port;
                 when C_PL_SSD4 =>
                     s_ssd_data(31 downto 24) <= out_port;
+                when C_PL_TRAM_ADDR_LOW =>
+                    s_tram_addr(7 downto 0) <= out_port;
+                when C_PL_TRAM_ADDR_HIGH =>
+                    s_tram_addr(10 downto 8) <= out_port(2 downto 0);
+                when C_PL_TRAM_DATA_CHAR =>
+                    s_tram_data(7 downto 0) <= out_port;
+                when C_PL_TRAM_DATA_COLOR =>
+                    s_tram_data(15 downto 8) <= out_port;
+                    s_tram_wr_en <= '1';
                 when others => null;
             end case;
         end if;
@@ -278,10 +268,10 @@ end process;
 vga_top_inst : vga_top
     port map (
         i_sys_reset => s_sys_reset,
-        i_tram_addr => "00000000000",
-        i_tram_clk => '0',
-        i_tram_data => X"0000",
-        i_tram_en => '0',
+        i_tram_addr => s_tram_addr,
+        i_tram_clk => s_kc_clk,
+        i_tram_data => s_tram_data,
+        i_tram_en => s_tram_wr_en,
         i_vga_refclk => s_vga_clk,
         o_vga_blu => o_vga_blu,
         o_vga_grn => o_vga_grn,

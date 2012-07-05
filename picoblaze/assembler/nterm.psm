@@ -15,10 +15,10 @@
     CONSTANT  P_SRL_DIN, 13
     CONSTANT  P_SRL_DOUT, 14
     
-    ;CONSTANT  P_TRAM_ADDR_LOW, 21
-    ;CONSTANT  P_TRAM_ADDR_HIGH, 22
-    ;CONSTANT  P_TRAM_DATA_CHAR, 23
-    ;CONSTANT  P_TRAM_DATA_COLO, 24
+    CONSTANT  P_TRAM_ADDR_LOW, 21
+    CONSTANT  P_TRAM_ADDR_HIGH, 22
+    CONSTANT  P_TRAM_DATA_CHAR, 23
+    CONSTANT  P_TRAM_DATA_COLO, 24
     
     ; Register names
     
@@ -29,18 +29,22 @@
     ; Initialization
     ;
 cold_start:
-    LOAD s1, 01
-    LOAD s2, 02
-    LOAD s3, 04
-    LOAD s4, 08
+    LOAD s1, 00
+    LOAD s2, 00
+    LOAD s3, 01
+    LOAD s4, FC
+    OUTPUT s1, P_TRAM_ADDR_HIGH
+    OUTPUT s2, P_TRAM_ADDR_LOW
+    OUTPUT s3, P_TRAM_DATA_CHAR
+    OUTPUT s4, P_TRAM_DATA_COLO
 main_loop:
     INPUT sD, P_SWITCH
     OUTPUT sD, P_LED
-    ;LOAD sD, 00
-    ;OUTPUT sD, P_LED
+
     OUTPUT s1, P_SSD1
     OUTPUT s2, P_SSD2
     OUTPUT s3, P_SSD3
     INPUT s4, P_BTN
     OUTPUT s4, P_SSD4
+    
     JUMP main_loop
