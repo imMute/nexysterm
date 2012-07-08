@@ -13,5 +13,5 @@ Because it seemed like a fun project to undertake.
 Authors / Copyrights
 --------------------
 
-[Xilinx](http://www.xilinx.com/products/intellectual-property/picoblaze.htm) -- for their PicoBlaze embedded FPGA microprocessor.
-[Matt Sickler](Matt.Sickler@msk4.com) -- myself for everything else. =)
+[Xilinx](http://www.xilinx.com/products/intellectual-property/picoblaze.htm) -- for their PicoBlaze embedded FPGA microprocessor.  
+[Matt Sickler](https://github.com/imMute) -- myself for everything else. =)
