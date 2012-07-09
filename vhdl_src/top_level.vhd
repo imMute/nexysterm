@@ -130,13 +130,13 @@ component vga_top
 end component;
 
 ---- Constant declarations ----
-constant C_PL_SWITCH            : std_logic_vector(7 downto 0) := X"00";
-constant C_PL_BTN               : std_logic_vector(7 downto 0) := X"01";
-constant C_PL_LED               : std_logic_vector(7 downto 0) := X"02";
-constant C_PL_SSD1              : std_logic_vector(7 downto 0) := X"03";
-constant C_PL_SSD2              : std_logic_vector(7 downto 0) := X"04";
-constant C_PL_SSD3              : std_logic_vector(7 downto 0) := X"05";
-constant C_PL_SSD4              : std_logic_vector(7 downto 0) := X"06";
+constant C_PL_SWITCH            : std_logic_vector(7 downto 0) := X"01";
+constant C_PL_BTN               : std_logic_vector(7 downto 0) := X"02";
+constant C_PL_LED               : std_logic_vector(7 downto 0) := X"03";
+constant C_PL_SSD1              : std_logic_vector(7 downto 0) := X"04";
+constant C_PL_SSD2              : std_logic_vector(7 downto 0) := X"05";
+constant C_PL_SSD3              : std_logic_vector(7 downto 0) := X"06";
+constant C_PL_SSD4              : std_logic_vector(7 downto 0) := X"07";
 constant C_PL_SRL_CTRL          : std_logic_vector(7 downto 0) := X"11";
 constant C_PL_SRL_STATUS        : std_logic_vector(7 downto 0) := X"12";
 constant C_PL_SRL_READ          : std_logic_vector(7 downto 0) := X"13";
@@ -161,7 +161,6 @@ signal port_id      : STD_LOGIC_VECTOR (7 downto 0);
 signal in_port      : STD_LOGIC_VECTOR (7 downto 0);
 signal wr_strobe    : STD_LOGIC;
 signal out_port     : STD_LOGIC_VECTOR (7 downto 0);
-signal out_port_q   : STD_LOGIC_VECTOR (7 downto 0);
 signal rd_strobe    : STD_LOGIC;
 
 -- io stuff
@@ -179,6 +178,7 @@ signal s_srl_rd_strobe  : std_logic;
 
 begin
 CRG_inst : CRG
+    generic map ( G_BAUD_DIVIDER => 651 )
     port map (
         board_clk => i_board_clk,
         i_reset => '0',
@@ -308,8 +308,8 @@ SSD_Driver_inst : SSD_Driver
 uart_rx_inst : uart_rx
     port map (
         buffer_data_present => s_srl_status(0),
-        buffer_full => s_srl_status(1),
-        buffer_half_full => s_srl_status(2),
+        buffer_half_full => s_srl_status(1),
+        buffer_full => s_srl_status(2),
         clk => s_kc_clk,
         data_out => s_srl_dout,
         en_16_x_baud => s_srl_clkx16,
@@ -320,8 +320,8 @@ uart_rx_inst : uart_rx
 
 uart_tx_inst : uart_tx
     port map (
-        buffer_full => s_srl_status(4),
-        buffer_half_full => s_srl_status(5),
+        buffer_half_full => s_srl_status(4),
+        buffer_full => s_srl_status(5),
         clk => s_kc_clk,
         data_in => s_srl_din,
         en_16_x_baud => s_srl_clkx16,

@@ -2,13 +2,13 @@
     ; Matt Sickler - 2012
     
     ; Port Definitions
-    CONSTANT  P_SWITCH, 00
-    CONSTANT  P_BTN, 01
-    CONSTANT  P_LED, 02
-    CONSTANT  P_SSD1, 03
-    CONSTANT  P_SSD2, 04
-    CONSTANT  P_SSD3, 05
-    CONSTANT  P_SSD4, 06
+    CONSTANT  P_SWITCH, 01
+    CONSTANT  P_BTN, 02
+    CONSTANT  P_LED, 03
+    CONSTANT  P_SSD1, 04
+    CONSTANT  P_SSD2, 05
+    CONSTANT  P_SSD3, 06
+    CONSTANT  P_SSD4, 07
     
     CONSTANT  P_SRL_CTRL, 11
     CONSTANT  P_SRL_STATUS, 12
@@ -33,6 +33,13 @@
     ;
     ; Initialization
     ;
+blah:
+    INPUT s1, P_SWITCH
+    OUTPUT s1, P_LED
+    INPUT s2, P_BTN
+    OUTPUT s2, P_SSD1
+    JUMP blah
+
 cold_start:
     LOAD s1, 00
     LOAD s2, 00
@@ -42,16 +49,41 @@ cold_start:
     OUTPUT s2, P_TRAM_ADDR_LOW
     OUTPUT s3, P_TRAM_DATA_CHAR
     OUTPUT s4, P_TRAM_DATA_COLO
-main_loop:
-    INPUT sD, P_SWITCH
-    OUTPUT sD, P_LED
-
     OUTPUT s1, P_SSD1
-    OUTPUT s2, P_SSD2
-    OUTPUT s3, P_SSD3
-    INPUT s4, P_BTN
-    OUTPUT s4, P_SSD4
+    OUTPUT s1, P_SSD2
+    OUTPUT s1, P_SSD3
+    OUTPUT s1, P_SSD4
+    OUTPUT s1, P_LED
+    OUTPUT s1, P_SRL_WRITE
+main_loop:
+    LOAD s1, P_SRL_STATUS
+    OUTPUT s1, P_LED
     
-    LOAD s5, 4D
-    OUTPUT s5, P_SRL_WRITE
+    TEST s1, P_SRL_STATUS_DATA_PRESENT
+    CALL NZ, rd_srl_data
+    
+    INPUT s1, P_BTN
+    TEST s1, 01
+    CALL NZ, wr_srl_data
+    
+    TEST s1, 02
+    CALL NZ, sw2led
+    
+    
     JUMP main_loop
+
+sw2led:
+    INPUT s8, P_SWITCH
+    OUTPUT s8, P_LED
+    RETURN
+
+rd_srl_data:
+    INPUT s8, P_SRL_READ
+    OUTPUT s8, P_SSD1
+    RETURN
+
+wr_srl_data:
+    INPUT s8, P_SWITCH
+    OUTPUT s8, P_SRL_WRITE
+    RETURN
+
