@@ -222,24 +222,21 @@ end process;
 
 input_stage_2: process (s_kc_clk) begin
     if rising_edge(s_kc_clk) then
-        s_srl_rd_strobe <= '0';
-        if rd_strobe='1' then
-            case (port_id) is
-                when C_PL_SWITCH =>
-                    in_port <= s_switch;
-                when C_PL_BTN =>
-                    in_port <= s_button;
-                when C_PL_SRL_STATUS =>
-                    in_port <= s_srl_status;
-                when C_PL_SRL_READ =>
-                    in_port <= s_srl_dout;
-                    s_srl_rd_strobe <= '1';
-                when others =>
-                    in_port <= "XXXXXXXX";
-            end case;
-        end if;
+        case (port_id) is
+            when C_PL_SWITCH =>
+                in_port <= s_switch;
+            when C_PL_BTN =>
+                in_port <= s_button;
+            when C_PL_SRL_STATUS =>
+                in_port <= s_srl_status;
+            when C_PL_SRL_READ =>
+                in_port <= s_srl_dout;
+            when others =>
+                in_port <= "XXXXXXXX";
+        end case;
     end if;
 end process;
+s_srl_rd_strobe <= '1' when port_id=C_PL_SRL_READ and rd_strobe='1' else '0';
 
 -------------------
 --   Output Ports

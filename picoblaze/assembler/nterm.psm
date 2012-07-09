@@ -33,13 +33,6 @@
     ;
     ; Initialization
     ;
-blah:
-    INPUT s1, P_SWITCH
-    OUTPUT s1, P_LED
-    INPUT s2, P_BTN
-    OUTPUT s2, P_SSD1
-    JUMP blah
-
 cold_start:
     LOAD s1, 00
     LOAD s2, 00
@@ -56,18 +49,11 @@ cold_start:
     OUTPUT s1, P_LED
     OUTPUT s1, P_SRL_WRITE
 main_loop:
-    LOAD s1, P_SRL_STATUS
+    INPUT s1, P_SRL_STATUS
     OUTPUT s1, P_LED
     
     TEST s1, P_SRL_STATUS_DATA_PRESENT
     CALL NZ, rd_srl_data
-    
-    INPUT s1, P_BTN
-    TEST s1, 01
-    CALL NZ, wr_srl_data
-    
-    TEST s1, 02
-    CALL NZ, sw2led
     
     
     JUMP main_loop
@@ -79,11 +65,7 @@ sw2led:
 
 rd_srl_data:
     INPUT s8, P_SRL_READ
-    OUTPUT s8, P_SSD1
-    RETURN
-
-wr_srl_data:
-    INPUT s8, P_SWITCH
     OUTPUT s8, P_SRL_WRITE
     RETURN
+
 
