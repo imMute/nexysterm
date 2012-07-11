@@ -6,4 +6,6 @@
 /picoblaze/assembler/CONSTANT.TXT
 /picoblaze/assembler/LABELS.TXT
 /picoblaze/assembler/*.DAT
-/picoblaze/assembler/NTERM.*
+/picoblaze/assembler/*.mem
+/picoblaze/assembler/*.hex
+/picoblaze/assembler/nterm.vhd
