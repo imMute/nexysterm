@@ -20,10 +20,10 @@
     CONSTANT  P_SRL_READ, 13
     CONSTANT  P_SRL_WRITE, 14
     
-    CONSTANT  P_TRAM_ADDR_LOW, 21
-    CONSTANT  P_TRAM_ADDR_HIGH, 22
-    CONSTANT  P_TRAM_DATA_CHAR, 23
-    CONSTANT  P_TRAM_DATA_COLO, 24
+    CONSTANT  P_TRAM_ADDR_HIGH,  21
+    CONSTANT  P_TRAM_ADDR_LOW,   22
+    CONSTANT  P_TRAM_DATA_COLOR, 23
+    CONSTANT  P_TRAM_DATA_CHAR,  24
     
     ; Register names
     
@@ -41,7 +41,7 @@ cold_start:
     OUTPUT s1, P_TRAM_ADDR_HIGH
     OUTPUT s2, P_TRAM_ADDR_LOW
     OUTPUT s3, P_TRAM_DATA_CHAR
-    OUTPUT s4, P_TRAM_DATA_COLO
+    OUTPUT s4, P_TRAM_DATA_COLOR
     OUTPUT s1, P_SSD1
     OUTPUT s1, P_SSD2
     OUTPUT s1, P_SSD3
@@ -55,13 +55,29 @@ main_loop:
     TEST s1, P_SRL_STATUS_DATA_PRESENT
     CALL NZ, rd_srl_data
     
+    INPUT s1, P_SWITCH
+    INPUT s2, P_BTN
     
-    JUMP main_loop
+b1: TEST s2, 08
+    JUMP Z, b2
+    OUTPUT s1, P_TRAM_ADDR_HIGH
+    
+b2: TEST s2, 04
+    JUMP Z, b3
+    OUTPUT s1, P_TRAM_ADDR_LOW
+    
+b3: TEST s2, 02
+    JUMP Z, b4
+    OUTPUT s1, P_TRAM_DATA_COLOR
+    
+b4: TEST s2, 01
+    JUMP Z, b5
+    OUTPUT s1, P_TRAM_DATA_CHAR
+    
+b5: JUMP main_loop
 
-sw2led:
-    INPUT s8, P_SWITCH
-    OUTPUT s8, P_LED
-    RETURN
+sw2tramH:
+   
 
 rd_srl_data:
     INPUT s8, P_SRL_READ
