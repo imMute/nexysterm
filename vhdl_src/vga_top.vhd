@@ -30,7 +30,7 @@ entity vga_top is
         i_sys_reset : in STD_LOGIC;
         i_tram_clk : in STD_LOGIC;
         i_tram_en : in STD_LOGIC;
-        i_tram_addr : in STD_LOGIC_VECTOR(10 downto 0);
+        i_tram_addr : in STD_LOGIC_VECTOR(12 downto 0);
         i_tram_data : in STD_LOGIC_VECTOR(15 downto 0);
         i_vga_clk : in STD_LOGIC;
         o_vga_hsync : out STD_LOGIC;
@@ -54,9 +54,9 @@ component char_rom
 end component;
 component text_ram
     port (
-        i_rd_addr : in STD_LOGIC_VECTOR(10 downto 0);
+        i_rd_addr : in STD_LOGIC_VECTOR(12 downto 0);
         i_rd_clk : in STD_LOGIC;
-        i_wr_addr : in STD_LOGIC_VECTOR(10 downto 0);
+        i_wr_addr : in STD_LOGIC_VECTOR(12 downto 0);
         i_wr_clk : in STD_LOGIC;
         i_wr_data : in STD_LOGIC_VECTOR(15 downto 0);
         i_wr_en : in STD_LOGIC;
@@ -67,8 +67,8 @@ component VGA_Timer
     port (
         ref_clk : in STD_LOGIC;
         reset : in STD_LOGIC;
-        o_chrx : out INTEGER range 79 downto 0;
-        o_chry : out INTEGER range 39 downto 0;
+        o_chrx : out INTEGER range 99 downto 0;
+        o_chry : out INTEGER range 49 downto 0;
         o_schrx : out INTEGER range 7 downto 0;
         o_schry : out INTEGER range 11 downto 0;
         o_x_blank : out STD_LOGIC;
@@ -80,31 +80,9 @@ component VGA_Timer
     );
 end component;
 
----- Signal declarations used on the diagram ----
---signal s_bit : STD_LOGIC;
---signal s_chrx : INTEGER range 79 downto 0;
---signal s_chry : INTEGER range 39 downto 0;
---signal s_hsync : STD_LOGIC;
---signal s_schrx : INTEGER range 7 downto 0;
---signal s_schry : INTEGER range 11 downto 0;
---signal s_vsync : STD_LOGIC;
---signal s_xblank : STD_LOGIC;
---signal s_xpos : INTEGER range H_TOTAL-1 downto 0;
---signal s_xsync : STD_LOGIC;
---signal s_yblank : STD_LOGIC;
---signal s_ypos : INTEGER range V_TOTAL-1 downto 0;
---signal s_ysync : STD_LOGIC;
---signal s_blu : STD_LOGIC_VECTOR (1 downto 0);
---signal s_char : STD_LOGIC_VECTOR (15 downto 0);
---signal s_col : STD_LOGIC_VECTOR (2 downto 0);
---signal s_grn : STD_LOGIC_VECTOR (2 downto 0);
---signal s_rd_addr : STD_LOGIC_VECTOR (10 downto 0);
---signal s_red : STD_LOGIC_VECTOR (2 downto 0);
---signal s_row : STD_LOGIC_VECTOR (3 downto 0);
-
 -- VGA Timer output signals
-signal s_tmr_chrx    : integer range 79 downto 0;
-signal s_tmr_chry    : integer range 39 downto 0;
+signal s_tmr_chrx    : integer range 99 downto 0;
+signal s_tmr_chry    : integer range 49 downto 0;
 signal s_tmr_schrx   : integer range 7 downto 0;
 signal s_tmr_schry   : integer range 11 downto 0;
 signal s_tmr_x_blank : std_logic;
@@ -112,7 +90,7 @@ signal s_tmr_y_blank : std_logic;
 signal s_tmr_x_sync  : std_logic;
 signal s_tmr_y_sync  : std_logic;
 
-signal s_rd_addr : std_logic_vector(10 downto 0);
+signal s_rd_addr : std_logic_vector(12 downto 0);
 
 -- TRAM output signals
 signal s_tram_x_blank : std_logic;
@@ -176,6 +154,8 @@ process(i_vga_clk) begin
     if rising_edge(i_vga_clk) then
         s_tram_col <= std_logic_vector(to_unsigned(s_tmr_schrx,s_tram_col'length));
         s_tram_row <= std_logic_vector(to_unsigned(s_tmr_schry,s_tram_row'length));
+        --s_tram_col <= std_logic_vector(to_unsigned(s_tmr_chrx,s_tram_col'length));
+        --s_tram_row <= std_logic_vector(to_unsigned(s_tmr_chry,s_tram_row'length));
         s_tram_x_blank <= s_tmr_x_blank;
         s_tram_y_blank <= s_tmr_y_blank;
         s_tram_x_sync  <= s_tmr_x_sync;

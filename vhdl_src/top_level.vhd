@@ -116,7 +116,7 @@ end component;
 component vga_top
     port (
         i_sys_reset : in STD_LOGIC;
-        i_tram_addr : in STD_LOGIC_VECTOR(10 downto 0);
+        i_tram_addr : in STD_LOGIC_VECTOR(12 downto 0);
         i_tram_clk : in STD_LOGIC;
         i_tram_data : in STD_LOGIC_VECTOR(15 downto 0);
         i_tram_en : in STD_LOGIC;
@@ -167,7 +167,7 @@ signal rd_strobe    : STD_LOGIC;
 signal s_button     : std_logic_vector(7 downto 0);
 signal s_switch     : std_logic_vector(7 downto 0);
 signal s_ssd_data   : std_logic_vector(31 downto 0);
-signal s_tram_addr  : std_logic_vector(10 downto 0);
+signal s_tram_addr  : std_logic_vector(12 downto 0);
 signal s_tram_data  : std_logic_vector(15 downto 0);
 signal s_tram_wr_en : std_logic;
 signal s_srl_status     : std_logic_vector(7 downto 0);
@@ -258,7 +258,7 @@ output_stage_1: process (s_kc_clk) begin
                 when C_PL_SSD4 =>
                     s_ssd_data(31 downto 24) <= out_port;
                 when C_PL_TRAM_ADDR_HIGH =>
-                    s_tram_addr(10 downto 8) <= out_port(2 downto 0);
+                    s_tram_addr(12 downto 8) <= out_port(4 downto 0);
                 when C_PL_TRAM_ADDR_LOW =>
                     s_tram_addr(7 downto 0) <= out_port;
                 when C_PL_TRAM_DATA_COLOR =>

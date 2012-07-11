@@ -25,8 +25,8 @@ entity VGA_Timer is
         o_y_pos   : out integer range (V_TOTAL-1) downto 0;
         o_schrx   : out integer range 7 downto 0;
         o_schry   : out integer range 11 downto 0;
-        o_chrx    : out integer range 79 downto 0;
-        o_chry    : out integer range 39 downto 0
+        o_chrx    : out integer range 99 downto 0;
+        o_chry    : out integer range 49 downto 0
     );
 end VGA_Timer;
 
@@ -39,18 +39,18 @@ architecture BEHAV of VGA_Timer is
     signal schry : integer range 11 downto 0;
     signal schrx_en,schry_en,schrx_rs,schry_rs : std_logic;
     
-    signal chrx : integer range 79 downto 0;
-    signal chry : integer range 39 downto 0;
+    signal chrx : integer range 99 downto 0;
+    signal chry : integer range 49 downto 0;
     signal chrx_en,chry_en,chrx_rs,chry_rs : std_logic;
     
     signal hvisi,vvisi,bvisi : std_logic;
 begin
 U_HCTR:  entity work.g_counter generic map ( N => H_TOTAL ) port map ( ref_clk, hctr_rs, hctr_en, hctr );
 U_VCTR:  entity work.g_counter generic map ( N => V_TOTAL ) port map ( ref_clk, vctr_rs, vctr_en, vctr );
-U_SCHRX: entity work.g_counter generic map ( N =>  8 ) port map ( ref_clk, schrx_rs, schrx_en, schrx );
-U_SCHRY: entity work.g_counter generic map ( N => 12 ) port map ( ref_clk, schry_rs, schry_en, schry );
-U_CHRX:  entity work.g_counter generic map ( N => 80 ) port map ( ref_clk, chrx_rs, chrx_en, chrx );
-U_CHRY:  entity work.g_counter generic map ( N => 40 ) port map ( ref_clk, chry_rs, chry_en, chry );
+U_SCHRX: entity work.g_counter generic map ( N =>   8 ) port map ( ref_clk, schrx_rs, schrx_en, schrx );
+U_SCHRY: entity work.g_counter generic map ( N =>  12 ) port map ( ref_clk, schry_rs, schry_en, schry );
+U_CHRX:  entity work.g_counter generic map ( N => 100 ) port map ( ref_clk, chrx_rs, chrx_en, chrx );
+U_CHRY:  entity work.g_counter generic map ( N =>  50 ) port map ( ref_clk, chry_rs, chry_en, chry );
 
 -- Counter reset & enable controls
 hvisi <= '1' when (hctr >= H_VIS_S and hctr <= H_VIS_E) else '0';

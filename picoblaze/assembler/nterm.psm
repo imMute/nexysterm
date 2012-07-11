@@ -36,7 +36,7 @@
 cold_start:
     LOAD s1, 00
     LOAD s2, 00
-    LOAD s3, 01
+    LOAD s3, 00
     LOAD s4, FC
     OUTPUT s1, P_TRAM_ADDR_HIGH
     OUTPUT s2, P_TRAM_ADDR_LOW
@@ -48,6 +48,20 @@ cold_start:
     OUTPUT s1, P_SSD4
     OUTPUT s1, P_LED
     OUTPUT s1, P_SRL_WRITE
+
+    LOAD s1, 00
+    LOAD s2, 00
+    
+setup_loop:
+    OUTPUT s2, P_TRAM_ADDR_HIGH
+    OUTPUT s2, P_TRAM_DATA_COLOR
+    OUTPUT s1, P_TRAM_ADDR_LOW
+    OUTPUT s1, P_TRAM_DATA_CHAR
+    ADD s1, 01
+    ADDCY s2, 00
+    COMPARE s2, 01
+    JUMP NZ, setup_loop
+
 main_loop:
     INPUT s1, P_SRL_STATUS
     OUTPUT s1, P_LED

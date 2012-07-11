@@ -28,122 +28,99 @@ entity text_ram is
         -- Port A (writer)
         i_wr_clk    : in std_logic;
         i_wr_en     : in std_logic;
-        i_wr_addr   : in std_logic_vector(10 downto 0);
+        i_wr_addr   : in std_logic_vector(12 downto 0);
         i_wr_data   : in std_logic_vector(15 downto 0);
         -- Port B (reader)
         i_rd_clk    : in std_logic;
         --i_rd_en     : in std_logic;
-        i_rd_addr   : in std_logic_vector(10 downto 0);
+        i_rd_addr   : in std_logic_vector(12 downto 0);
         o_rd_data   : out std_logic_vector(15 downto 0)
     );
 end text_ram;
 
 architecture Behavioral of text_ram is
-    signal CLKA,CLKB    : std_logic;
-    signal ADDRA,ADDRB  : std_logic_vector(10 downto 0);
-    signal DIA,DOB      : std_logic_vector(7 downto 0);
-    signal DIAx,DOBx    : std_logic_vector(7 downto 0);
+    component RAMB16_S16_S16
+        Port (
+            -- Port A (writer)
+            CLKA    : in std_logic;
+            ENA     : in std_logic;
+            ADDRA   : in std_logic_vector(10 downto 0);
+            DATAA   : in std_logic_vector(15 downto 0);
+            -- Port B (reader)
+            CLKB    : in std_logic;
+            --i_rd_en     : in std_logic;
+            ADDRB   : in std_logic_vector(10 downto 0);
+            DATAB   : out std_logic_vector(15 downto 0)
+        );
+    end component;
     
-    signal ENA,WEA      : std_logic;
+    -- signals
+    signal wr_addr_sub : std_logic_vector(10 downto 0);
+    signal wr_enA, wr_enB, wr_enC, wr_enD : std_logic;
+    
+    signal rd_addr_sub : std_logic_vector(10 downto 0);
+    signal rd_dataA, rd_dataB, rd_dataC, rd_dataD : std_logic_vector(15 downto 0);
 begin
-CLKB <= i_rd_clk;
-ADDRB <= i_rd_addr;
-o_rd_data(7 downto 0) <= DOB;
-o_rd_data(15 downto 8) <= DOBx;
+wr_addr_sub <= i_wr_addr(10 downto 0);
+rd_addr_sub <= i_rd_addr(10 downto 0);
 
-CLKA <= i_wr_clk;
-ENA <= i_wr_en;
-WEA <= ENA;
-ADDRA <= i_wr_addr;
-DIA <= i_wr_data(7 downto 0);
-DIAx <= i_wr_data(15 downto 8);
+wr_enA <= '1' when i_wr_addr(12 downto 11)="00" else '0';
+wr_enB <= '1' when i_wr_addr(12 downto 11)="01" else '0';
+wr_enC <= '1' when i_wr_addr(12 downto 11)="10" else '0';
+wr_enD <= '1' when i_wr_addr(12 downto 11)="11" else '0';
 
-
-text_ram_bram : RAMB16_S9_S9
-    generic map (
-        INIT_A => X"000", -- Value of output RAM registers on Port A at startup
-        INIT_B => X"000", -- Value of output RAM registers on Port B at startup
-        SRVAL_A => X"000", -- Port A ouput value upon SSR assertion
-        SRVAL_B => X"000", -- Port B ouput value upon SSR assertion
-        WRITE_MODE_A => "READ_FIRST", -- WRITE_FIRST, READ_FIRST or NO_CHANGE
-        WRITE_MODE_B => "READ_FIRST", -- WRITE_FIRST, READ_FIRST or NO_CHANGE
-        SIM_COLLISION_CHECK => "NONE", -- "NONE", "WARNING", "GENERATE_X_ONLY", "ALL"
-        INIT_00 => X"1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100",
-        INIT_01 => X"3f3e3d3c3b3a393837363534333231302f2e2d2c2b2a29282726252423222120",
-        INIT_02 => X"5f5e5d5c5b5a595857565554535251504f4e4d4c4b4a49484746454443424140",
-        INIT_03 => X"7f7e7d7c7b7a797877767574737271707f7e7d7c7b7a79787776757473727170",
-        INIT_04 => X"1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100",
-        INIT_05 => X"3f3e3d3c3b3a393837363534333231302f2e2d2c2b2a29282726252423222120",
-        INIT_06 => X"5f5e5d5c5b5a595857565554535251504f4e4d4c4b4a49484746454443424140",
-        INIT_07 => X"7f7e7d7c7b7a797877767574737271707f7e7d7c7b7a79787776757473727170"
-    )
+tram_A: RAMB16_S16_S16
     port map (
-        DOA     => open,
-        DOPA    => open,
-        ADDRA   => ADDRA,
-        CLKA    => CLKA,
-        DIA     => DIA,
-        DIPA    => (others => '0'),
-        ENA     => ENA,
-        SSRA    => '0',
-        WEA     => WEA,
+        CLKA  => i_wr_clk,
+        ENA   => wr_enA,
+        ADDRA => wr_addr_sub,
+        DATAA => i_wr_data,
         
-        DOB     => DOB,
-        DOPB    => open,
-        ADDRB   => ADDRB,
-        CLKB    => CLKB,
-        DIB     => (others => '0'),
-        DIPB    => (others => '0'),
-        ENB     => '1',
-        SSRB    => '0',
-        WEB     => '0'
+        CLKB  => i_rd_clk,
+        ADDRB => rd_addr_sub,
+        DATAB => rd_dataA
     );
 
-control_ram_bram : RAMB16_S9_S9
-    generic map (
-        INIT_A => X"000", -- Value of output RAM registers on Port A at startup
-        INIT_B => X"000", -- Value of output RAM registers on Port B at startup
-        SRVAL_A => X"000", -- Port A ouput value upon SSR assertion
-        SRVAL_B => X"000", -- Port B ouput value upon SSR assertion
-        WRITE_MODE_A => "READ_FIRST", -- WRITE_FIRST, READ_FIRST or NO_CHANGE
-        WRITE_MODE_B => "READ_FIRST", -- WRITE_FIRST, READ_FIRST or NO_CHANGE
-        SIM_COLLISION_CHECK => "NONE", -- "NONE", "WARNING", "GENERATE_X_ONLY", "ALL"
-        INIT_00 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_01 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_02 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_03 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_04 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_05 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_06 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_07 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_08 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_09 => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_0A => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_0B => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_0C => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_0D => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_0E => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-        INIT_0F => X"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
-    )
+tram_B: RAMB16_S16_S16
     port map (
-        DOA     => open,
-        DOPA    => open,
-        ADDRA   => ADDRA,
-        CLKA    => CLKA,
-        DIA     => DIAx,
-        DIPA    => (others => '0'),
-        ENA     => ENA,
-        SSRA    => '0',
-        WEA     => WEA,
+        CLKA  => i_wr_clk,
+        ENA   => wr_enB,
+        ADDRA => wr_addr_sub,
+        DATAA => i_wr_data,
         
-        DOB     => DOBx,
-        DOPB    => open,
-        ADDRB   => ADDRB,
-        CLKB    => CLKB,
-        DIB     => (others => '0'),
-        DIPB    => (others => '0'),
-        ENB     => '1',
-        SSRB    => '0',
-        WEB     => '0'
+        CLKB  => i_rd_clk,
+        ADDRB => rd_addr_sub,
+        DATAB => rd_dataB
     );
+
+tram_C: RAMB16_S16_S16
+    port map (
+        CLKA  => i_wr_clk,
+        ENA   => wr_enC,
+        ADDRA => wr_addr_sub,
+        DATAA => i_wr_data,
+        
+        CLKB  => i_rd_clk,
+        ADDRB => rd_addr_sub,
+        DATAB => rd_dataC
+    );
+
+tram_D: RAMB16_S16_S16
+    port map (
+        CLKA  => i_wr_clk,
+        ENA   => wr_enD,
+        ADDRA => wr_addr_sub,
+        DATAA => i_wr_data,
+        
+        CLKB  => i_rd_clk,
+        ADDRB => rd_addr_sub,
+        DATAB => rd_dataD
+    );
+
+o_rd_data <= rd_dataA when i_rd_addr(12 downto 11) = "00" else 
+             rd_dataB when i_rd_addr(12 downto 11) = "01" else 
+             rd_dataC when i_rd_addr(12 downto 11) = "10" else 
+             rd_dataD when i_rd_addr(12 downto 11) = "11" else 
+             (others => '0');
+
 end architecture;
