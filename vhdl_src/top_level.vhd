@@ -120,7 +120,7 @@ component vga_top
         i_tram_clk : in STD_LOGIC;
         i_tram_data : in STD_LOGIC_VECTOR(15 downto 0);
         i_tram_en : in STD_LOGIC;
-        i_vga_refclk : in STD_LOGIC;
+        i_vga_clk : in STD_LOGIC;
         o_vga_blu : out STD_LOGIC_VECTOR(1 downto 0);
         o_vga_grn : out STD_LOGIC_VECTOR(2 downto 0);
         o_vga_hsync : out STD_LOGIC;
@@ -141,10 +141,10 @@ constant C_PL_SRL_CTRL          : std_logic_vector(7 downto 0) := X"11";
 constant C_PL_SRL_STATUS        : std_logic_vector(7 downto 0) := X"12";
 constant C_PL_SRL_READ          : std_logic_vector(7 downto 0) := X"13";
 constant C_PL_SRL_WRITE         : std_logic_vector(7 downto 0) := X"14";
-constant C_PL_TRAM_ADDR_LOW     : std_logic_vector(7 downto 0) := X"21";
-constant C_PL_TRAM_ADDR_HIGH    : std_logic_vector(7 downto 0) := X"22";
-constant C_PL_TRAM_DATA_CHAR    : std_logic_vector(7 downto 0) := X"23";
-constant C_PL_TRAM_DATA_COLOR   : std_logic_vector(7 downto 0) := X"24";
+constant C_PL_TRAM_ADDR_HIGH    : std_logic_vector(7 downto 0) := X"21";
+constant C_PL_TRAM_ADDR_LOW     : std_logic_vector(7 downto 0) := X"22";
+constant C_PL_TRAM_DATA_COLOR   : std_logic_vector(7 downto 0) := X"23";
+constant C_PL_TRAM_DATA_CHAR    : std_logic_vector(7 downto 0) := X"24";
 
 ---- Signal declarations used on the diagram ----
 ---- Signals ---
@@ -257,14 +257,14 @@ output_stage_1: process (s_kc_clk) begin
                     s_ssd_data(23 downto 16) <= out_port;
                 when C_PL_SSD4 =>
                     s_ssd_data(31 downto 24) <= out_port;
-                when C_PL_TRAM_ADDR_LOW =>
-                    s_tram_addr(7 downto 0) <= out_port;
                 when C_PL_TRAM_ADDR_HIGH =>
                     s_tram_addr(10 downto 8) <= out_port(2 downto 0);
-                when C_PL_TRAM_DATA_CHAR =>
-                    s_tram_data(7 downto 0) <= out_port;
+                when C_PL_TRAM_ADDR_LOW =>
+                    s_tram_addr(7 downto 0) <= out_port;
                 when C_PL_TRAM_DATA_COLOR =>
                     s_tram_data(15 downto 8) <= out_port;
+                when C_PL_TRAM_DATA_CHAR =>
+                    s_tram_data(7 downto 0) <= out_port;
                     s_tram_wr_en <= '1';
                 when C_PL_SRL_WRITE =>
                     s_srl_din <= out_port;
@@ -286,7 +286,7 @@ vga_top_inst : vga_top
         i_tram_clk => s_kc_clk,
         i_tram_data => s_tram_data,
         i_tram_en => s_tram_wr_en,
-        i_vga_refclk => s_vga_clk,
+        i_vga_clk => s_vga_clk,
         o_vga_blu => o_vga_blu,
         o_vga_grn => o_vga_grn,
         o_vga_hsync => o_vga_hsync,
