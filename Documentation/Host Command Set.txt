@@ -1,0 +1,67 @@
+    Name                Function
+==============================================================================
+FF  Reset               Keyboard responds with "ack" (0xFA), then enters "Reset" mode.
+FE  Resend              Keyboard responds by resending the last-sent byte.  The exception to this is if the last-sent byte was "resend" (0xFE).  If this is the case, the keyboard resends the last non-0xFE byte.  This command is used by the host to indicate an error in reception.
+FD  Set Key Type Make   Disable break codes and typematic repeat for specified keys.  Keyboard responds with "ack" (0xFA), then disables scanning (if enabled) and reads a list of keys from the host.  These keys are specified by their set 3 make codes.  Keyboard responds to each make code with "ack".  Host terminates this list by sending an invalid set 3 make code (eg, a valid command.)  The keyboard then re-enables scanning (if previously disabled).
+FC  Set Key Type Mk/Brk Similar to previous command, except this one only disables typematic repeat.
+FB  Set Key Type Typ    Similar to previous two, except this one only disables break codes.
+FA  Set All Keys MKT    Keyboard responds with "ack" (0xFA).  Sets all keys to their normal setting (generate scan codes on make, break, and typematic repeat)
+F9  Set All Keys Make   Keyboard responds with "ack" (0xFA).  Similar to 0xFD, except applies to all keys.
+F8  Set All Keys Mk/Brk Keyboard responds with "ack" (0xFA).  Similar to 0xFC, except applies to all keys.
+F7  Set All Keys Typ    Keyboard responds with "ack" (0xFA).  Similar to 0xFB, except applies to all keys.
+F6  Set Default         Load default typematic rate/delay (10.9cps / 500ms), key types (all keys typematic/make/break), and scan code set (2).
+F5  Disable             Keyboard stops scanning, loads default values (see "Set Default" command), and waits further instructions.
+F4  Enable              Re-enables keyboard after disabled using previous command.
+F3  Set Typemat Rate    Host follows this command with one argument byte that defines the typematic rate and delay (see table)
+F2  Read ID             The keyboard responds by sending a two-byte device ID of 0xAB, 0x83. (0xAB is sent first, followed by 0x83.)
+F0  Set Scan Code Set   Keyboard responds with "ack", then reads argument byte from the host.  This argument byte may be 0x01, 0x02, or 0x03 to select scan code set 1, 2, or 3, respectively.  The keyboard responds to this argument byte with "ack".  If the argument byte is 0x00, the keyboard responds with "ack" followed by the current scan code set.
+EE  Echo                The keyboard responds with "Echo" (0xEE).
+ED  Set/Reset LEDs      The host follows this command with one argument byte, that specifies the state of the keyboard's Num Lock, Caps Lock, and Scroll Lock LEDs.  Argument byte is 5 zeros followed by Caps, Num and Scroll.
+
+
+Rate Table:
+    D[4:0]  Rate(cps)
+    =================
+    00      30
+    01      26.7
+    02      24
+    03      21.8
+    04      20.7
+    05      18.5
+    06      17.1
+    07      16
+    08      15
+    09      13.3
+    0A      12
+    0B      10.9
+    0C      10
+    0D      9.2
+    0E      8.6
+    0F      8
+    10      7.5
+    11      6.7
+    12      6
+    13      5.5
+    14      5
+    15      4.6
+    16      4.3
+    17      4
+    18      3.7
+    19      3.3
+    1A      3
+    1B      2.7
+    1C      2.5
+    1D      2.3
+    1E      2.1
+    1F      2
+
+Delay Table:
+    D[6:5]  Delay (s)
+    =================
+    00      0.25
+    01      0.50
+    10      0.75
+    11      1.00
+
+
+Courtesy of: http://www.computer-engineering.org/ps2keyboard/
