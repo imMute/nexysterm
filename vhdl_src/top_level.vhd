@@ -46,7 +46,7 @@ architecture top_level of top_level is
 ---- Component declarations -----
 component CRG
     generic(
-        G_BAUD_DIVIDER : INTEGER := 108
+        G_BAUD_DIVIDER : INTEGER := 54 -- 100 MHz / 54 / 16 = 115740 (which is 0.47% away from 115200)
     );
     port (
         board_clk : in STD_LOGIC;

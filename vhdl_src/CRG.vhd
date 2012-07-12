@@ -25,7 +25,7 @@ use UNISIM.VComponents.all;
 
 entity CRG is
     Generic (
-        G_BAUD_DIVIDER : integer := 54
+        G_BAUD_DIVIDER : integer
     );
     Port (
         board_clk   : in  std_logic; -- 50 MHz
@@ -54,7 +54,7 @@ dcm_sp_inst : DCM_SP
         CLK_FEEDBACK => "1X",
         CLKDV_DIVIDE => 2.0,
         CLKFX_DIVIDE => 1,
-        CLKFX_MULTIPLY => 4,
+        CLKFX_MULTIPLY => 2,
         CLKIN_DIVIDE_BY_2 => FALSE,
         CLKIN_PERIOD => 20.000,
         CLKOUT_PHASE_SHIFT => "NONE",
@@ -74,8 +74,8 @@ dcm_sp_inst : DCM_SP
         PSEN => '0',
         PSINCDEC => '0',
         RST => i_reset,
-        CLKDV => CLKDV_BUF,
-        CLKFX => CLKFX_BUF,
+        CLKDV => open,
+        CLKFX => open,
         CLKFX180 => open,
         CLK0 => CLK0_BUF,
         CLK2X => CLK2X_BUF,
@@ -89,16 +89,14 @@ dcm_sp_inst : DCM_SP
     );
 
 clk0_bufg_inst:  BUFG port map (I => CLK0_BUF, O => CLK0_BUFG);
-clkdv_bufg_inst: BUFG port map (I => CLKDV_BUF, O => CLKDV_BUFG);
 clk2x_bufg_inst: BUFG port map (I => CLK2X_BUF, O => CLK2X_BUFG);
-clkfx_bufg_inst: BUFG port map (I => CLKFX_BUF, O => CLKFX_BUFG);
 
 vga_clk <= CLK0_BUFG;
 kc_clk <= CLK2X_BUFG;
 
 -- TODO: make the baud counter frequency independent, and make sure it's clocked with the kc_clk
-baud_timer: process(CLKFX_BUFG) begin
-    if rising_edge(CLKFX_BUFG) then
+baud_timer: process(CLK2X_BUFG) begin
+    if rising_edge(CLK2X_BUFG) then
         if baud_cntr=(G_BAUD_DIVIDER-1) then
             baud_cntr <= 0;
             srl_clkx16 <= '1';
