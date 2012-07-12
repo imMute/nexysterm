@@ -10,22 +10,31 @@
     CONSTANT  P_SSD3, 06
     CONSTANT  P_SSD4, 07
     
-    CONSTANT  P_SRL_CTRL, 11
-    CONSTANT  P_SRL_STATUS, 12
-    CONSTANT  P_SRL_STATUS_DATA_PRESENT, 01
-    CONSTANT  P_SRL_STATUS_RD_BUFF_HALF, 02
-    CONSTANT  P_SRL_STATUS_RD_BUFF_FULL, 04
-    CONSTANT  P_SRL_STATUS_WR_BUFF_HALF, 10
-    CONSTANT  P_SRL_STATUS_WR_BUFF_FULL, 20
-    CONSTANT  P_SRL_READ, 13
-    CONSTANT  P_SRL_WRITE, 14
-    
-    CONSTANT  P_TRAM_ADDR_HIGH,  21
-    CONSTANT  P_TRAM_ADDR_LOW,   22
-    CONSTANT  P_TRAM_DATA_COLOR, 23
-    CONSTANT  P_TRAM_DATA_CHAR,  24
+    CONSTANT  P_SRL_STATUS, 11
+    CONSTANT    P_SRL_STATUS_DATA_PRESENT, 01
+    CONSTANT    P_SRL_STATUS_RD_BUFF_HALF, 02
+    CONSTANT    P_SRL_STATUS_RD_BUFF_FULL, 04
+    CONSTANT    P_SRL_STATUS_WR_BUFF_HALF, 10
+    CONSTANT    P_SRL_STATUS_WR_BUFF_FULL, 20
+    CONSTANT  P_SRL_READ, 12
+    CONSTANT  P_SRL_WRITE, 13
+    CONSTANT  P_TRAM_ADDR_HIGH,  14
+    CONSTANT  P_TRAM_ADDR_LOW,   15
+    CONSTANT  P_TRAM_DATA_COLOR, 16
+    CONSTANT  P_TRAM_DATA_CHAR,  17
+    CONSTANT  P_PS2_STATUS, 18
+    CONSTANT  P_PS2_DATA,   19
     
     ; Register names
+    ; s0                            s8  
+    ; s1                            s9  
+    ; s2                            sA  
+    ; s3                            sB  
+    ; s4                            sC  
+    ; s5                            sD  
+    ; s6                            sE  
+    ; s7                            sF  
+    
     
     ; Scratchpad Memory Locations
     
@@ -48,9 +57,6 @@ cold_start:
     OUTPUT s1, P_SSD4
     OUTPUT s1, P_LED
     OUTPUT s1, P_SRL_WRITE
-
-    LOAD s1, 00
-    LOAD s2, 00
     
 setup_loop:
     OUTPUT s2, P_TRAM_ADDR_HIGH
@@ -68,6 +74,10 @@ main_loop:
     
     TEST s1, P_SRL_STATUS_DATA_PRESENT
     CALL NZ, rd_srl_data
+    
+    INPUT s1, P_PS2_STATUS
+    TEST s1, P_SRL_STATUS_DATA_PRESENT
+    CALL NZ, rd_ps2_data
     
     INPUT s1, P_SWITCH
     INPUT s2, P_BTN
@@ -88,21 +98,17 @@ b4: TEST s2, 01
     JUMP Z, b5
     OUTPUT s1, P_TRAM_DATA_CHAR
     
+    ; send Switch values out the serial port (when btn_1 pushed)
     LOAD sA, s1
     CALL bin2hex
-    
-    LOAD sA, sB
-    CALL send_serial
-    ;OUTPUT sB, P_SRL_WRITE
-    
     LOAD sA, sC
     CALL send_serial
-    ;OUTPUT sC, P_SRL_WRITE
-    
+    LOAD sA, sB
+    CALL send_serial
     LOAD sA, 20
     CALL send_serial
-    ;OUTPUT sD, P_SRL_WRITE
-    
+
+
 b5: JUMP main_loop
 
 sw2tramH:
@@ -111,6 +117,16 @@ sw2tramH:
 rd_srl_data:
     INPUT s8, P_SRL_READ
     OUTPUT s8, P_SRL_WRITE
+    RETURN
+
+rd_ps2_data:
+    INPUT sA, P_PS2_DATA
+    ;OUTPUT sA, P_SRL_WRITE
+    CALL bin2hex
+    LOAD sA, sC
+    CALL send_serial
+    LOAD sA, sB
+    CALL send_serial
     RETURN
 
 
@@ -130,13 +146,13 @@ bin2hex:
     SR0 sC
     SR0 sC
 
-    COMPARE sB, 09
+    COMPARE sB, 0a
     JUMP C, bin2hex_skipB
     ADD sB, 07
 bin2hex_skipB:
     ADD sB, 30
 
-    COMPARE sC, 09
+    COMPARE sC, 0a
     JUMP C, bin2hex_skipC
     ADD sC, 07
 bin2hex_skipC:
@@ -149,10 +165,10 @@ bin2hex_skipC:
 ;   sA  the byte to send
 ; Returns:
 ; Uses:
-;   sB
+;   sF
 send_serial:
-    INPUT sB, P_SRL_STATUS
-    TEST sB, P_SRL_STATUS_WR_BUFF_FULL
+    INPUT sF, P_SRL_STATUS
+    TEST sF, P_SRL_STATUS_WR_BUFF_FULL
     JUMP NZ, send_serial ; wait for the serial buffer to be not completely full
     OUTPUT sA, P_SRL_WRITE
     RETURN

@@ -25,19 +25,21 @@ use unisim.vcomponents.all;
 
 entity top_level is
     port(
-        i_board_clk : in STD_LOGIC;
         i_serial_rx : in STD_LOGIC;
+        o_serial_tx : out STD_LOGIC;
         i_button : in STD_LOGIC_VECTOR(3 downto 0);
         i_switch : in STD_LOGIC_VECTOR(7 downto 0);
-        o_serial_tx : out STD_LOGIC;
-        o_vga_hsync : out STD_LOGIC;
-        o_vga_vsync : out STD_LOGIC;
         o_led : out STD_LOGIC_VECTOR(7 downto 0);
         o_ssd_an : out STD_LOGIC_VECTOR(3 downto 0);
         o_ssd_seg : out STD_LOGIC_VECTOR(7 downto 0);
+        o_vga_hsync : out STD_LOGIC;
+        o_vga_vsync : out STD_LOGIC;
         o_vga_blu : out STD_LOGIC_VECTOR(1 downto 0);
         o_vga_grn : out STD_LOGIC_VECTOR(2 downto 0);
-        o_vga_red : out STD_LOGIC_VECTOR(2 downto 0)
+        o_vga_red : out STD_LOGIC_VECTOR(2 downto 0);
+        io_ps2c : inout std_logic;
+        io_ps2d : inout std_logic;
+        i_board_clk : in STD_LOGIC
     );
 end top_level;
 
@@ -128,6 +130,18 @@ component vga_top
         o_vga_vsync : out STD_LOGIC
     );
 end component;
+component ps2interface_wrapper
+    port (
+        ps2_clk  : inout std_logic;
+        ps2_data : inout std_logic;
+        clk         : in std_logic;
+        rst         : in std_logic;
+        rx_rdy      : out std_logic;
+        rx_data     : out std_logic_vector(7 downto 0);
+        rx_strobe   : in std_logic
+    );
+end component;
+
 
 ---- Constant declarations ----
 constant C_PL_SWITCH            : std_logic_vector(7 downto 0) := X"01";
@@ -137,14 +151,16 @@ constant C_PL_SSD1              : std_logic_vector(7 downto 0) := X"04";
 constant C_PL_SSD2              : std_logic_vector(7 downto 0) := X"05";
 constant C_PL_SSD3              : std_logic_vector(7 downto 0) := X"06";
 constant C_PL_SSD4              : std_logic_vector(7 downto 0) := X"07";
-constant C_PL_SRL_CTRL          : std_logic_vector(7 downto 0) := X"11";
-constant C_PL_SRL_STATUS        : std_logic_vector(7 downto 0) := X"12";
-constant C_PL_SRL_READ          : std_logic_vector(7 downto 0) := X"13";
-constant C_PL_SRL_WRITE         : std_logic_vector(7 downto 0) := X"14";
-constant C_PL_TRAM_ADDR_HIGH    : std_logic_vector(7 downto 0) := X"21";
-constant C_PL_TRAM_ADDR_LOW     : std_logic_vector(7 downto 0) := X"22";
-constant C_PL_TRAM_DATA_COLOR   : std_logic_vector(7 downto 0) := X"23";
-constant C_PL_TRAM_DATA_CHAR    : std_logic_vector(7 downto 0) := X"24";
+constant C_PL_SRL_STATUS        : std_logic_vector(7 downto 0) := X"11";
+constant C_PL_SRL_READ          : std_logic_vector(7 downto 0) := X"12";
+constant C_PL_SRL_WRITE         : std_logic_vector(7 downto 0) := X"13";
+constant C_PL_TRAM_ADDR_HIGH    : std_logic_vector(7 downto 0) := X"14";
+constant C_PL_TRAM_ADDR_LOW     : std_logic_vector(7 downto 0) := X"15";
+constant C_PL_TRAM_DATA_COLOR   : std_logic_vector(7 downto 0) := X"16";
+constant C_PL_TRAM_DATA_CHAR    : std_logic_vector(7 downto 0) := X"17";
+constant C_PL_PS2_STATUS        : std_logic_vector(7 downto 0) := X"18";
+constant C_PL_PS2_DATA          : std_logic_vector(7 downto 0) := X"19";
+
 
 ---- Signal declarations used on the diagram ----
 ---- Signals ---
@@ -175,8 +191,14 @@ signal s_srl_dout       : std_logic_vector(7 downto 0);
 signal s_srl_din        : std_logic_vector(7 downto 0);
 signal s_srl_wr_strobe  : std_logic;
 signal s_srl_rd_strobe  : std_logic;
+signal s_ps2_dout       : std_logic_vector(7 downto 0);
+signal s_ps2_drdy       : std_logic;
+signal s_ps2_rd_strobe  : std_logic;
 
 begin
+-------------------
+--   CRG isntance
+-------------------
 CRG_inst : CRG
     generic map ( G_BAUD_DIVIDER => 651 )
     port map (
@@ -189,6 +211,9 @@ CRG_inst : CRG
     );
 s_sys_reset <= not s_sys_dll_locked;
 
+-------------------
+--   KCPSM3 and program ROM instances
+-------------------
 pico : kcpsm3
     port map (
         address => prog_addr,
@@ -231,19 +256,23 @@ input_stage_2: process (s_kc_clk) begin
                 in_port <= s_srl_status;
             when C_PL_SRL_READ =>
                 in_port <= s_srl_dout;
+            when C_PL_PS2_STATUS =>
+                in_port <= "0000000" & s_ps2_drdy;
+            when C_PL_PS2_DATA =>
+                in_port <= s_ps2_dout;
             when others =>
                 in_port <= "XXXXXXXX";
         end case;
     end if;
 end process;
 s_srl_rd_strobe <= '1' when port_id=C_PL_SRL_READ and rd_strobe='1' else '0';
+s_ps2_rd_strobe <= '1' when port_id=C_PL_PS2_DATA and rd_strobe='1' else '0';
 
 -------------------
 --   Output Ports
 -------------------
 output_stage_1: process (s_kc_clk) begin
     if rising_edge(s_kc_clk) then
-        s_tram_wr_en <= '0';
         s_srl_wr_strobe <= '0';
         if wr_strobe='1' then
             case (port_id) is
@@ -265,7 +294,6 @@ output_stage_1: process (s_kc_clk) begin
                     s_tram_data(15 downto 8) <= out_port;
                 when C_PL_TRAM_DATA_CHAR =>
                     s_tram_data(7 downto 0) <= out_port;
-                    s_tram_wr_en <= '1';
                 when C_PL_SRL_WRITE =>
                     s_srl_din <= out_port;
                     s_srl_wr_strobe <= '1';
@@ -274,10 +302,12 @@ output_stage_1: process (s_kc_clk) begin
         end if;
     end if;
 end process;
+--s_srl_wr_strobe <= '1' when port_id=C_PL_SRL_WRITE and wr_strobe='1' else '0';
+s_tram_wr_en    <= '1' when port_id=C_PL_TRAM_DATA_CHAR and wr_strobe='1' else '0';
 
 
 -------------------
---   Output Drivers
+--   Subcomponent Instances
 -------------------
 vga_top_inst : vga_top
     port map (
@@ -327,10 +357,15 @@ uart_tx_inst : uart_tx
         write_buffer => s_srl_wr_strobe
     );
 
--------------------
---   Intermediate signal assignments
--------------------
-
-
+ps2interface_inst : ps2interface_wrapper
+    port map (
+        ps2_clk   => io_ps2c,
+        ps2_data  => io_ps2d,
+        clk       => s_kc_clk,
+        rst       => s_sys_reset,
+        rx_rdy    => s_ps2_drdy,
+        rx_data   => s_ps2_dout,
+        rx_strobe => s_ps2_rd_strobe
+    );
 
 end top_level;

@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------
 -- ps2interface.vhd
 ------------------------------------------------------------------------
--- Author : Ulrich Zoltán
+-- Author : Ulrich Zoltn
 --          Copyright 2006 Digilent, Inc.
 ------------------------------------------------------------------------
 -- Software version : Xilinx ISE 7.1.04i
@@ -167,9 +167,7 @@ port(
    rx_data  : out std_logic_vector(7 downto 0);
    read     : out std_logic;
    busy     : out std_logic;
-   err      : out std_logic;
-	
-	demoEnable: in std_logic
+   err      : out std_logic
 );
 
 -- forces the extraction of distributed ram for
@@ -411,11 +409,11 @@ begin
 
    -- Force ps2_clk to '0' if ps2_clk_h = '0', else release the line
    -- ('Z' = +5Vcc because of pull-ups)
-   ps2_clk <= 'Z' when ps2_clk_h = '1' or demoEnable='1' else '0';
+   ps2_clk <= 'Z' when ps2_clk_h = '1' else '0';
 
    -- Force ps2_data to '0' if ps2_data_h = '0', else release the line
    -- ('Z' = +5Vcc because of pull-ups)
-   ps2_data <= 'Z' when ps2_data_h = '1' or demoEnable='1' else '0';
+   ps2_data <= 'Z' when ps2_data_h = '1' else '0';
 
    -- Control busy flag. Interface is not busy while in idle state.
    busy <= '0' when state = idle else '1';

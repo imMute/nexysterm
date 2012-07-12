@@ -64,9 +64,9 @@ NET "o_vga_blu<1>" LOC = "U4"; # Bank = 2, Pin name = IO_L03P_2/DOUT/BUSY, Type 
 NET "o_vga_hsync" LOC = "T4"; # Bank = 2, Pin name = IO_L03N_2/MOSI/CSI_B, Type = DUAL, Sch name = HSYNC
 NET "o_vga_vsync" LOC = "U3"; # Bank = 2, Pin name = IO_L01P_2/CSO_B, Type = DUAL, Sch name = VSYNC
 
-## PS/2 connector
-#NET "o_ps2c" LOC = "R12"; # Bank = 2, Pin name = IO_L20N_2, Type = I/O, Sch name = PS2C
-#NET "i_ps2d" LOC = "P11"; # Bank = 2, Pin name = IO_L18P_2, Type = I/O, Sch name = PS2D
+# PS/2 connector
+NET "io_ps2c" LOC = "R12"; # Bank = 2, Pin name = IO_L20N_2, Type = I/O, Sch name = PS2C
+NET "io_ps2d" LOC = "P11"; # Bank = 2, Pin name = IO_L18P_2, Type = I/O, Sch name = PS2D
 
 # RS232 connector
 NET "i_serial_rx" LOC = "U6"; # Bank = 2, Pin name = IP, Type = INPUT, Sch name = RS-RX
