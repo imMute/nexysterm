@@ -44,30 +44,17 @@
     ;
 cold_start:
     LOAD s1, 00
-    LOAD s2, 00
-    LOAD s3, 00
-    LOAD s4, FC
+    LOAD s4, 01
     OUTPUT s1, P_TRAM_ADDR_HIGH
-    OUTPUT s2, P_TRAM_ADDR_LOW
-    OUTPUT s3, P_TRAM_DATA_CHAR
-    OUTPUT s4, P_TRAM_DATA_COLOR
+    OUTPUT s1, P_TRAM_ADDR_LOW
+    OUTPUT s1, P_TRAM_DATA_CHAR
+    OUTPUT s1, P_TRAM_DATA_COLOR
     OUTPUT s1, P_SSD1
     OUTPUT s1, P_SSD2
     OUTPUT s1, P_SSD3
     OUTPUT s1, P_SSD4
     OUTPUT s1, P_LED
-    OUTPUT s1, P_SRL_WRITE
     
-setup_loop:
-    OUTPUT s2, P_TRAM_ADDR_HIGH
-    OUTPUT s2, P_TRAM_DATA_COLOR
-    OUTPUT s1, P_TRAM_ADDR_LOW
-    OUTPUT s1, P_TRAM_DATA_CHAR
-    ADD s1, 01
-    ADDCY s2, 00
-    COMPARE s2, 01
-    JUMP NZ, setup_loop
-
 main_loop:
     INPUT s1, P_SRL_STATUS
     OUTPUT s1, P_LED
@@ -116,8 +103,29 @@ sw2tramH:
 
 rd_srl_data:
     INPUT s8, P_SRL_READ
-    OUTPUT s8, P_SRL_WRITE
-    RETURN
+    TEST s4, 01
+    JUMP NZ, d1
+    TEST s4, 02
+    JUMP NZ, d2
+    TEST s4, 04
+    JUMP NZ, d3
+    TEST s4, 08
+    JUMP NZ, d4
+    ;OUTPUT s8, P_SRL_WRITE
+dr: RETURN
+
+d1: OUTPUT s8, P_TRAM_ADDR_HIGH
+    LOAD s4, 02
+    JUMP dr
+d2: OUTPUT s8, P_TRAM_ADDR_LOW
+    LOAD s4, 04
+    JUMP dr
+d3: OUTPUT s8, P_TRAM_DATA_COLOR
+    LOAD s4, 08
+    JUMP dr
+d4: OUTPUT s8, P_TRAM_DATA_CHAR
+    LOAD s4, 01
+    JUMP dr
 
 rd_ps2_data:
     INPUT sA, P_PS2_DATA
