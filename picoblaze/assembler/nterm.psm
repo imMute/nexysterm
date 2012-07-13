@@ -1,53 +1,41 @@
-    ; KCPSM3 Program - NexysTerm
-    ; Matt Sickler - 2012
-    
-    ; Port Definitions
-    CONSTANT  P_SWITCH, 01
-    CONSTANT  P_BTN, 02
-    CONSTANT  P_LED, 03
-    CONSTANT  P_SSD1, 04
-    CONSTANT  P_SSD2, 05
-    CONSTANT  P_SSD3, 06
-    CONSTANT  P_SSD4, 07
-    
-    CONSTANT  P_SRL_STATUS, 11
-    CONSTANT    P_SRL_STATUS_DATA_PRESENT, 01
-    CONSTANT    P_SRL_STATUS_RD_BUFF_HALF, 02
-    CONSTANT    P_SRL_STATUS_RD_BUFF_FULL, 04
-    CONSTANT    P_SRL_STATUS_WR_BUFF_HALF, 10
-    CONSTANT    P_SRL_STATUS_WR_BUFF_FULL, 20
-    CONSTANT  P_SRL_READ, 12
-    CONSTANT  P_SRL_WRITE, 13
-    CONSTANT  P_TRAM_ADDR_HIGH,  14
-    CONSTANT  P_TRAM_ADDR_LOW,   15
-    CONSTANT  P_TRAM_DATA_COLOR, 16
-    CONSTANT  P_TRAM_DATA_CHAR,  17
-    CONSTANT  P_PS2_STATUS, 18
-    CONSTANT  P_PS2_DATA,   19
-    CONSTANT  P_DSRL_STATUS, 1A
-    CONSTANT  P_DSRL_READ,   1B
-    CONSTANT  P_DSRL_WRITE,  1C
-    
-    ; Register names
-    ; s0                            s8  
-    ; s1                            s9  
-    ; s2                            sA  
-    ; s3                            sB  
-    ; s4                            sC  
-    ; s5                            sD  
-    ; s6                            sE  
-    ; s7                            sF  
-    
-    
-    ; Scratchpad Memory Locations
-    
-    
-    ;
-    ; Initialization
-    ;
+; KCPSM3 Program - NexysTerm
+; Matt Sickler - 2012
+
+; Port Definitions
+P_SWITCH        .EQU  0x01
+P_BTN           .EQU  0x02
+P_LED           .EQU  0x03
+P_SSD1          .EQU  0x04
+P_SSD2          .EQU  0x05
+P_SSD3          .EQU  0x06
+P_SSD4          .EQU  0x07
+P_SRL_STATUS        .EQU  0x11
+P_SRL_READ          .EQU  0x12
+P_SRL_WRITE         .EQU  0x13
+P_TRAM_ADDR_HIGH    .EQU  0x14
+P_TRAM_ADDR_LOW     .EQU  0x15
+P_TRAM_DATA_COLOR   .EQU  0x16
+P_TRAM_DATA_CHAR    .EQU  0x17
+P_PS2_STATUS        .EQU  0x18
+P_PS2_DATA          .EQU  0x19
+P_DSRL_STATUS       .EQU  0x1A
+P_DSRL_READ         .EQU  0x1B
+P_DSRL_WRITE        .EQU  0x1C
+
+; Serial Port Status Reg Bits
+P_SRL_STATUS_DATA_PRESENT   .EQU  0x01
+P_SRL_STATUS_RD_BUFF_HALF   .EQU  0x02
+P_SRL_STATUS_RD_BUFF_FULL   .EQU  0x04
+P_SRL_STATUS_WR_BUFF_HALF   .EQU  0x10
+P_SRL_STATUS_WR_BUFF_FULL   .EQU  0x20
+
+
+;
+; Initialization
+;
 cold_start:
-    LOAD s1, 00
-    LOAD s4, 01
+    LOAD s1, 0x00
+    LOAD s4, 0x01
     OUTPUT s1, P_TRAM_ADDR_HIGH
     OUTPUT s1, P_TRAM_ADDR_LOW
     OUTPUT s1, P_TRAM_DATA_CHAR
@@ -76,19 +64,19 @@ main_loop:
     INPUT s1, P_SWITCH
     INPUT s2, P_BTN
     
-b1: TEST s2, 08
+b1: TEST s2, 0x08
     JUMP Z, b2
     OUTPUT s1, P_TRAM_ADDR_HIGH
     
-b2: TEST s2, 04
+b2: TEST s2, 0x04
     JUMP Z, b3
     OUTPUT s1, P_TRAM_ADDR_LOW
     
-b3: TEST s2, 02
+b3: TEST s2, 0x02
     JUMP Z, b4
     OUTPUT s1, P_TRAM_DATA_COLOR
     
-b4: TEST s2, 01
+b4: TEST s2, 0x01
     JUMP Z, b5
     OUTPUT s1, P_TRAM_DATA_CHAR
     
@@ -99,7 +87,7 @@ b4: TEST s2, 01
     CALL send_serial
     LOAD sA, sB
     CALL send_serial
-    LOAD sA, 20
+    LOAD sA, 0x20
     CALL send_serial
 
 
@@ -112,28 +100,28 @@ rd_dsrl_data:
 
 rd_srl_data:
     INPUT s8, P_SRL_READ
-    TEST s4, 01
+    TEST s4, 0x01
     JUMP NZ, d1
-    TEST s4, 02
+    TEST s4, 0x02
     JUMP NZ, d2
-    TEST s4, 04
+    TEST s4, 0x04
     JUMP NZ, d3
-    TEST s4, 08
+    TEST s4, 0x08
     JUMP NZ, d4
-    ;OUTPUT s8, P_SRL_WRITE
+    OUTPUT s8, P_SRL_WRITE
 dr: RETURN
 
 d1: OUTPUT s8, P_TRAM_ADDR_HIGH
-    LOAD s4, 02
+    LOAD s4, 0x02
     JUMP dr
 d2: OUTPUT s8, P_TRAM_ADDR_LOW
-    LOAD s4, 04
+    LOAD s4, 0x04
     JUMP dr
 d3: OUTPUT s8, P_TRAM_DATA_COLOR
-    LOAD s4, 08
+    LOAD s4, 0x08
     JUMP dr
 d4: OUTPUT s8, P_TRAM_DATA_CHAR
-    LOAD s4, 01
+    LOAD s4, 0x01
     JUMP dr
 
 rd_ps2_data:
@@ -157,23 +145,23 @@ rd_ps2_data:
 bin2hex:
     LOAD sB, sA
     LOAD sC, sA
-    AND sB, 0F
+    AND sB, 0x0F
     SR0 sC
     SR0 sC
     SR0 sC
     SR0 sC
 
-    COMPARE sB, 0a
+    COMPARE sB, 0x0A
     JUMP C, bin2hex_skipB
-    ADD sB, 07
+    ADD sB, 0x07
 bin2hex_skipB:
-    ADD sB, 30
+    ADD sB, 0x30
 
-    COMPARE sC, 0a
+    COMPARE sC, 0x0A
     JUMP C, bin2hex_skipC
-    ADD sC, 07
+    ADD sC, 0x07
 bin2hex_skipC:
-    ADD sC, 30
+    ADD sC, 0x30
     
     RETURN
 

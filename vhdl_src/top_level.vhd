@@ -84,6 +84,14 @@ component nterm
         instruction : out STD_LOGIC_VECTOR(17 downto 0)
     );
 end component;
+component nterm_jtag
+    port (
+        address : in std_logic_vector(9 downto 0);
+        instruction : out std_logic_vector(17 downto 0);
+        proc_reset : out std_logic;
+        clk : in std_logic
+    );
+end component;
 component SSD_Driver
     port (
         clk : in STD_LOGIC;
@@ -174,6 +182,8 @@ signal s_vga_clk        : STD_LOGIC;
 signal s_srl_clkx16     : STD_LOGIC;
 signal s_sys_dll_locked : STD_LOGIC;
 signal s_sys_reset      : STD_LOGIC;
+signal s_jtag_reset     : std_logic;
+signal s_kc_reset       : std_logic;
 
 -- kc signals
 signal prog_addr    : STD_LOGIC_VECTOR (9 downto 0);
@@ -238,12 +248,21 @@ pico : kcpsm3
         reset => s_sys_reset,
         write_strobe => wr_strobe
     );
-prog_rom : nterm
+--prog_rom : nterm
+--    port map (
+--        address => prog_addr,
+--        clk => s_kc_clk,
+--        instruction => prog_inst
+--    );
+prog_rom_jtag : nterm_jtag
     port map (
         address => prog_addr,
         clk => s_kc_clk,
-        instruction => prog_inst
+        instruction => prog_inst,
+        proc_reset => s_jtag_reset
     );
+
+s_kc_reset <= s_sys_reset or s_jtag_reset;
 
 -------------------
 --   Input Ports

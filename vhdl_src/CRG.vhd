@@ -33,6 +33,7 @@ entity CRG is
         
         vga_clk     : out std_logic; 
         kc_clk      : out std_logic;
+        ect_clk     : out std_logic;
         srl_clkx16  : out std_logic; -- serial clock * 16
 
         status : out std_logic_vector(7 downto 0);
@@ -54,7 +55,7 @@ dcm_sp_inst : DCM_SP
         CLK_FEEDBACK => "1X",
         CLKDV_DIVIDE => 2.0,
         CLKFX_DIVIDE => 1,
-        CLKFX_MULTIPLY => 2,
+        CLKFX_MULTIPLY => 4,
         CLKIN_DIVIDE_BY_2 => FALSE,
         CLKIN_PERIOD => 20.000,
         CLKOUT_PHASE_SHIFT => "NONE",
@@ -75,7 +76,7 @@ dcm_sp_inst : DCM_SP
         PSINCDEC => '0',
         RST => i_reset,
         CLKDV => open,
-        CLKFX => open,
+        CLKFX => CLKFX_BUF,
         CLKFX180 => open,
         CLK0 => CLK0_BUF,
         CLK2X => CLK2X_BUF,
@@ -90,11 +91,12 @@ dcm_sp_inst : DCM_SP
 
 clk0_bufg_inst:  BUFG port map (I => CLK0_BUF, O => CLK0_BUFG);
 clk2x_bufg_inst: BUFG port map (I => CLK2X_BUF, O => CLK2X_BUFG);
+clkfx_bufg_inst: BUFG port map (I => CLKFX_BUF, O => CLKFX_BUFG);
 
 vga_clk <= CLK0_BUFG;
 kc_clk <= CLK2X_BUFG;
+ect_clk <= CLKFX_BUFG;
 
--- TODO: make the baud counter frequency independent, and make sure it's clocked with the kc_clk
 baud_timer: process(CLK2X_BUFG) begin
     if rising_edge(CLK2X_BUFG) then
         if baud_cntr=(G_BAUD_DIVIDER-1) then

@@ -1,0 +1,181 @@
+          ; KCPSM3 Program - NexysTerm
+          ; Matt Sickler - 2012
+          
+          ; Port Definitions
+      01  P_SWITCH          .EQU   0x01
+      02  P_BTN             .EQU   0x02
+      03  P_LED             .EQU   0x03
+      04  P_SSD1            .EQU   0x04
+      05  P_SSD2            .EQU   0x05
+      06  P_SSD3            .EQU   0x06
+      07  P_SSD4            .EQU   0x07
+      11  P_SRL_STATUS      .EQU   0x11
+      12  P_SRL_READ        .EQU   0x12
+      13  P_SRL_WRITE       .EQU   0x13
+      14  P_TRAM_ADDR_HIGH  .EQU   0x14
+      15  P_TRAM_ADDR_LOW   .EQU   0x15
+      16  P_TRAM_DATA_COLOR .EQU   0x16
+      17  P_TRAM_DATA_CHAR  .EQU   0x17
+      18  P_PS2_STATUS      .EQU   0x18
+      19  P_PS2_DATA        .EQU   0x19
+      1A  P_DSRL_STATUS     .EQU   0x1A
+      1B  P_DSRL_READ       .EQU   0x1B
+      1C  P_DSRL_WRITE      .EQU   0x1C
+          
+          ; Serial Port Status Reg Bits
+      01  P_SRL_STATUS_DATA_PRESENT .EQU   0x01
+      02  P_SRL_STATUS_RD_BUFF_HALF .EQU   0x02
+      04  P_SRL_STATUS_RD_BUFF_FULL .EQU   0x04
+      10  P_SRL_STATUS_WR_BUFF_HALF .EQU   0x10
+      20  P_SRL_STATUS_WR_BUFF_FULL .EQU   0x20
+          
+          
+          ;
+          ; Initialization
+          ;
+000       cold_start      :
+000 00100                   LOAD   s1, 0x00
+001 00401                   LOAD   s4, 0x01
+002 2C114                   OUTPUT s1, P_TRAM_ADDR_HIGH
+003 2C115                   OUTPUT s1, P_TRAM_ADDR_LOW
+004 2C117                   OUTPUT s1, P_TRAM_DATA_CHAR
+005 2C116                   OUTPUT s1, P_TRAM_DATA_COLOR
+006 2C104                   OUTPUT s1, P_SSD1
+007 2C105                   OUTPUT s1, P_SSD2
+008 2C106                   OUTPUT s1, P_SSD3
+009 2C107                   OUTPUT s1, P_SSD4
+00A 2C103                   OUTPUT s1, P_LED
+          
+00B       main_loop       :
+00B 04111                   INPUT  s1, P_SRL_STATUS
+          ;OUTPUT s1, P_LED
+00C 12101                   TEST   s1, P_SRL_STATUS_DATA_PRESENT
+00D 3142F                   CALL   NZ, rd_srl_data
+          
+00E 0411A                   INPUT  s1, P_DSRL_STATUS
+00F 2C103                   OUTPUT s1, P_LED
+010 12101                   TEST   s1, P_SRL_STATUS_DATA_PRESENT
+011 3142C                   CALL   NZ, rd_dsrl_data
+          
+012 04118                   INPUT  s1, P_PS2_STATUS
+013 12101                   TEST   s1, P_SRL_STATUS_DATA_PRESENT
+014 31446                   CALL   NZ, rd_ps2_data
+          
+015 04101                   INPUT  s1, P_SWITCH
+016 04202                   INPUT  s2, P_BTN
+          
+017 12208 b1              : TEST   s2, 0x08
+018 3501A                   JUMP   Z, b2
+019 2C114                   OUTPUT s1, P_TRAM_ADDR_HIGH
+          
+01A 12204 b2              : TEST   s2, 0x04
+01B 3501D                   JUMP   Z, b3
+01C 2C115                   OUTPUT s1, P_TRAM_ADDR_LOW
+          
+01D 12202 b3              : TEST   s2, 0x02
+01E 35020                   JUMP   Z, b4
+01F 2C116                   OUTPUT s1, P_TRAM_DATA_COLOR
+          
+020 12201 b4              : TEST   s2, 0x01
+021 3502B                   JUMP   Z, b5
+022 2C117                   OUTPUT s1, P_TRAM_DATA_CHAR
+          
+          ; send Switch values out the serial port (when btn_1 pushed)
+023 01A10                   LOAD   sA, s1
+024 3004D                   CALL   bin2hex
+025 01AC0                   LOAD   sA, sC
+026 3005D                   CALL   send_serial
+027 01AB0                   LOAD   sA, sB
+028 3005D                   CALL   send_serial
+029 00A20                   LOAD   sA, 0x20
+02A 3005D                   CALL   send_serial
+          
+          
+02B 3400B b5              : JUMP   main_loop
+          
+02C       rd_dsrl_data    :
+02C 0481B                   INPUT  s8, P_DSRL_READ
+02D 2C81C                   OUTPUT s8, P_DSRL_WRITE
+02E 2A000                   RETURN
+          
+02F       rd_srl_data     :
+02F 04812                   INPUT  s8, P_SRL_READ
+030 12401                   TEST   s4, 0x01
+031 3543A                   JUMP   NZ, d1
+032 12402                   TEST   s4, 0x02
+033 3543D                   JUMP   NZ, d2
+034 12404                   TEST   s4, 0x04
+035 35440                   JUMP   NZ, d3
+036 12408                   TEST   s4, 0x08
+037 35443                   JUMP   NZ, d4
+038 2C813                   OUTPUT s8, P_SRL_WRITE
+039 2A000 dr              : RETURN
+          
+03A 2C814 d1              : OUTPUT s8, P_TRAM_ADDR_HIGH
+03B 00402                   LOAD   s4, 0x02
+03C 34039                   JUMP   dr
+03D 2C815 d2              : OUTPUT s8, P_TRAM_ADDR_LOW
+03E 00404                   LOAD   s4, 0x04
+03F 34039                   JUMP   dr
+040 2C816 d3              : OUTPUT s8, P_TRAM_DATA_COLOR
+041 00408                   LOAD   s4, 0x08
+042 34039                   JUMP   dr
+043 2C817 d4              : OUTPUT s8, P_TRAM_DATA_CHAR
+044 00401                   LOAD   s4, 0x01
+045 34039                   JUMP   dr
+          
+046       rd_ps2_data     :
+046 04A19                   INPUT  sA, P_PS2_DATA
+          ;OUTPUT sA, P_SRL_WRITE
+047 3004D                   CALL   bin2hex
+048 01AC0                   LOAD   sA, sC
+049 3005D                   CALL   send_serial
+04A 01AB0                   LOAD   sA, sB
+04B 3005D                   CALL   send_serial
+04C 2A000                   RETURN
+          
+          
+          ; bin2hex
+          ; Arguments:
+          ;   sA  the binary value to convert
+          ; Returns:
+          ;   sB  the first (most significant) hex char
+          ;   sC  the second (least significant) hex char
+          ; Uses:
+04D       bin2hex         :
+04D 01BA0                   LOAD   sB, sA
+04E 01CA0                   LOAD   sC, sA
+04F 0AB0F                   AND    sB, 0x0F
+050 20C0E                   SR0    sC
+051 20C0E                   SR0    sC
+052 20C0E                   SR0    sC
+053 20C0E                   SR0    sC
+          
+054 14B0A                   COMPARE sB, 0x0A
+055 35857                   JUMP   C, bin2hex_skipB
+056 18B07                   ADD    sB, 0x07
+057       bin2hex_skipB   :
+057 18B30                   ADD    sB, 0x30
+          
+058 14C0A                   COMPARE sC, 0x0A
+059 3585B                   JUMP   C, bin2hex_skipC
+05A 18C07                   ADD    sC, 0x07
+05B       bin2hex_skipC   :
+05B 18C30                   ADD    sC, 0x30
+          
+05C 2A000                   RETURN
+          
+          ; send_serial
+          ; Arguments
+          ;   sA  the byte to send
+          ; Returns:
+          ; Uses:
+          ;   sF
+05D       send_serial     :
+05D 04F11                   INPUT  sF, P_SRL_STATUS
+05E 12F20                   TEST   sF, P_SRL_STATUS_WR_BUFF_FULL
+05F 3545D                   JUMP   NZ, send_serial          ; wait for the serial buffer to be not completely full
+060 2CA13                   OUTPUT sA, P_SRL_WRITE
+061 2A000                   RETURN
+          
+          
