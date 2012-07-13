@@ -27,6 +27,8 @@ entity top_level is
     port(
         i_serial_rx : in STD_LOGIC;
         o_serial_tx : out STD_LOGIC;
+        i_Dserial_rx : in STD_LOGIC;
+        o_Dserial_tx : out STD_LOGIC;
         i_button : in STD_LOGIC_VECTOR(3 downto 0);
         i_switch : in STD_LOGIC_VECTOR(7 downto 0);
         o_led : out STD_LOGIC_VECTOR(7 downto 0);
@@ -160,6 +162,9 @@ constant C_PL_TRAM_DATA_COLOR   : std_logic_vector(7 downto 0) := X"16";
 constant C_PL_TRAM_DATA_CHAR    : std_logic_vector(7 downto 0) := X"17";
 constant C_PL_PS2_STATUS        : std_logic_vector(7 downto 0) := X"18";
 constant C_PL_PS2_DATA          : std_logic_vector(7 downto 0) := X"19";
+constant C_PL_DSRL_STATUS       : std_logic_vector(7 downto 0) := X"1A";
+constant C_PL_DSRL_READ         : std_logic_vector(7 downto 0) := X"1B";
+constant C_PL_DSRL_WRITE        : std_logic_vector(7 downto 0) := X"1C";
 
 
 ---- Signal declarations used on the diagram ----
@@ -191,6 +196,11 @@ signal s_srl_dout       : std_logic_vector(7 downto 0);
 signal s_srl_din        : std_logic_vector(7 downto 0);
 signal s_srl_wr_strobe  : std_logic;
 signal s_srl_rd_strobe  : std_logic;
+signal s_Dsrl_status     : std_logic_vector(7 downto 0);
+signal s_Dsrl_dout       : std_logic_vector(7 downto 0);
+signal s_Dsrl_din        : std_logic_vector(7 downto 0);
+signal s_Dsrl_wr_strobe  : std_logic;
+signal s_Dsrl_rd_strobe  : std_logic;
 signal s_ps2_dout       : std_logic_vector(7 downto 0);
 signal s_ps2_drdy       : std_logic;
 signal s_ps2_rd_strobe  : std_logic;
@@ -260,12 +270,17 @@ input_stage_2: process (s_kc_clk) begin
                 in_port <= "0000000" & s_ps2_drdy;
             when C_PL_PS2_DATA =>
                 in_port <= s_ps2_dout;
+            when C_PL_DSRL_STATUS =>
+                in_port <= s_Dsrl_status;
+            when C_PL_DSRL_READ =>
+                in_port <= s_Dsrl_dout;
             when others =>
                 in_port <= "XXXXXXXX";
         end case;
     end if;
 end process;
 s_srl_rd_strobe <= '1' when port_id=C_PL_SRL_READ and rd_strobe='1' else '0';
+s_Dsrl_rd_strobe <= '1' when port_id=C_PL_DSRL_READ and rd_strobe='1' else '0';
 s_ps2_rd_strobe <= '1' when port_id=C_PL_PS2_DATA and rd_strobe='1' else '0';
 
 -------------------
@@ -274,6 +289,7 @@ s_ps2_rd_strobe <= '1' when port_id=C_PL_PS2_DATA and rd_strobe='1' else '0';
 output_stage_1: process (s_kc_clk) begin
     if rising_edge(s_kc_clk) then
         s_srl_wr_strobe <= '0';
+        s_Dsrl_wr_strobe <= '0';
         if wr_strobe='1' then
             case (port_id) is
                 when C_PL_LED =>
@@ -297,6 +313,9 @@ output_stage_1: process (s_kc_clk) begin
                 when C_PL_SRL_WRITE =>
                     s_srl_din <= out_port;
                     s_srl_wr_strobe <= '1';
+                when C_PL_DSRL_WRITE =>
+                    s_Dsrl_din <= out_port;
+                    s_Dsrl_wr_strobe <= '1';
                 when others => null;
             end case;
         end if;
@@ -334,27 +353,53 @@ SSD_Driver_inst : SSD_Driver
 
 uart_rx_inst : uart_rx
     port map (
+        clk => s_kc_clk,
+        en_16_x_baud => s_srl_clkx16,
+        reset_buffer => '0',
         buffer_data_present => s_srl_status(0),
         buffer_half_full => s_srl_status(1),
         buffer_full => s_srl_status(2),
-        clk => s_kc_clk,
         data_out => s_srl_dout,
-        en_16_x_baud => s_srl_clkx16,
         read_buffer => s_srl_rd_strobe,
-        reset_buffer => '0',
         serial_in => i_serial_rx
     );
 
 uart_tx_inst : uart_tx
     port map (
-        buffer_half_full => s_srl_status(4),
-        buffer_full => s_srl_status(5),
         clk => s_kc_clk,
-        data_in => s_srl_din,
         en_16_x_baud => s_srl_clkx16,
         reset_buffer => '0',
-        serial_out => o_serial_tx,
-        write_buffer => s_srl_wr_strobe
+        buffer_half_full => s_srl_status(4),
+        buffer_full => s_srl_status(5),
+        data_in => s_srl_din,
+        write_buffer => s_srl_wr_strobe,
+        serial_out => o_serial_tx
+    );
+    
+
+debug_uart_rx_inst : uart_rx
+    port map (
+        clk => s_kc_clk,
+        en_16_x_baud => s_srl_clkx16,
+        reset_buffer => '0',
+        buffer_data_present => s_Dsrl_status(0),
+        buffer_half_full => s_Dsrl_status(1),
+        buffer_full => s_Dsrl_status(2),
+        data_out => s_Dsrl_dout,
+        read_buffer => s_Dsrl_rd_strobe,
+        serial_in => i_Dserial_rx
+    );
+
+debug_uart_tx_inst : uart_tx
+    port map (
+        clk => s_kc_clk,
+        en_16_x_baud => s_srl_clkx16,
+        reset_buffer => '0',
+        buffer_half_full => s_Dsrl_status(4),
+        buffer_full => s_Dsrl_status(5),
+        data_in => s_Dsrl_din,
+        write_buffer => s_Dsrl_wr_strobe,
+        serial_out => o_Dserial_tx
     );
 
 ps2interface_inst : ps2interface_wrapper

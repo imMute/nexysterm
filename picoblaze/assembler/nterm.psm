@@ -24,6 +24,9 @@
     CONSTANT  P_TRAM_DATA_CHAR,  17
     CONSTANT  P_PS2_STATUS, 18
     CONSTANT  P_PS2_DATA,   19
+    CONSTANT  P_DSRL_STATUS, 1A
+    CONSTANT  P_DSRL_READ,   1B
+    CONSTANT  P_DSRL_WRITE,  1C
     
     ; Register names
     ; s0                            s8  
@@ -57,10 +60,14 @@ cold_start:
     
 main_loop:
     INPUT s1, P_SRL_STATUS
-    OUTPUT s1, P_LED
-    
+    ;OUTPUT s1, P_LED
     TEST s1, P_SRL_STATUS_DATA_PRESENT
     CALL NZ, rd_srl_data
+    
+    INPUT s1, P_DSRL_STATUS
+    OUTPUT s1, P_LED
+    TEST s1, P_SRL_STATUS_DATA_PRESENT
+    CALL NZ, rd_dsrl_data
     
     INPUT s1, P_PS2_STATUS
     TEST s1, P_SRL_STATUS_DATA_PRESENT
@@ -98,8 +105,10 @@ b4: TEST s2, 01
 
 b5: JUMP main_loop
 
-sw2tramH:
-   
+rd_dsrl_data:
+    INPUT s8, P_DSRL_READ
+    OUTPUT s8, P_DSRL_WRITE
+    RETURN
 
 rd_srl_data:
     INPUT s8, P_SRL_READ

@@ -71,6 +71,23 @@ NET "io_ps2d" LOC = "P11"; # Bank = 2, Pin name = IO_L18P_2, Type = I/O, Sch nam
 # RS232 connector
 NET "i_serial_rx" LOC = "U6"; # Bank = 2, Pin name = IP, Type = INPUT, Sch name = RS-RX
 NET "o_serial_tx" LOC = "P9"; # Bank = 2, Pin name = IO, Type = I/O, Sch name = RS-TX
+NET "i_Dserial_rx" LOC = "L15"; # JA1 (top row, left end)
+NET "o_Dserial_tx" LOC = "K13"; # JA7 (bottom row, left end)
+
+## PMod LCD Char Screen
+#NET "o_lcd_rs" LOC = "M16"; # JA10 M16
+#NET "o_lcd_en" LOC = "M15"; # JA4  M15
+#NET "o_lcd_rw" LOC = "L17"; # JA3  L17
+#NET "o_lcd_data<0>" LOC = "M13"; # JB1  M13
+#NET "o_lcd_data<1>" LOC = "R18"; # JB2  R18
+#NET "o_lcd_data<2>" LOC = "R15"; # JB3  R15
+#NET "o_lcd_data<3>" LOC = "T17"; # JB4  T17
+#NET "o_lcd_data<4>" LOC = "P17"; # JB7  P17
+#NET "o_lcd_data<5>" LOC = "R16"; # JB8  R16
+#NET "o_lcd_data<6>" LOC = "T18"; # JB9  T18
+#NET "o_lcd_data<7>" LOC = "U18"; # JB10 U18
+
+
 
 ## onBoard USB controller
 #NET "EppAstb"   LOC = "V14"; # Bank = 2, Pin name = IP_L23P_2, Type = INPUT, Sch name = U-FLAGA
@@ -99,6 +116,7 @@ NET "o_serial_tx" LOC = "P9"; # Bank = 2, Pin name = IO, Type = I/O, Sch name = 
 #NET "UsbAdr<1>" LOC = "V13"; # Bank = 2, Pin name = IO_L19N_2/VREF_2, Type = VREF, Sch name = U-FIFOAD1
 #
 ##NET "UsbRdy"   LOC = "U13"; # Bank = 2, Pin name = IP, Type = INPUT, Sch name = U-RDY
+
 
 ## onBoard Cellular RAM and StrataFlash
 #NET "MemOE"     LOC = "T2"; # Bank = 3, Pin name = IO_L24P_3, Type = I/O, Sch name = OE
@@ -157,6 +175,7 @@ NET "o_serial_tx" LOC = "P9"; # Bank = 2, Pin name = IO, Type = I/O, Sch name = 
 #NET "MemDB<14>" LOC = "R3"; # Bank = 3, Pin name = IO_L23P_3, Type = I/O, Sch name = DB14
 #NET "MemDB<15>" LOC = "T1"; # Bank = 3, Pin name = IO_L24N_3, Type = I/O, Sch name = DB15
 
+
 ## FX2 connector
 #NET "PIO<0>"  LOC = "B4";  # Bank = 0, Pin name = IO_L24N_0, Type = I/O, Sch name = R-IO1
 #NET "PIO<1>"  LOC = "A4";  # Bank = 0, Pin name = IO_L24P_0, Type = I/O, Sch name = R-IO2
@@ -198,6 +217,7 @@ NET "o_serial_tx" LOC = "P9"; # Bank = 2, Pin name = IO, Type = I/O, Sch name = 
 #NET "PIO<37>" LOC = "B14"; # Bank = 0, Pin name = IO_L04P_0, Type = I/O, Sch name = R-IO38
 #NET "PIO<38>" LOC = "A16"; # Bank = 0, Pin name = IO_L01N_0, Type = I/O, Sch name = R-IO39
 #NET "PIO<39>" LOC = "B16"; # Bank = 0, Pin name = IO_L01P_0, Type = I/O, Sch name = R-IO40
+
 
 ## 12 pin connectors
 #NET "JA<0>" LOC = "L15"; # Bank = 1, Pin name = IO_L09N_1/A11, Type = DUAL, Sch name = JA1
