@@ -64,10 +64,10 @@ begin
 wr_addr_sub <= i_wr_addr(10 downto 0);
 rd_addr_sub <= i_rd_addr(10 downto 0);
 
-wr_enA <= '1' when i_wr_addr(12 downto 11)="00" else '0';
-wr_enB <= '1' when i_wr_addr(12 downto 11)="01" else '0';
-wr_enC <= '1' when i_wr_addr(12 downto 11)="10" else '0';
-wr_enD <= '1' when i_wr_addr(12 downto 11)="11" else '0';
+wr_enA <= '1' when ((i_wr_addr(12 downto 11)="00") and (i_wr_en='1')) else '0';
+wr_enB <= '1' when ((i_wr_addr(12 downto 11)="01") and (i_wr_en='1')) else '0';
+wr_enC <= '1' when ((i_wr_addr(12 downto 11)="10") and (i_wr_en='1')) else '0';
+wr_enD <= '1' when ((i_wr_addr(12 downto 11)="11") and (i_wr_en='1')) else '0';
 
 tram_A: RAMB16_S16_S16
     port map (
