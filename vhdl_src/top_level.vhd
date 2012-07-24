@@ -46,113 +46,6 @@ entity top_level is
 end top_level;
 
 architecture top_level of top_level is
-
----- Component declarations -----
-component CRG
-    generic(
-        G_BAUD_DIVIDER : INTEGER := 54 -- 100 MHz / 54 / 16 = 115740 (which is 0.47% away from 115200)
-    );
-    port (
-        board_clk : in STD_LOGIC;
-        i_reset : in STD_LOGIC;
-        kc_clk : out STD_LOGIC;
-        locked : out STD_LOGIC;
-        srl_clkx16 : out STD_LOGIC;
-        status : out STD_LOGIC_VECTOR(7 downto 0);
-        vga_clk : out STD_LOGIC
-    );
-end component;
-component kcpsm3
-    port (
-        clk : in STD_LOGIC;
-        in_port : in STD_LOGIC_VECTOR(7 downto 0);
-        instruction : in STD_LOGIC_VECTOR(17 downto 0);
-        interrupt : in STD_LOGIC;
-        reset : in STD_LOGIC;
-        address : out STD_LOGIC_VECTOR(9 downto 0);
-        interrupt_ack : out STD_LOGIC;
-        out_port : out STD_LOGIC_VECTOR(7 downto 0);
-        port_id : out STD_LOGIC_VECTOR(7 downto 0);
-        read_strobe : out STD_LOGIC;
-        write_strobe : out STD_LOGIC
-    );
-end component;
-component nterm
-    port (
-        address : in STD_LOGIC_VECTOR(9 downto 0);
-        clk : in STD_LOGIC;
-        instruction : out STD_LOGIC_VECTOR(17 downto 0)
-    );
-end component;
-component nterm_jtag
-    port (
-        address : in std_logic_vector(9 downto 0);
-        instruction : out std_logic_vector(17 downto 0);
-        proc_reset : out std_logic;
-        clk : in std_logic
-    );
-end component;
-component SSD_Driver
-    port (
-        clk : in STD_LOGIC;
-        data : in  STD_LOGIC_VECTOR (31 downto 0);
-        anodes : out STD_LOGIC_VECTOR(3 downto 0);
-        segments : out STD_LOGIC_VECTOR(7 downto 0)
-    );
-end component;
-component uart_rx
-    port (
-        clk : in STD_LOGIC;
-        en_16_x_baud : in STD_LOGIC;
-        read_buffer : in STD_LOGIC;
-        reset_buffer : in STD_LOGIC;
-        serial_in : in STD_LOGIC;
-        buffer_data_present : out STD_LOGIC;
-        buffer_full : out STD_LOGIC;
-        buffer_half_full : out STD_LOGIC;
-        data_out : out STD_LOGIC_VECTOR(7 downto 0)
-    );
-end component;
-component uart_tx
-    port (
-        clk : in STD_LOGIC;
-        data_in : in STD_LOGIC_VECTOR(7 downto 0);
-        en_16_x_baud : in STD_LOGIC;
-        reset_buffer : in STD_LOGIC;
-        write_buffer : in STD_LOGIC;
-        buffer_full : out STD_LOGIC;
-        buffer_half_full : out STD_LOGIC;
-        serial_out : out STD_LOGIC
-    );
-end component;
-component vga_top
-    port (
-        i_sys_reset : in STD_LOGIC;
-        i_tram_addr : in STD_LOGIC_VECTOR(12 downto 0);
-        i_tram_clk : in STD_LOGIC;
-        i_tram_data : in STD_LOGIC_VECTOR(15 downto 0);
-        i_tram_en : in STD_LOGIC;
-        i_vga_clk : in STD_LOGIC;
-        o_vga_blu : out STD_LOGIC_VECTOR(1 downto 0);
-        o_vga_grn : out STD_LOGIC_VECTOR(2 downto 0);
-        o_vga_hsync : out STD_LOGIC;
-        o_vga_red : out STD_LOGIC_VECTOR(2 downto 0);
-        o_vga_vsync : out STD_LOGIC
-    );
-end component;
-component ps2interface_wrapper
-    port (
-        ps2_clk  : inout std_logic;
-        ps2_data : inout std_logic;
-        clk         : in std_logic;
-        rst         : in std_logic;
-        rx_rdy      : out std_logic;
-        rx_data     : out std_logic_vector(7 downto 0);
-        rx_strobe   : in std_logic
-    );
-end component;
-
-
 ---- Constant declarations ----
 constant C_PL_SWITCH            : std_logic_vector(7 downto 0) := X"01";
 constant C_PL_BTN               : std_logic_vector(7 downto 0) := X"02";
@@ -219,7 +112,7 @@ begin
 -------------------
 --   CRG isntance
 -------------------
-CRG_inst : CRG
+CRG_inst : entity CRG
     generic map ( G_BAUD_DIVIDER => 651 )
     port map (
         board_clk => i_board_clk,
@@ -234,7 +127,7 @@ s_sys_reset <= not s_sys_dll_locked;
 -------------------
 --   KCPSM3 and program ROM instances
 -------------------
-pico : kcpsm3
+pico : entity kcpsm3
     port map (
         address => prog_addr,
         clk => s_kc_clk,
@@ -248,7 +141,7 @@ pico : kcpsm3
         reset => s_sys_reset,
         write_strobe => wr_strobe
     );
---prog_rom : nterm
+prog_rom : entity nterm
 --    port map (
 --        address => prog_addr,
 --        clk => s_kc_clk,
@@ -347,7 +240,7 @@ s_tram_wr_en    <= '1' when port_id=C_PL_TRAM_DATA_CHAR and wr_strobe='1' else '
 -------------------
 --   Subcomponent Instances
 -------------------
-vga_top_inst : vga_top
+vga_top_inst : entity vga_top
     port map (
         i_sys_reset => s_sys_reset,
         i_tram_addr => s_tram_addr,
@@ -362,7 +255,7 @@ vga_top_inst : vga_top
         o_vga_vsync => o_vga_vsync
     );
 
-SSD_Driver_inst : SSD_Driver
+SSD_Driver_inst : entity SSD_Driver
     port map (
         anodes => o_ssd_an,
         clk => s_kc_clk,
@@ -370,7 +263,7 @@ SSD_Driver_inst : SSD_Driver
         segments => o_ssd_seg
     );
 
-uart_rx_inst : uart_rx
+uart_rx_inst : entity uart_rx
     port map (
         clk => s_kc_clk,
         en_16_x_baud => s_srl_clkx16,
@@ -383,7 +276,7 @@ uart_rx_inst : uart_rx
         serial_in => i_serial_rx
     );
 
-uart_tx_inst : uart_tx
+uart_tx_inst : entity uart_tx
     port map (
         clk => s_kc_clk,
         en_16_x_baud => s_srl_clkx16,
@@ -396,7 +289,7 @@ uart_tx_inst : uart_tx
     );
     
 
-debug_uart_rx_inst : uart_rx
+debug_uart_rx_inst : entity uart_rx
     port map (
         clk => s_kc_clk,
         en_16_x_baud => s_srl_clkx16,
@@ -409,7 +302,7 @@ debug_uart_rx_inst : uart_rx
         serial_in => i_Dserial_rx
     );
 
-debug_uart_tx_inst : uart_tx
+debug_uart_tx_inst : entity uart_tx
     port map (
         clk => s_kc_clk,
         en_16_x_baud => s_srl_clkx16,
@@ -421,7 +314,7 @@ debug_uart_tx_inst : uart_tx
         serial_out => o_Dserial_tx
     );
 
-ps2interface_inst : ps2interface_wrapper
+ps2interface_inst : entity ps2interface_wrapper
     port map (
         ps2_clk   => io_ps2c,
         ps2_data  => io_ps2d,

@@ -45,12 +45,12 @@ architecture BEHAV of VGA_Timer is
     
     signal hvisi,vvisi,bvisi : std_logic;
 begin
-U_HCTR:  entity work.g_counter generic map ( N => H_TOTAL ) port map ( ref_clk, hctr_rs, hctr_en, hctr );
-U_VCTR:  entity work.g_counter generic map ( N => V_TOTAL ) port map ( ref_clk, vctr_rs, vctr_en, vctr );
-U_SCHRX: entity work.g_counter generic map ( N =>   8 ) port map ( ref_clk, schrx_rs, schrx_en, schrx );
-U_SCHRY: entity work.g_counter generic map ( N =>  12 ) port map ( ref_clk, schry_rs, schry_en, schry );
-U_CHRX:  entity work.g_counter generic map ( N => 100 ) port map ( ref_clk, chrx_rs, chrx_en, chrx );
-U_CHRY:  entity work.g_counter generic map ( N =>  50 ) port map ( ref_clk, chry_rs, chry_en, chry );
+U_HCTR:  entity g_counter generic map ( N => H_TOTAL ) port map ( ref_clk, hctr_rs, hctr_en, hctr );
+U_VCTR:  entity g_counter generic map ( N => V_TOTAL ) port map ( ref_clk, vctr_rs, vctr_en, vctr );
+U_SCHRX: entity g_counter generic map ( N =>   8 ) port map ( ref_clk, schrx_rs, schrx_en, schrx );
+U_SCHRY: entity g_counter generic map ( N =>  12 ) port map ( ref_clk, schry_rs, schry_en, schry );
+U_CHRX:  entity g_counter generic map ( N => 100 ) port map ( ref_clk, chrx_rs, chrx_en, chrx );
+U_CHRY:  entity g_counter generic map ( N =>  50 ) port map ( ref_clk, chry_rs, chry_en, chry );
 
 -- Counter reset & enable controls
 hvisi <= '1' when (hctr >= H_VIS_S and hctr <= H_VIS_E) else '0';

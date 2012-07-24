@@ -42,44 +42,6 @@ entity vga_top is
 end vga_top;
 
 architecture vga_top of vga_top is
----- Component declarations -----
-component char_rom
-    port (
-        CLK : in STD_LOGIC;
-        i_char : in STD_LOGIC_VECTOR(7 downto 0);
-        i_col : in STD_LOGIC_VECTOR(2 downto 0);
-        i_row : in STD_LOGIC_VECTOR(3 downto 0);
-        o_bit : out STD_LOGIC
-    );
-end component;
-component text_ram
-    port (
-        i_rd_addr : in STD_LOGIC_VECTOR(12 downto 0);
-        i_rd_clk : in STD_LOGIC;
-        i_wr_addr : in STD_LOGIC_VECTOR(12 downto 0);
-        i_wr_clk : in STD_LOGIC;
-        i_wr_data : in STD_LOGIC_VECTOR(15 downto 0);
-        i_wr_en : in STD_LOGIC;
-        o_rd_data : out STD_LOGIC_VECTOR(15 downto 0)
-    );
-end component;
-component VGA_Timer
-    port (
-        ref_clk : in STD_LOGIC;
-        reset : in STD_LOGIC;
-        o_chrx : out INTEGER range 99 downto 0;
-        o_chry : out INTEGER range 49 downto 0;
-        o_schrx : out INTEGER range 7 downto 0;
-        o_schry : out INTEGER range 11 downto 0;
-        o_x_blank : out STD_LOGIC;
-        o_x_pos : out INTEGER range H_TOTAL-1 downto 0;
-        o_x_sync : out STD_LOGIC;
-        o_y_blank : out STD_LOGIC;
-        o_y_pos : out INTEGER range V_TOTAL-1 downto 0;
-        o_y_sync : out STD_LOGIC
-    );
-end component;
-
 -- VGA Timer output signals
 signal s_tmr_chrx    : integer range 99 downto 0;
 signal s_tmr_chry    : integer range 49 downto 0;
@@ -113,7 +75,7 @@ signal s_crom_bit     : std_logic;
 
 begin
 
-vga_timer_inst : VGA_Timer
+vga_timer_inst : entity VGA_Timer
     port map(
         ref_clk     => i_vga_clk,
         reset       => i_sys_reset,
@@ -137,7 +99,7 @@ vga_timer_inst : VGA_Timer
 
 s_rd_addr <= std_logic_vector(to_unsigned((s_tmr_chrx + (100*s_tmr_chry)),s_rd_addr'length));
 
-tram_inst : text_ram
+tram_inst : entity text_ram
     port map(
         i_rd_clk => i_vga_clk,
         i_rd_addr => s_rd_addr,
@@ -167,7 +129,7 @@ end process;
 
 s_tram_char <= s_tram_data(7 downto 0);
 
-crom_inst : char_rom
+crom_inst : entity char_rom
     port map(
         CLK => i_vga_clk,
         i_char => s_tram_char,
