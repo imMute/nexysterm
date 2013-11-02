@@ -1,63 +1,56 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    23:06:45 07/01/2012 
--- Design Name: 
--- Module Name:    CRG - behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
-----------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-- Title        : Clock and Reset Generator
+-- Design       : NexysTerm
+-- Author       : Matt
+-------------------------------------------------------------------------------
+-- Description : Generates all the clocks and resets used in the design
+-------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 library UNISIM;
 use UNISIM.VComponents.all;
 
 entity CRG is
-    Generic (
-        G_BAUD_DIVIDER : integer
-    );
-    Port (
-        board_clk   : in  std_logic; -- 50 MHz
-        i_reset     : in  std_logic;
+    port (
+        i_board_clk     : in  std_logic;
+        i_async_reset   : in  std_logic;
         
-        vga_clk     : out std_logic; 
-        kc_clk      : out std_logic;
-        ect_clk     : out std_logic;
-        srl_clkx16  : out std_logic; -- serial clock * 16
-
-        status : out std_logic_vector(7 downto 0);
-        locked : out std_logic
+        o_VGA_clk       : out std_logic;
+        o_VGA_reset     : out std_logic;
+        
+        o_SYS_clk       : out std_logic;
+        o_SYS_reset     : out std_logic
     );
 end CRG;
 
 architecture behavioral of CRG is
-    signal CLKIN_IBUFG : std_logic;
-    signal CLKDV_BUF,  CLKFX_BUF,  CLK0_BUF,  CLK2X_BUF  : std_logic;
-    signal CLKDV_BUFG, CLKFX_BUFG, CLK0_BUFG, CLK2X_BUFG : std_logic;
-    signal baud_cntr : integer range 0 to (G_BAUD_DIVIDER-1);
+    signal board_clk_ibufg      : std_logic; -- I: 50 MHz
+    signal dcm_reset            : std_logic;
+    
+    signal clk0,    clk0_bufg   : std_logic; -- O: 50 MHz
+    signal clk2x,   clk2x_bufg  : std_logic; -- O: 100 MHz
+    signal clkfx,   clkfx_bufg  : std_logic; -- O: 40 MHz
+    
+    signal s_sysclk             : std_logic;
+    
+    signal s_locked : std_logic;
+    signal s_status : std_logic_vector(7 downto 0);
 begin
 
-clkin_ibufg_inst : IBUFG  port map (I => board_clk, O => CLKIN_IBUFG);
+board_clk_ibufg_i : IBUFG  port map (I => i_board_clk, O => board_clk_ibufg);
+
+dcm_reset <= '1' when (i_async_reset='1' OR (s_locked='0' AND s_status(2)='1')) else '0';
 
 dcm_sp_inst : DCM_SP
-    generic map(
+    generic map (
         CLK_FEEDBACK => "1X",
         CLKDV_DIVIDE => 2.0,
-        CLKFX_DIVIDE => 1,
+        CLKFX_DIVIDE => 5,
         CLKFX_MULTIPLY => 4,
         CLKIN_DIVIDE_BY_2 => FALSE,
-        CLKIN_PERIOD => 20.000,
+        CLKIN_PERIOD => 20.000, --ns
         CLKOUT_PHASE_SHIFT => "NONE",
         DESKEW_ADJUST => "SYSTEM_SYNCHRONOUS",
         DFS_FREQUENCY_MODE => "LOW",
@@ -68,48 +61,75 @@ dcm_sp_inst : DCM_SP
         STARTUP_WAIT => TRUE
     )
     port map (
-        CLKFB => CLK0_BUF,   -- I: feedback clock
-        CLKIN => CLKIN_IBUFG, -- I: 50 MHz board clock
-        DSSEN => '0',
-        PSCLK => '0',
-        PSEN => '0',
-        PSINCDEC => '0',
-        RST => i_reset,
-        CLKDV => open,
-        CLKFX => CLKFX_BUF,
-        CLKFX180 => open,
-        CLK0 => CLK0_BUF,
-        CLK2X => CLK2X_BUF,
-        CLK2X180 => open,
-        CLK90 => open,
-        CLK180 => open,
-        CLK270 => open,
-        LOCKED => locked,
-        PSDONE => open,
-        STATUS(7 downto 0) => status(7 downto 0)
+        CLKFB       => clk0_bufg,   -- I: feedback clock
+        CLKIN       => board_clk_ibufg, -- I: 50 MHz board clock
+        DSSEN       => '0',
+        PSCLK       => '0',
+        PSEN        => '0',
+        PSINCDEC    => '0',
+        RST         => dcm_reset,
+        CLKDV       => open,
+        CLKFX       => clkfx,
+        CLKFX180    => open,
+        CLK0        => clk0,
+        CLK2X       => clk2x,
+        CLK2X180    => open,
+        CLK90       => open,
+        CLK180      => open,
+        CLK270      => open,
+        LOCKED      => s_locked,
+        PSDONE      => open,
+        STATUS      => s_status
+        -- s_status[0] = Variable phase shift overflow.
+        -- s_status[1] = CLKIN Input Stopped Indicator.
+        -- s_status[2] = CLKFX or CLKFX180 output stopped indicator.
     );
 
-clk0_bufg_inst:  BUFG port map (I => CLK0_BUF, O => CLK0_BUFG);
-clk2x_bufg_inst: BUFG port map (I => CLK2X_BUF, O => CLK2X_BUFG);
-clkfx_bufg_inst: BUFG port map (I => CLKFX_BUF, O => CLKFX_BUFG);
+clk0_bufg_i:  BUFG port map (I => clk0,  O => clk0_bufg);
+clk2x_bufg_i: BUFG port map (I => clk2x, O => clk2x_bufg);
+clkfx_bufg_i: BUFG port map (I => clkfx, O => clkfx_bufg);
 
-vga_clk <= CLK0_BUFG;
-kc_clk <= CLK2X_BUFG;
-ect_clk <= CLKFX_BUFG;
+s_sysclk <= clk0_bufg;
+--s_sysclk <= clk2x_bufg;
 
-baud_timer: process(CLK2X_BUFG) begin
-    if rising_edge(CLK2X_BUFG) then
-        if baud_cntr=(G_BAUD_DIVIDER-1) then
-            baud_cntr <= 0;
-            srl_clkx16 <= '1';
+
+
+o_VGA_clk   <= clkfx_bufg;
+process (i_async_reset, s_locked, clkfx_bufg)
+    variable ctr : std_logic_vector(3 downto 0);
+begin
+    if (i_async_reset='1' OR s_locked='0') then
+        o_VGA_reset <= '1';
+        ctr := "1111";
+    elsif (rising_edge(clkfx_bufg)) then
+        if (ctr /= "0000") then
+            ctr := ctr - '1';
+            o_VGA_reset <= '1';
         else
-            baud_cntr <= baud_cntr + 1;
-            srl_clkx16 <= '0';
+            ctr := "0000";
+            o_VGA_reset <= '0';
+        end if;
+    end if;
+end process;
+
+o_SYS_clk   <= s_sysclk;
+process (i_async_reset, s_locked, s_sysclk)
+    variable ctr : std_logic_vector(3 downto 0);
+begin
+    if (i_async_reset='1' OR s_locked='0') then
+        o_SYS_reset <= '1';
+        ctr := "1111";
+    elsif (rising_edge(s_sysclk)) then
+        if (ctr /= "0000") then
+            ctr := ctr - '1';
+            o_SYS_reset <= '1';
+        else
+            ctr := "0000";
+            o_SYS_reset <= '0';
         end if;
     end if;
 end process;
 
 
-
-end behavioral;
+end architecture;
 
