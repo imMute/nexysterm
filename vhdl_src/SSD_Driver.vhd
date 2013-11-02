@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity SSD_Driver is
-    Port (
+    port (
         clk : in  STD_LOGIC;
         data : in  STD_LOGIC_VECTOR (31 downto 0);
         segments : out  STD_LOGIC_VECTOR (7 downto 0);
