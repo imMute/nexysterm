@@ -1,23 +1,10 @@
 -------------------------------------------------------------------------------
---
--- Title       : No Title
--- Design      : top_level
--- Author      : 
--- Company     : 
---
+-- Title        : VGA Toplevel
+-- Design       : NexysTerm
+-- Author       : Matt
 -------------------------------------------------------------------------------
---
--- File        : U:\workspace\nexysterm\Aldec\compile\vga_top.vhd
--- Generated   : Wed Jul  4 18:26:49 2012
--- From        : U:\workspace\nexysterm\Aldec\src\vga_top.bde
--- By          : Bde2Vhdl ver. 2.6
---
+-- Description : ...
 -------------------------------------------------------------------------------
---
--- Description : 
---
--------------------------------------------------------------------------------
--- Design unit header --
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
@@ -26,18 +13,19 @@ use unisim.vcomponents.all;
 use work.VGA_TIMING.all;
 
 entity vga_top is
-    port(
-        i_sys_reset : in STD_LOGIC;
-        i_tram_clk : in STD_LOGIC;
-        i_tram_en : in STD_LOGIC;
-        i_tram_addr : in STD_LOGIC_VECTOR(12 downto 0);
-        i_tram_data : in STD_LOGIC_VECTOR(15 downto 0);
-        i_vga_clk : in STD_LOGIC;
-        o_vga_hsync : out STD_LOGIC;
-        o_vga_vsync : out STD_LOGIC;
-        o_vga_blu : out STD_LOGIC_VECTOR(1 downto 0);
-        o_vga_grn : out STD_LOGIC_VECTOR(2 downto 0);
-        o_vga_red : out STD_LOGIC_VECTOR(2 downto 0)
+    port (
+        i_KC_tram_clk      : in  std_logic;
+        i_KC_tram_en       : in  std_logic;
+        i_KC_tram_addr     : in  std_logic_vector(12 downto 0);
+        i_KC_tram_data     : in  std_logic_vector(15 downto 0);
+        --
+        i_clk           : in  std_logic;
+        i_reset         : in  std_logic;
+        o_vga_hsync     : out std_logic;
+        o_vga_vsync     : out std_logic;
+        o_vga_blu       : out std_logic_vector(1 downto 0);
+        o_vga_grn       : out std_logic_vector(2 downto 0);
+        o_vga_red       : out std_logic_vector(2 downto 0)
     );
 end vga_top;
 
@@ -76,9 +64,9 @@ signal s_crom_bit     : std_logic;
 begin
 
 vga_timer_inst : entity VGA_Timer
-    port map(
-        ref_clk     => i_vga_clk,
-        reset       => i_sys_reset,
+    port map (
+        ref_clk     => i_clk,
+        reset       => i_reset,
         
         o_x_pos     => open,
         o_y_pos     => open,
@@ -100,20 +88,22 @@ vga_timer_inst : entity VGA_Timer
 s_rd_addr <= std_logic_vector(to_unsigned((s_tmr_chrx + (100*s_tmr_chry)),s_rd_addr'length));
 
 tram_inst : entity text_ram
-    port map(
-        i_rd_clk => i_vga_clk,
-        i_rd_addr => s_rd_addr,
-        o_rd_data => s_tram_data,
+    port map (
+        -- Port A - KC's Port
+        i_wr_clk    => i_KC_tram_clk,
+        i_wr_addr   => i_KC_tram_addr,
+        i_wr_en     => i_KC_tram_en,
+        i_wr_data   => i_KC_tram_data,
         
-        i_wr_addr => i_tram_addr,
-        i_wr_clk => i_tram_clk,
-        i_wr_data => i_tram_data,
-        i_wr_en => i_tram_en
+        -- Port B - VGA's Port
+        i_rd_clk    => i_clk,
+        i_rd_addr   => s_rd_addr,
+        o_rd_data   => s_tram_data
     );
 
 -- Delay everything that didn't go through the TRAM
-process(i_vga_clk) begin
-    if rising_edge(i_vga_clk) then
+process (i_clk)  begin
+    if rising_edge(i_clk) then
         s_tram_col <= std_logic_vector(to_unsigned(s_tmr_schrx,s_tram_col'length));
         s_tram_row <= std_logic_vector(to_unsigned(s_tmr_schry,s_tram_row'length));
         --s_tram_col <= std_logic_vector(to_unsigned(s_tmr_chrx,s_tram_col'length));
@@ -130,8 +120,8 @@ end process;
 s_tram_char <= s_tram_data(7 downto 0);
 
 crom_inst : entity char_rom
-    port map(
-        CLK => i_vga_clk,
+    port map (
+        CLK => i_clk,
         i_char => s_tram_char,
         i_col => s_tram_col,
         i_row => s_tram_row,
@@ -139,8 +129,8 @@ crom_inst : entity char_rom
     );
 
 -- Delay everything that didn't go through the CROM
-process(i_vga_clk) begin
-    if rising_edge(i_vga_clk) then
+process (i_clk)  begin
+    if rising_edge(i_clk) then
         s_crom_color <= s_tram_data(15 downto 8);
         s_crom_x_blank <= s_tram_x_blank;
         s_crom_y_blank <= s_tram_y_blank;
@@ -151,8 +141,8 @@ end process;
 
 -- ----------
 
-process (i_vga_clk) begin
-    if rising_edge(i_vga_clk) then
+process (i_clk)  begin
+    if rising_edge(i_clk) then
         o_vga_hsync <= s_crom_x_sync;
         o_vga_vsync <= s_crom_y_sync;
         if (s_crom_x_blank='0' and s_crom_y_blank='0' and s_crom_bit='1') then
@@ -167,4 +157,4 @@ process (i_vga_clk) begin
     end if;
 end process;
 
-end vga_top;
+end architecture;
