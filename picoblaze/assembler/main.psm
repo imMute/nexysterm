@@ -1,0 +1,23 @@
+;
+; Initialization
+;
+cold_start:
+    LOAD    s1, C_SERIAL_DIVISOR_115200_MS
+    OUTPUT  s1, PW_SRL0_BAUD_MS
+    LOAD    s1, C_SERIAL_DIVISOR_115200_LS
+    OUTPUT  s1, PW_SRL0_BAUD_LS
+
+;
+; Main Loop
+;
+main_loop:
+    CALL    recv_keyboard
+    OUTPUT  sB, PW_IO_SSD0
+    
+    LOAD    sA, 0
+    CALL    send_hex_serial
+    
+    
+    JUMP    main_loop
+
+

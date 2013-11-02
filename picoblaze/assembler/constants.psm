@@ -1,0 +1,105 @@
+;;; Port Definitions -----------------------------------------------------------
+;; Read Ports ------------------------------------
+PR_SRL0_DATA_RX                 .EQU 0x00
+PR_SRL1_DATA_RX                 .EQU 0x01
+PR_SRL2_DATA_RX                 .EQU 0x02
+PR_SRL3_DATA_RX                 .EQU 0x03
+PR_SRL4_DATA_RX                 .EQU 0x04
+PR_SRL5_DATA_RX                 .EQU 0x05
+PR_SRL6_DATA_RX                 .EQU 0x06
+PR_SRL7_DATA_RX                 .EQU 0x07
+PR_SRL0_STS                     .EQU 0x08
+PR_SRL1_STS                     .EQU 0x09
+PR_SRL2_STS                     .EQU 0x0A
+PR_SRL3_STS                     .EQU 0x0B
+PR_SRL4_STS                     .EQU 0x0C
+PR_SRL5_STS                     .EQU 0x0D
+PR_SRL6_STS                     .EQU 0x0E
+PR_SRL7_STS                     .EQU 0x0F
+PR_PS2_DATA_RX                  .EQU 0x30
+PR_PS2_STATUS                   .EQU 0x31
+
+PR_IO_BUTTON                    .EQU 0x45
+
+
+;; Write Ports -----------------------------------
+PW_SRL0_DATA_TX                 .EQU 0x00
+PW_SRL1_DATA_TX                 .EQU 0x01
+PW_SRL2_DATA_TX                 .EQU 0x02
+PW_SRL3_DATA_TX                 .EQU 0x03
+PW_SRL4_DATA_TX                 .EQU 0x04
+PW_SRL5_DATA_TX                 .EQU 0x05
+PW_SRL6_DATA_TX                 .EQU 0x06
+PW_SRL7_DATA_TX                 .EQU 0x07
+PW_SRL0_CTL                     .EQU 0x08
+PW_SRL1_CTL                     .EQU 0x09
+PW_SRL2_CTL                     .EQU 0x0A
+PW_SRL3_CTL                     .EQU 0x0B
+PW_SRL4_CTL                     .EQU 0x0C
+PW_SRL5_CTL                     .EQU 0x0D
+PW_SRL6_CTL                     .EQU 0x0E
+PW_SRL7_CTL                     .EQU 0x0F
+
+PW_SRL0_BAUD_LS                 .EQU 0x10
+PW_SRL0_BAUD_MS                 .EQU 0x11
+PW_SRL1_BAUD_LS                 .EQU 0x12
+PW_SRL1_BAUD_MS                 .EQU 0x13
+PW_SRL2_BAUD_LS                 .EQU 0x14
+PW_SRL2_BAUD_MS                 .EQU 0x15
+PW_SRL3_BAUD_LS                 .EQU 0x16
+PW_SRL3_BAUD_MS                 .EQU 0x17
+PW_SRL4_BAUD_LS                 .EQU 0x18
+PW_SRL4_BAUD_MS                 .EQU 0x19
+PW_SRL5_BAUD_LS                 .EQU 0x1A
+PW_SRL5_BAUD_MS                 .EQU 0x1B
+PW_SRL6_BAUD_LS                 .EQU 0x1C
+PW_SRL6_BAUD_MS                 .EQU 0x1D
+PW_SRL7_BAUD_LS                 .EQU 0x1E
+PW_SRL7_BAUD_MS                 .EQU 0x1F
+
+PW_TRAM_ADDR_COL                .EQU 0x20
+PW_TRAM_ADDR_ROW                .EQU 0x21
+PW_TRAM_DATA_BYTE               .EQU 0x22
+PW_TRAM_DATA_COLOR              .EQU 0x23
+PW_TRAM_WEN                     .EQU 0x24
+
+PW_PS2_DATA_TX                  .EQU 0x30
+PW_PS2_CONTROL                  .EQU 0x31
+
+PW_IO_LED                       .EQU 0x40
+PW_IO_SSD0                      .EQU 0x41
+PW_IO_SSD1                      .EQU 0x42
+
+
+;;; Statatus/Control Bits ------------------------
+;; Serial Port Control Reg Bits
+PB_SRL_CTL_RX_BUF_RESET         .EQU 0x01
+PB_SRL_CTL_TX_BUF_RESET         .EQU 0x10
+;; Serial Port Status Reg Bits
+PB_SRL_STS_RD_DATA_PRESENT      .EQU 0x01
+PB_SRL_STS_RD_BUFF_HALF         .EQU 0x02
+PB_SRL_STS_RD_BUFF_FULL         .EQU 0x04
+PB_SRL_STS_WR_BUFF_HALF         .EQU 0x20
+PB_SRL_STS_WR_BUFF_FULL         .EQU 0x40
+;; PS2 Control Reg Bits
+;PB_PS2_CTL_
+;; PS2 Status Reg Bits
+PB_PS2_STS_RD_DATA_PRESENT      .EQU 0x01
+PB_PS2_STS_RD_BUFF_HALF         .EQU 0x02
+PB_PS2_STS_RD_BUFF_FULL         .EQU 0x04
+;; Button IO Reg Bits
+PB_BTN_BTN0                     .EQU 0x01
+PB_BTN_BTN1                     .EQU 0x02
+PB_BTN_BTN2                     .EQU 0x04
+PB_BTN_BTN3                     .EQU 0x08
+
+;;; System Wide Constants ------------------------
+;; Serial Divisors
+C_SERIAL_DIVISOR_115200_MS        .EQU 0x00
+C_SERIAL_DIVISOR_115200_LS        .EQU 0x1A
+;; Text RAM (TRAM) Sizes
+C_TRAM_CHAR_COLS                .EQU 100
+C_TRAM_CHAR_ROWS                .EQU  50
+
+;;; Scratchpad Memory Locations ------------------
+

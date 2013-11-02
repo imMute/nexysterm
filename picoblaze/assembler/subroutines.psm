@@ -1,0 +1,102 @@
+; bin2hex
+; Arguments:
+;   sA  the binary value to convert
+; Returns:
+;   sB  the first (most significant) hex char
+;   sC  the second (least significant) hex char
+; Uses:
+bin2hex:
+    LOAD    sB, sA
+    LOAD    sC, sA
+    AND     sC, 0x0F
+    SR0     sB
+    SR0     sB
+    SR0     sB
+    SR0     sB
+
+    COMPARE sB, 0x0A
+    JUMP    C, bin2hex__skipB
+    ADD     sB, 0x07
+bin2hex__skipB:
+    ADD     sB, 0x30
+
+    COMPARE sC, 0x0A
+    JUMP    C, bin2hex__skipC
+    ADD     sC, 0x07
+bin2hex__skipC:
+    ADD     sC, 0x30
+    
+    RETURN
+
+
+; send_serial
+; Arguments
+;   sA  the channel to send to
+;   sB  [M] the byte to send
+; Returns:
+; Uses:
+;   sF
+send_serial:
+    ADD     sA, PR_SRL0_STS
+_send_serial__full_loop:
+    INPUT   sF, (sA)
+    TEST    sF, PB_SRL_STS_WR_BUFF_FULL
+    JUMP    NZ, _send_serial__full_loop             ; wait for the serial buffer to be not completely full
+    SUB     sA, PR_SRL0_STS
+    ADD     sA, PW_SRL0_DATA_TX
+    OUTPUT  sB, (sA)
+    SUB     sA, PW_SRL0_DATA_TX
+    RETURN
+
+
+; send_hex_serial
+; Arguments
+;   sA  the channel to send to
+;   sB  the byte to send
+; Returns:
+; Uses:
+;   bin2hex,  send_serial,  sE
+send_hex_serial:            ; sA    sB      sB      sE
+    LOAD    sE, sA          ; ch    data            ch
+    LOAD    sA, sB          ; data  data            ch
+    CALL    bin2hex         ; data  dM      dL      ch
+    LOAD    sA, sE          ; ch    dM      dL      ch
+    
+    CALL    send_serial     ; 
+    LOAD    sB, sC          ; ch    dL      dL      ch
+    CALL    send_serial     ; 
+    LOAD    sB, ' '         ; ch    ' '     dL      ch
+    CALL    send_serial     ; 
+    RETURN
+
+
+; recv_serial
+; Arguments:
+;   sA  the channel to read from
+; Returns:
+;   sB  the byte received
+; Uses:
+;   sF
+recv_serial:
+    ADD     sA, PR_SRL0_STS
+_recv_serial__empty_loop:
+    INPUT   sF, (sA)
+    TEST    sF, PB_SRL_STS_RD_DATA_PRESENT
+    JUMP    Z, _recv_serial__empty_loop             ; wait for the serial buffer to receive data
+    SUB     sA, PR_SRL0_STS
+    ADD     sA, PR_SRL0_DATA_RX
+    INPUT   sB, (sA)
+    RETURN
+
+
+; recv_keyboard
+; Arguments:
+; Returns:
+;   sB  the byte received
+; Uses:
+recv_keyboard:
+    INPUT   sB, PR_PS2_STATUS
+    TEST    sB, PB_PS2_STS_RD_DATA_PRESENT
+    JUMP    Z, recv_keyboard
+    INPUT   sB, PR_PS2_DATA_RX
+    RETURN

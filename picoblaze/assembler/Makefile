@@ -1,10 +1,13 @@
 .SUFFIXES:
 
-all: nterm.vhd nterm_jtag.vhd
+all: nterm.vhd
+#all: nterm_jtag.vhd
 
-nterm.mem nterm.hex: nterm.psm
-	./pBlazASM.exe -m -l -v nterm.psm
-	./pBlazASM.exe -x -l -v nterm.psm
+SOURCES := main.psm  subroutines.psm  constants.psm 
+
+nterm.mem nterm.hex: $(SOURCES)
+	./pBlazASM.exe -mnterm.mem -lnterm.lst -v $^
+	./pBlazASM.exe -xnterm.hex -lnterm.lst -v $^
 
 nterm.vhd: nterm.mem
 	./pBlazMRG.exe -v -c nterm.mem -e nterm -t ROM_form.VHD nterm.vhd
