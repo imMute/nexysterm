@@ -1,22 +1,10 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    23:06:45 07/01/2012 
--- Design Name: 
--- Module Name:    ps2interface_wrapper - behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
-----------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-- Title        : KC Register Interface
+-- Design       : NexysTerm
+-- Author       : Matt
+-------------------------------------------------------------------------------
+-- Description : ...
+-------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -25,66 +13,45 @@ use unisim.vcomponents.all;
 
 entity ps2interface_wrapper is
     port (
-        ps2_clk  : inout std_logic;
-        ps2_data : inout std_logic;
-        clk         : in std_logic;
-        rst         : in std_logic;
-        rx_rdy      : out std_logic;
-        rx_data     : out std_logic_vector(7 downto 0);
-        rx_strobe   : in std_logic
+        io_ps2c         : inout std_logic;
+        io_ps2d         : inout std_logic;
+        
+        i_clk           : in  std_logic;
+        i_reset         : in  std_logic;
+        o_ps2_rxdata    : out std_logic_vector(7 downto 0);
+        i_ps2_rx_strobe : in  std_logic;
+        i_ps2_txdata    : in  std_logic_vector(7 downto 0);
+        i_ps2_tx_strobe : in  std_logic;
+        o_ps2_status    : out std_logic_vector(7 downto 0);
+        i_ps2_control   : in  std_logic_vector(7 downto 0)
     );
 end ps2interface_wrapper;
 
 
 architecture macro_level_definition of ps2interface_wrapper is
-component ps2interface
-    port(
-        ps2_clk  : inout std_logic;
-        ps2_data : inout std_logic;
-        clk      : in std_logic;
-        rst      : in std_logic;
-        tx_data  : in std_logic_vector(7 downto 0);
-        write    : in std_logic;
-        rx_data  : out std_logic_vector(7 downto 0);
-        read     : out std_logic;
-        busy     : out std_logic;
-        err      : out std_logic
-    );
-end component;
-
-component bbfifo_16x8 
-    Port (       data_in : in std_logic_vector(7 downto 0);
-                data_out : out std_logic_vector(7 downto 0);
-                   reset : in std_logic;               
-                   write : in std_logic; 
-                    read : in std_logic;
-                    full : out std_logic;
-               half_full : out std_logic;
-            data_present : out std_logic;
-                     clk : in std_logic);
-end component;
-
-signal ps2tx : std_logic_vector(7 downto 0);
-signal ps2tx_strobe : std_logic;
-signal ps2rx : std_logic_vector(7 downto 0);
-signal ps2rx_strobe : std_logic;
-signal ps2busy : std_logic;
-signal ps2err : std_logic;
-
-signal uf_full : std_logic;
-signal uf_half_full : std_logic;
-signal uf_rdy : std_logic;
-signal uf_din : std_logic_vector(7 downto 0);
-signal uf_wr_strobe : std_logic;
+    signal ps2tx : std_logic_vector(7 downto 0);
+    signal ps2tx_strobe : std_logic;
+    signal ps2rx : std_logic_vector(7 downto 0);
+    signal ps2rx_strobe : std_logic;
+    signal ps2busy : std_logic;
+    signal ps2err : std_logic;
+    
+    signal uf_full : std_logic;
+    signal uf_half_full : std_logic;
+    signal uf_rdy : std_logic;
+    signal uf_din : std_logic_vector(7 downto 0);
+    signal uf_wr_strobe : std_logic;
 
 begin
 
-ps2interface_isnt: ps2interface
+ps2interface_i: entity ps2interface
     port map (
-        ps2_clk  => ps2_clk,
-        ps2_data => ps2_data,
-        clk      => clk,
-        rst      => rst,
+        ps2_clk  => io_ps2c,
+        ps2_data => io_ps2d,
+        
+        clk      => i_clk,
+        rst      => i_reset,
+        
         tx_data  => ps2tx,
         write    => ps2tx_strobe,
         rx_data  => ps2rx,
@@ -93,19 +60,23 @@ ps2interface_isnt: ps2interface
         err      => ps2err
     );
 
-output_fifo: bbfifo_16x8 
+output_fifo_i: entity bbfifo_16x8
     port map (
         data_in         => uf_din,
         write           => uf_wr_strobe,
-        data_out        => rx_data,
-        read            => rx_strobe,
-        full            => uf_full,
-        half_full       => uf_half_full,
-        data_present    => uf_rdy,
-        clk             => clk,
-        reset           => rst
+        
+        data_out        => o_ps2_rxdata,
+        read            => i_ps2_rx_strobe,
+        data_present    => o_ps2_status(0),
+        full            => o_ps2_status(1),
+        half_full       => o_ps2_status(2),
+        
+        clk             => i_clk,
+        reset           => i_reset
     );
-rx_rdy <= uf_rdy;
+o_ps2_status(3) <= ps2err;
+o_ps2_status(4) <= ps2busy;
+o_ps2_status(7 downto 5) <= (others => '0');
 
 
 -- dead simple read-only implementation
